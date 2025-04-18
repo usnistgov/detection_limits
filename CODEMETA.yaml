@@ -29,12 +29,12 @@
 
 ---
 categories:
-  # - ai-ml
+  - ai-ml
   # - performance-and-workflow
   - scientific-software
-  # - simulation
+  - simulation
   # - tools
-  # - visualization
+  - visualization
 
 themes:
   - Information Technology
@@ -76,13 +76,13 @@ themes:
   #     - Theoretical chemistry and modeling
   #     - Thermochemical properties
   #
-  # - Electronics
+  - Electronics
   #     - Electromagnetics
   #     - Flexible electronics
   #     - Magnetoelectronics
   #     - Optoelectronics
   #     - Organic electronics
-  #     - Semiconductors
+  - Semiconductors
   #     - Sensors
   #     - Superconducting electronics
   #
@@ -128,8 +128,8 @@ themes:
   #     - Precision medicine
   #     - Regenerative medicine
   #
-  # - Information Technology
-  #     - Artificial intelligence
+  - Information Technology
+       - Artificial intelligence
   #     - Biometrics
   #     - Cloud computing and virtualization
   #     - Complex systems
@@ -175,7 +175,7 @@ themes:
   #
   # - Infrastructure
   #
-  # - Manufacturing
+  - Manufacturing
   #     - Additive manufacturing
   #     - Biomanufacturing
   #     - Factory communications
@@ -185,7 +185,7 @@ themes:
   #     - Manufacturing systems design and analysis
   #     - Monitoring, diagnostics and prognostics
   #     - Process improvement
-  #     - Process measurement and control
+  - Process measurement and control
   #     - Product data
   #     - Quality assurance
   #     - Robotics in manufacturing
@@ -225,10 +225,10 @@ themes:
   #     - Statistical analysis
   #     - Uncertainty quantification
   #
-  # - Metrology
+  - Metrology
   #     - Acoustic/vibration metrology
   #     - Amount of substance
-  #     - Dimensional metrology
+  - Dimensional metrology
   #     - Electrical and electromagnetic metrology
   #     - Flow metrology and rheology
   #     - Force metrology
@@ -242,11 +242,11 @@ themes:
   #     - Time and frequency metrology
   #     - Weights and measures
   #
-  # - Nanotechnology
+  - Nanotechnology
   #     - Nanobiotechnology
   #     - Nanochemistry
   #     - Nanoelectronics
-  #     - Nanofabrication/manufacturing
+  - Nanofabrication/manufacturing
   #         - Lithography
   #         - Self-assembly
   #     - Nanofluidics

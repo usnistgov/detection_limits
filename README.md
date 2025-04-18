@@ -1,66 +1,27 @@
-# NIST Open-Source Software Repository Template
+## Detection Limits of Artificial Intelligence (AI) based Object Detection from Scanning Electron Microscopy Images
 
-Use of GitHub by NIST employees for government work is subject to
-the [Rules of Behavior for GitHub][gh-rob]. This is the
-recommended template for NIST employees, since it contains
-required files with approved text. For details, please consult
-the Office of Data & Informatics' [Quickstart Guide to GitHub at
-NIST][gh-odi].
-
-Please click on the green **Use this template** button above to
-create a new repository under the [usnistgov][gh-nst]
-organization for your own open-source work. Please do not "fork"
-the repository directly, and do not create the templated
-repository under your individual account.
-
-The key files contained in this repository -- which will also
-appear in templated copies -- are listed below, with some things
-to know about each.
-
----
-
-## README
-
-Each repository will contain a plain-text [README file][wk-rdm],
-preferably formatted using [GitHub-flavored Markdown][gh-mdn] and
-named `README.md` (this file) or `README`.
-
-Per the [GitHub ROB][gh-rob] and [NIST Suborder 1801.02][nist-s-1801-02],
-your README should contain:
-
-1. Software or Data description
+## Software or Data description
    - Statements of purpose and maturity
    - Description of the repository contents
    - Technical installation instructions, including operating
-     system or software dependencies
-1. Contact information
-   - PI name, NIST OU, Division, and Group names
-   - Contact email address at NIST
-   - Details of mailing lists, chatrooms, and discussion forums,
-     where applicable
-1. Related Material
-   - URL for associated project on the NIST website or other Department
-     of Commerce page, if available
-   - References to user guides if stored outside of GitHub
-1. Directions on appropriate citation with example text
-1. References to any included non-public domain software modules,
-   and additional license language if needed, *e.g.* [BSD][li-bsd],
-   [GPL][li-gpl], or [MIT][li-mit]
+     system or software dependencies 
 
-The more detailed your README, the more likely our colleagues
-around the world are to find it through a Web search. For general
-advice on writing a helpful README, please review
-[*Making Readmes Readable*][18f-guide] from 18F and Cornell's
-[*Guide to Writing README-style Metadata*][cornell-meta].
+## Workflow of Computations
+- Step 1: compute data quality metrics using generate_metrics.py
+- Step 2: plot data quality metrics as a function of contrast and noise using plot_image_quality.py
+- Step 3: train UNet model on set 1 - set 5 (Web Image Processing Workflow)
+- Step 4: infer image masks for set 6 using the trained UNet model and evaluate its accuracy  (Web Image Processing Workflow)
+- Step 5: merge the data quality metrics and AI model accuracy metrics using match_ai_data.py
+- Step 6: plot relationships between data quality metrics and AI model accuracy metrics using plot_ai_model_predictions.py
+
+## Contact information
+   - Peter Bajcsy, ITL NIST, Software and Systems Division, Information Systems Group
+   - Contact email address at NIST: peter dot bajcsy at nist dot gov
+
+## Citation of the work
+   - Peter Bajcsy, Brycie Wiseman, Michael Majurski, and Andras E. Vladar, "Detection Limits of AI-based SEM Dimensional Metrology", Proceedings of SPIE conference on Advanced Lithography + Patterning, 23 - 27 February 2025, San Jose, California, US, [URL](https://spie.org/conferences-and-exhibitions/advanced-lithography-and-patterning/program)
 
 ## LICENSE
-
-Each repository will contain a plain-text file named `LICENSE.md`
-or `LICENSE` that is phrased in compliance with the Public Access
-to NIST Research [*Copyright, Fair Use, and Licensing Statement
-for SRD, Data, and Software*][nist-open], which provides
-up-to-date official language for each category in a blue box.
-
 - The version of [LICENSE.md](LICENSE.md) included in this
   repository is approved for use.
 - Updated language on the [Licensing Statement][nist-open] page
@@ -68,85 +29,28 @@ up-to-date official language for each category in a blue box.
   language from the appropriate "blue box" on that page into your
   README.
 
-If your repository includes any software or data that is licensed
-by a third party, create a separate file for third-party licenses
-(`THIRD_PARTY_LICENSES.md` is recommended) and include copyright
-and licensing statements in compliance with the conditions of
-those licenses.
+
+## Related material
+   - We used ARTIMAGEN SEM Simulation Software to generate images with varying contrast and noise l evel.
+     - Cizmar P., Vladár A., Postek M. “Optimization of accurate SEM imaging by use of artificial images”, Proc. SPIE 7378, Scanning Microscopy, 737815, 2009, [URL](https://doi.org/10.1117/12.823415)
+     - [Project URL](https://sourceforge.net/projects/artimagen/) and [GitHub Repo URL](https://github.com/strec007/artimagen)
+     - License: As this software was developed as part of work done by the United States Government, it is not subject to copyright, and is in the public domain. Note that according to GNU.org public domain is compatible with GPL.
+
+   - We used UNet Convolutional Neural Network (CNN) AI model implementation By Michael Majurski (NIST) for training and inference of image segmentation
+     - Ronneberger, Olaf, Philipp Fischer, and Thomas Brox. "U-net: Convolutional networks for biomedical image segmentation." International Conference on Medical image computing and computer-assisted intervention. Springer, Cham, 2015.
+     - Name: WIPP UNet CNN Training Plugin and WIPP UNet CNN Inference Plugin 
+     - Title: WIPP UNet CNN Training Plugin, Version: 1.0.0, [Repository](https://github.com/usnistgov/WIPP-unet-train-plugin), Container image: wipp/wipp-unet-cnn-train-plugin:1.0.0 
+     - Title: WIPP UNet CNN Inference Plugin, Version:1.0.0, [Repository](https://github.com/usnistgov/WIPP-unet-inference-plugin) Container images: wipp/wipp-unet-cnn-inference-plugin:1.0.0
 
 ## CODEOWNERS
-
-This template repository includes a file named
-[CODEOWNERS](CODEOWNERS), which visitors can view to discover
+The file named
+[CODEOWNERS](CODEOWNERS) can be viewed to discover
 which GitHub users are "in charge" of the repository. More
 crucially, GitHub uses it to assign reviewers on pull requests.
 GitHub documents the file (and how to write one) [here][gh-cdo].
 
-***Please update that file*** to point to your own account or
-team, so that the [Open-Source Team][gh-ost] doesn't get spammed
-with spurious review requests. *Thanks!*
 
 ## CODEMETA
-
 Project metadata is captured in `CODEMETA.yaml`, used by the NIST
-Software Portal to sort your work under the appropriate thematic
-homepage. ***Please update this file*** with the appropriate
-"theme" and "category" for your code/data/software. The Tier 1
-themes are:
-
-- [Advanced communications](https://www.nist.gov/advanced-communications)
-- [Bioscience](https://www.nist.gov/bioscience)
-- [Buildings and Construction](https://www.nist.gov/buildings-construction)
-- [Chemistry](https://www.nist.gov/chemistry)
-- [Electronics](https://www.nist.gov/electronics)
-- [Energy](https://www.nist.gov/energy)
-- [Environment](https://www.nist.gov/environment)
-- [Fire](https://www.nist.gov/fire)
-- [Forensic Science](https://www.nist.gov/forensic-science)
-- [Health](https://www.nist.gov/health)
-- [Information Technology](https://www.nist.gov/information-technology)
-- [Infrastructure](https://www.nist.gov/infrastructure)
-- [Manufacturing](https://www.nist.gov/manufacturing)
-- [Materials](https://www.nist.gov/materials)
-- [Mathematics and Statistics](https://www.nist.gov/mathematics-statistics)
-- [Metrology](https://www.nist.gov/metrology)
-- [Nanotechnology](https://www.nist.gov/nanotechnology)
-- [Neutron research](https://www.nist.gov/neutron-research)
-- [Performance excellence](https://www.nist.gov/performance-excellence)
-- [Physics](https://www.nist.gov/physics)
-- [Public safety](https://www.nist.gov/public-safety)
-- [Resilience](https://www.nist.gov/resilience)
-- [Standards](https://www.nist.gov/standards)
-- [Transportation](https://www.nist.gov/transportation)
-
----
-
-[usnistgov/opensource-repo][gh-osr] is developed and maintained
-by the [opensource-team][gh-ost], principally:
-
-- Gretchen Greene, @GRG2
-- Yannick Congo, @faical-yannick-congo
-- Trevor Keller, @tkphd
-
-Please reach out with questions and comments.
-
-<!-- References -->
-
-[18f-guide]: https://github.com/18F/open-source-guide/blob/18f-pages/pages/making-readmes-readable.md
-[cornell-meta]: https://data.research.cornell.edu/content/readme
-[gh-cdo]: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
-[gh-mdn]: https://github.github.com/gfm/
-[gh-nst]: https://github.com/usnistgov
-[gh-odi]: https://odiwiki.nist.gov/ODI/GitHub.html
-[gh-osr]: https://github.com/usnistgov/opensource-repo/
-[gh-ost]: https://github.com/orgs/usnistgov/teams/opensource-team
-[gh-rob]: https://odiwiki.nist.gov/pub/ODI/GitHub/GHROB.pdf
-[gh-tpl]: https://github.com/usnistgov/carpentries-development/discussions/3
-[li-bsd]: https://opensource.org/licenses/bsd-license
-[li-gpl]: https://opensource.org/licenses/gpl-license
-[li-mit]: https://opensource.org/licenses/mit-license
-[nist-code]: https://code.nist.gov
-[nist-disclaimer]: https://www.nist.gov/open/license
-[nist-s-1801-02]: https://inet.nist.gov/adlp/directives/review-data-intended-publication
-[nist-open]: https://www.nist.gov/open/license#software
-[wk-rdm]: https://en.wikipedia.org/wiki/README
+Software Portal to sort the GitHub work under the appropriate thematic
+homepage.
