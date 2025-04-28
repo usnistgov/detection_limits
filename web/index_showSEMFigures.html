@@ -10,29 +10,85 @@ guarantees, expressed or implied, about its quality, reliability, or
 any other characteristic. We would appreciate acknowledgement if the
 software is used.
 -->
-<html><head>
-  <meta http-equiv="content-type" content="text/html; charset=windows-1252">
-  <title>NIST Computational Science in Metrology</title>
-  <link rel="icon" href="https://isg.nist.gov/deepzoomweb/resources/img/favicon.ico;jsessionid=21CE77F2344B143AD8BF5B4A4F06CCA0" type="image/x-icon">
-  <!--<link rel="stylesheet" type="text/css" href="./css/reset.css" media="screen">  -->
-  <link rel="stylesheet" type="text/css" href="css/main_style.css" media="screen">
-  <link rel="stylesheet" type="text/css" href="css/layout.css" media="screen">
-  <!-- <link rel="stylesheet" type="text/css" href="./css/bootstrap.css"> -->
+<html class="nist-footer-bottom">
+<head>
+  <link rel="stylesheet" href="https://pages.nist.gov/nist-header-footer/css/nist-combined.css">
+  <script src="https://pages.nist.gov/nist-header-footer/js/nist-header-footer.js" type="text/javascript"
+          defer="defer"></script>
 
-  <script type="text/javascript" language="javascript" src="js/jquery/jquery.min.js"></script>
-  <script type="text/javascript" language="javascript" src="js/site.js"></script>
+  <link rel="stylesheet" href="https://pages.nist.gov/nist-header-footer/css/nist-combined.css">
+  <script src="https://pages.nist.gov/nist-header-footer/js/nist-header-footer-v-2.0.js" type="text/javascript"
+          defer="defer"></script>
+
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script type="text/javascript" src="https://pages.nist.gov/leaveNotice/js/jquery.leaveNotice-nist.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://pages.nist.gov/leaveNotice/css/jquery.leaveNotice.css"/>
+
+
+<!--  -->
+<!--  <html><head>-->
+<!--  <meta http-equiv="content-type" content="text/html; charset=windows-1252">-->
+<!--  <title>NIST Computational Science in Metrology</title>-->
+<!--  <link rel="icon" href="https://isg.nist.gov/deepzoomweb/resources/img/favicon.ico;jsessionid=21CE77F2344B143AD8BF5B4A4F06CCA0" type="image/x-icon">-->
+<!--  &lt;!&ndash;<link rel="stylesheet" type="text/css" href="./css/reset.css" media="screen">  &ndash;&gt;-->
+<!--  <link rel="stylesheet" type="text/css" href="css/main_style.css" media="screen">-->
+<!--  <link rel="stylesheet" type="text/css" href="css/layout.css" media="screen">-->
+<!--  &lt;!&ndash; <link rel="stylesheet" type="text/css" href="./css/bootstrap.css"> &ndash;&gt;-->
+
+<!--  <script type="text/javascript" language="javascript" src="js/jquery/jquery.min.js"></script>-->
+<!--  <script type="text/javascript" language="javascript" src="js/site.js"></script>-->
 
 <!--   <link rel="stylesheet" type="text/css" href="./src/imageMagnify.css" media="screen">
    <script type="text/javascript" language="javascript" src="./src/imageMagnify.js"></script>-->
+  <style>
+    /* Set a consistent responsive width for all sections */
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 1200px;
+      margin: auto;
+      padding: 1px;
+    }
+    /* Footer Style */
+    .footer{
+      text-align:left;
+      /* font-size:12px; */
+      color:#000;
+      height:65px;
+      margin: auto;
+      /*width: 960px!important;*/
+      border-top: 1px solid #3b6f95;
+    }
+    .footerContentsWrapper {
+      width: 100%;
+      max-width: 1200px; /* Match body max-width */
+      margin-left: auto;
+      margin-right: auto;
+    }
 
-<style>
+    .footer {
+      padding-top: 10px;
+    }
+    .footer a{
+      text-decoration:underline;
+      color:#3b6f95;
+    }
+
+    .footer a:link, .footer a:hover {
+      color: #6fa4ca;
+    }
+
+
+  </style>
+
+  <style>
   #image-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
   }
   #image-container img {
-    width: 400px;
+    width: 600px;
     height: 350px;
     margin: 10px;
   }
@@ -40,7 +96,7 @@ software is used.
 .mytable {
     display:table;
 	border:10px solid blue;
-    width:50%;
+    width:100%;
 	cellpadding:4px;
 	cellspacing:3px;
 }
@@ -69,7 +125,7 @@ software is used.
 
 table {
     border-spacing: 0;
-    width: 50%;
+    width: 100%;
     border: 1px solid #ddd;
 }
 
@@ -113,23 +169,23 @@ tr:nth-child(even) {
 <body id="menu2" >
 
 <!-- include to enable Google Analytics 4 support -->
-<script type="text/javascript" language="javascript" src="../csmet/js/gtag_script.js"></script>
+<!--<script type="text/javascript" language="javascript" src="../csmet/js/gtag_script.js"></script>-->
 
-<div class="container">
-  <div class="row">
-    <a href="https://www.nist.gov/index.html"><img src="img/bg_header.png" alt="National Institute of Standards and Technology" width="100%"></a>
+<!--<div class="container">-->
+<!--  <div class="row">-->
+<!--    <a href="https://www.nist.gov/index.html"><img src="img/bg_header.png" alt="National Institute of Standards and Technology" width="100%"></a>-->
 
-    <div id="menuContainer">
-      <ul id="menu">
-    	<li><a id="menu1nav" href="https://isg.nist.gov/">Home</a></li>
-    	<li><a id="menu2nav" href="index.html">Detection Limits</a></li>
-      </ul>
-    </div>
-  </div>
-</div>
+<!--    <div id="menuContainer">-->
+<!--      <ul id="menu">-->
+<!--    	<li><a id="menu1nav" href="https://isg.nist.gov/">Home</a></li>-->
+<!--    	<li><a id="menu2nav" href="index.html">Detection Limits</a></li>-->
+<!--      </ul>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
 
 <BR>
-<h3 id='header1' style="text-align: center;">Latency Measurement Inspection: map_latency_Var_0_Pol_0_Vmax_250.png</h3>
+<h3 id='header1' style="text-align: center;">Detection Limits</h3>
 <BR>
 <!--<h1 style="text-align: center;">Latency Measurement Maps</h1>-->
 
@@ -183,21 +239,21 @@ tr:nth-child(even) {
 
 <script>
 // constants
-const CATEGORY = [
-  { name: "Image Quality", dir: "CAM1" },
-  { name: "AI Model", dir: "CAM2" },
-  { name: "Detection Limits", dir: "CAM3" },
-];
-const SET = [
-  { name: "1", dir: "set1" },
-  { name: "2", dir: "set2" },
-  { name: "3", dir: "set3" },
-  { name: "4", dir: "set4" },
-  { name: "5", dir: "set5" },
-  { name: "6", dir: "set6" },
-];
-const VIS = [ "2d", "3d" ];
-const AIMODELID = [ "3", "5", "7"];
+// const CATEGORY = [
+//   { name: "Image Quality", dir: "CAM1" },
+//   { name: "AI Model", dir: "CAM2" },
+//   { name: "Detection Limits", dir: "CAM3" },
+// ];
+// const SET = [
+//   { name: "1", dir: "set1" },
+//   { name: "2", dir: "set2" },
+//   { name: "3", dir: "set3" },
+//   { name: "4", dir: "set4" },
+//   { name: "5", dir: "set5" },
+//   { name: "6", dir: "set6" },
+// ];
+// const VIS = [ "2d", "3d" ];
+// const AIMODELID = [ "3", "5", "7"];
 
 const AIACCURACYMETRICS = ["DICE-COEFFICIENT","TRUE POSITIVE","TRUE NEGATIVE","FALSE POSITIVE","FALSE NEGATIVE"];
 
@@ -449,6 +505,24 @@ images.forEach(image => {
 });
 
 </script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RJSMY46M5C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'G-RJSMY46M5C');
+</script>
+<!-- Old DAP UA tag -->
+<script async type="text/javascript" id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=NIST&subagency=github&pua=UA-66610693-1&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+
 
 
 </body>

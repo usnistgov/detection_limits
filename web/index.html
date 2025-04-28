@@ -10,39 +10,92 @@ guarantees, expressed or implied, about its quality, reliability, or
 any other characteristic. We would appreciate acknowledgement if the
 software is used.
 -->
-<html><head>
-  <meta http-equiv="content-type" content="text/html; charset=windows-1252">
-  <title>NIST Computational Science in Metrology</title>
-  <link rel="icon" href="https://isg.nist.gov/deepzoomweb/resources/img/favicon.ico;jsessionid=21CE77F2344B143AD8BF5B4A4F06CCA0" type="image/x-icon">
-  <!--<link rel="stylesheet" type="text/css" href="./css/reset.css" media="screen">  -->
-  <link rel="stylesheet" type="text/css" href="css/main_style.css" media="screen">
-  <link rel="stylesheet" type="text/css" href="css/layout.css" media="screen">
-  <!-- <link rel="stylesheet" type="text/css" href="./css/bootstrap.css"> -->
+<html class="nist-footer-bottom">
+<head>
+    <link rel="stylesheet" href="https://pages.nist.gov/nist-header-footer/css/nist-combined.css">
+    <script src="https://pages.nist.gov/nist-header-footer/js/nist-header-footer.js" type="text/javascript"
+            defer="defer"></script>
 
-  <script type="text/javascript" language="javascript" src="js/jquery/jquery.min.js"></script>
-  <script type="text/javascript" language="javascript" src="js/site.js"></script>
+    <link rel="stylesheet" href="https://pages.nist.gov/nist-header-footer/css/nist-combined.css">
+    <script src="https://pages.nist.gov/nist-header-footer/js/nist-header-footer-v-2.0.js" type="text/javascript"
+            defer="defer"></script>
 
-     <style>
-        /*body {*/
-        /*    font-family: Arial, sans-serif;*/
-        /*    max-width: 600px;*/
-        /*    margin: 0 auto;*/
-        /*    padding: 20px;*/
-        /*}*/
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="https://pages.nist.gov/leaveNotice/js/jquery.leaveNotice-nist.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://pages.nist.gov/leaveNotice/css/jquery.leaveNotice.css"/>
+
+
+    <!--  <meta http-equiv="content-type" content="text/html; charset=windows-1252">-->
+    <!--  <title>NIST Computational Science in Metrology</title>-->
+    <!--  <link rel="icon" href="https://isg.nist.gov/deepzoomweb/resources/img/favicon.ico;jsessionid=21CE77F2344B143AD8BF5B4A4F06CCA0" type="image/x-icon">-->
+    <!--  &lt;!&ndash;<link rel="stylesheet" type="text/css" href="./css/reset.css" media="screen">  &ndash;&gt;-->
+    <!--  <link rel="stylesheet" type="text/css" href="css/main_style.css" media="screen">-->
+    <!--  <link rel="stylesheet" type="text/css" href="css/layout.css" media="screen">-->
+    <!--  &lt;!&ndash; <link rel="stylesheet" type="text/css" href="./css/bootstrap.css"> &ndash;&gt;-->
+
+<!--    <script type="text/javascript" language="javascript" src="js/jquery/jquery.min.js"></script>-->
+<!--    <script type="text/javascript" language="javascript" src="js/site.js"></script>-->
+
+
+    <style>
+        /* Footer Style */
+        .footer{
+            text-align:left;
+            /* font-size:12px; */
+            color:#000;
+            height:65px;
+            margin: auto;
+            /*width: 960px!important;*/
+            border-top: 1px solid #3b6f95;
+        }
+        .footerContentsWrapper {
+            width: 100%;
+            max-width: 1200px; /* Match body max-width */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer {
+            padding-top: 10px;
+        }
+        .footer a{
+            text-decoration:underline;
+            color:#3b6f95;
+        }
+
+        .footer a:link, .footer a:hover {
+            color: #6fa4ca;
+        }
+
+
+    </style>
+    <style>
+        /* Set a consistent responsive width for all sections */
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: auto;
+            padding: 1px;
+        }
+
         .form-group {
             margin-bottom: 15px;
         }
+
         label {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
         }
+
         select, button {
             width: 100%;
             padding: 8px;
             border-radius: 4px;
             border: 1px solid #ddd;
         }
+
         button {
             background-color: #4CAF50;
             color: white;
@@ -51,9 +104,11 @@ software is used.
             margin-top: 20px;
             font-size: 16px;
         }
+
         button:hover {
             background-color: #45a049;
         }
+
         #result {
             margin-top: 20px;
             padding: 10px;
@@ -64,7 +119,7 @@ software is used.
         }
     </style>
 
-  <style>
+    <style>
         .content {
             margin-top: 20px;
             padding: 15px;
@@ -90,41 +145,47 @@ software is used.
 
 </head>
 <body id="menu2">
+
 <!-- include to enable Google Analytics 4 support -->
-<script type="text/javascript" language="javascript" src="../csmet/js/gtag_script.js"></script>
+<!--<script type="text/javascript" language="javascript" src="../csmet/js/gtag_script.js"></script>-->
 
-<div class="container">
-  <div class="row">
-    <a href="https://www.nist.gov/index.html"><img src="img/bg_header.png" alt="National Institute of Standards and Technology" width="100%"></a>
+<!--<div class="container">-->
+<!--    <div class="row">-->
+<!--        <a href="https://www.nist.gov/index.html"><img src="img/bg_header.png"-->
+<!--                                                       alt="National Institute of Standards and Technology"-->
+<!--                                                       width="100%"></a>-->
 
-    <div id="menuContainer">
-      <ul id="menu">
-    	<li><a id="menu1nav" href="https://isg.nist.gov/">Home</a></li>
+<!--        <div id="menuContainer">-->
+<!--            <ul id="menu">-->
+<!--                &lt;!&ndash;    	<li><a id="menu1nav" href="https://isg.nist.gov/">Home</a></li>&ndash;&gt;-->
 
-      </ul>
-    </div>
-  </div>
-</div>
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
 
-<div style="padding-left: 220px;">
-<BR>
-<h1>Detection Limits of AI Segmentation Models Applied to Scanning Electron Microscopy (SEM) Image-Based Detection:  </h1>
-<p>
-More information about the evaluations of detection limits can be found in the papers
-  <BR>
-  (1) Peter Bajcsy, Brycie Wiseman, Michael Majurski, and Andras Vladar,
-  “Detection limits of AI-based SEM dimensional metrology,” <BR>
-  Proceedings of SPIE conference on Advanced Lithography + Patterning,
-  23 - 27 February 2025, San Jose, California, US,
-  Program: <a href="https://spie.org/conferences-and-exhibitions/advanced-lithography-and-patterning/program">URL.</a>
-      <BR>
-  (2) Peter Bajcsy, Pushkar Sathe, and Andras Vladar,
-  “Relating human and AI-based detection limits in SEM dimensional metrology,”
- (under review)
-</p>
+<div style="padding-left: 2px;">
+    <BR>
+    <h1>Detection Limits of AI Segmentation Models Applied to Scanning Electron Microscopy (SEM) Image-Based
+        Detection: </h1>
+    <p>
+        More information about the evaluations of detection limits can be found in the papers
+        <BR>
+        (1) Peter Bajcsy, Brycie Wiseman, Michael Majurski, and Andras Vladar,
+        Detection limits of AI-based SEM dimensional metrology, <BR>
+        Proceedings of SPIE conference on Advanced Lithography + Patterning,
+        23 - 27 February 2025, San Jose, California, US,
+        SPIE Program:
+        <a href="https://spie.org/conferences-and-exhibitions/advanced-lithography-and-patterning/program"
+           class="external">URL.</a>
+        <BR>
+        (2) Peter Bajcsy, Pushkar Sathe, and Andras Vladar,
+        Relating human and AI-based detection limits in SEM dimensional metrology,
+        (under review)
+    </p>
 
-<h2>Select Visualization of Metrics </h2>
+    <h2>Select Visualization of Metrics </h2>
 
     <form id="visualizationForm">
 
@@ -145,7 +206,7 @@ More information about the evaluations of detection limits can be found in the p
                 <option value="set1">set1</option>
                 <option value="set2">set2</option>
                 <option value="set3">set3</option>
-				<option value="set4">set4</option>
+                <option value="set4">set4</option>
                 <option value="set5">set5</option>
                 <option value="set6">set6</option>
 
@@ -183,7 +244,7 @@ More information about the evaluations of detection limits can be found in the p
         <div class="form-group" id="detection_limits_idSelect" style="display:none;">
             <label for="detection_limits">AI Model ID:</label>
             <select id="detection_limits" name="detection_limits">
-			    <option value="">Select AI Model</option>
+                <option value="">Select AI Model</option>
                 <option value="3">ID3</option>
                 <option value="5">ID5</option>
                 <option value="7">ID7</option>
@@ -194,13 +255,13 @@ More information about the evaluations of detection limits can be found in the p
 
         <button id="submitButton" onclick="showResults()">Request Visualization</button>
 
-<!--        <button type="submit">Submit Request</button>-->
-<!--        <BR>-->
-<!--         <p><input value="submit" onclick="showResults()" type="submit"></p>-->
-<!--        <BR>-->
-<!--        <p><input value="Explain Metrics" onclick="showMetricInfo()" type="submit"></p>-->
-<!--        <BR>-->
-<!--        <div id="metric_description"></div>-->
+        <!--        <button type="submit">Submit Request</button>-->
+        <!--        <BR>-->
+        <!--         <p><input value="submit" onclick="showResults()" type="submit"></p>-->
+        <!--        <BR>-->
+        <!--        <p><input value="Explain Metrics" onclick="showMetricInfo()" type="submit"></p>-->
+        <!--        <BR>-->
+        <!--        <div id="metric_description"></div>-->
     </form>
     <BR>
 
@@ -211,584 +272,647 @@ More information about the evaluations of detection limits can be found in the p
             <BR>
             Param refers to using the simulation noise parameter when computing a metric.
         </p>
-<!--        <p>You can add any content you want here.</p>-->
+        <!--        <p>You can add any content you want here.</p>-->
     </div>
 
     <BR>
     <div id="result"></div>
 
 
-<br>
+    <br>
 
-<h4>Aceessible Measurements</h4>
-<p>
-After selecting the configuration of metric visualization above, a user can explore 2D scatter or 3D surface plots
-  of image data quality metrics, AI model accuracy metrics, and the relationships of detection limits by human and numerical
-  observers based on their detection confidence. All metrics are visualized as a function of noise and contract properties.
-  There are 525 visualizations that include 25 image data quality metrics
-  (10 implementations of signal-to-noise ratio according to the literature and 15 single or pair-wise image metrics) and 5 AI model
-  accuracy metrics.
-  Figure 1 shows an example of the 2D and 3D visualizations via the web interactive interface.
-</p>
+    <h4>Aceessible Measurements</h4>
+    <p>
+        After selecting the configuration of metric visualization above, a user can explore 2D scatter or 3D surface
+        plots
+        of image data quality metrics, AI model accuracy metrics, and the relationships of detection limits by human and
+        numerical
+        observers based on their detection confidence. All metrics are visualized as a function of noise and contract
+        properties.
+        There are 525 visualizations that include 25 image data quality metrics
+        (10 implementations of signal-to-noise ratio according to the literature and 15 single or pair-wise image
+        metrics) and 5 AI model
+        accuracy metrics.
+        Figure 1 shows an example of the 2D and 3D visualizations via the web interactive interface.
+    </p>
 
-<figure>
-	<img id="retrievedResults2d" src="img/aimodel3_2d_DICE-COEFFICIENT.png" width="738" height="512">
-    <img id="retrievedResults3d" src="img/aimodel3_3d_DICE-COEFFICIENT.png" width="738" height="512">
-    <img id="retrievedResultsRel" src="img/SNR_power_param_Dice.png" width="738" height="512">
-  <figcaption> Illustration of the types of visualizations </figcaption>
-</figure>
+    <figure>
+        <img id="retrievedResults2d" src="img/aimodel3_2d_DICE-COEFFICIENT.png" width="738" height="512">
+        <img id="retrievedResults3d" src="img/aimodel3_3d_DICE-COEFFICIENT.png" width="738" height="512">
+        <img id="retrievedResultsRel" src="img/SNR_power_param_Dice.png" width="738" height="512">
+        <figcaption> Figure 1: Illustration of the types of visualizations</figcaption>
+    </figure>
 
-<p>
+    <p>
     <h4>Components: </h4>
-The accessible visualizations have been created from 6 simulated image datasets
+    The accessible visualizations have been created from 6 simulated image datasets
     (each 567 images of varying noise and contrast quality, 512 x 512 pixels)
     and 3 trained UNet AI models (~7.9 million parameters).
-<BR>
+    <BR>
     The simulated images were created by using the ARTIMAGEN SEM simulation software:
     <BR>
-    Petr Cizmar, András E. Vladár, Michael T. Postek, "Optimization of accurate SEM imaging by use of artificial images," Proc. SPIE 7378, Scanning Microscopy 2009, 737815 (22 May 2009); https://doi.org/10.1117/12.823415
-    <BR>   <BR>
+    Petr Cizmar, Andras E. Vladar, Michael T. Postek, "Optimization of accurate SEM imaging by use of artificial
+    images," Proc. SPIE 7378, Scanning Microscopy 2009, 737815 (22 May 2009); https://doi.org/10.1117/12.823415
+    <BR> <BR>
     The Unet AI model training and inference results were created by using the containerized plugin software:
     <BR>
     <a href="https://github.com/usnistgov/WIPP-unet-train-plugin">GitHub: training code.</a>
     <BR>
     <a href="https://github.com/usnistgov/WIPP-unet-inference-plugin">GitHub: inference code.</a>
-    <BR>   <BR>
+    <BR> <BR>
     The execution and full computational provenance were obtained by using the WIPP scientific workflow software:
     <BR>
-        <a href="https://github.com/usnistgov/WIPP">GitHub: WIPP code.</a>
+    <a href="https://github.com/usnistgov/WIPP">GitHub: WIPP code.</a>
     <BR>
-    Bajcsy, P. , Chalfoun, J. and Simon, M. (2018), Web Microanalysis of Big Image Data, Springer International Publishing
+    Bajcsy, P. , Chalfoun, J. and Simon, M. (2018), Web Microanalysis of Big Image Data, Springer International
+    Publishing
     <BR>
-</p>
+    </p>
 
-      <h4>Contributors:</h4>
-      <dl>
+    <h4>Contributors:</h4>
+    <dl>
         <dt><a href="https://www.nist.gov/itl/">ITL</a>-<a
                 href="https://www.nist.gov/itl/ssd/index.cfm">Software and Systems Division</a>
         </dt>
         <dd><a href="https://www.nist.gov/itl/ssd/is/index.cfm">Information Systems Group</a></dd>
         <dd>
-          <ul>
-            <li><a href="mailto:peter.bajcsy@nist.gov">Peter Bajcsy</a></li>
-              <li><a href="mailto:pushkar.sathe@nist.gov">Pushkar Sathe</a></li>
-        </ul>
+            <ul>
+                <li><a href="mailto:peter.bajcsy@nist.gov">Peter Bajcsy</a></li>
+                <li><a href="mailto:pushkar.sathe@nist.gov">Pushkar Sathe</a></li>
+            </ul>
         </dd>
 
         <dt><a href="https://www.nist.gov/pml">PML</a>-
             <a href="https://www.nist.gov/pml/microsystems-and-nanotechnology-division/photonics-and-optomechanics-group">
                 Photonics and Optomechanics Group</a></dt>
         <dd>
-          <ul>
-              <li><a href="mailto:andras.vladarr@nist.gov">Andras Vladar</a></li>
-          </ul>
+            <ul>
+                <li><a href="mailto:andras.vladarr@nist.gov">Andras Vladar</a></li>
+            </ul>
         </dd>
-      </dl>
+    </dl>
 
 
-<BR>
-        <h4>Contact:</h4>
-          Peter Bajcsy<br/>
-          <a href="mailto:peter.bajcsy@nist.gov">peter.bajcsy@nist.gov</a><br/>
-          Phone: 301.975.2958
+    <BR>
+    <h4>Contact:</h4>
+    Peter Bajcsy<br/>
+    <a href="mailto:peter.bajcsy@nist.gov">peter.bajcsy@nist.gov</a><br/>
+    Phone: 301.975.2958
 
 
 </div>
 
 <!-- Footer Starts-->
 <div class="container">
-  <div class="row footer">
-    <div class="col-xs-12">
-      <p>
-        The National Institute of Standards and Technology (NIST) is
-        an agency of the
-        <a href="https://commerce.gov">U.S. Department of Commerce</a>.
-      </p>
+    <div class="row footer">
+        <div class="col-xs-12">
+            <p>
+                The National Institute of Standards and Technology (NIST) is
+                an agency of the
+                <a href="https://commerce.gov">U.S. Department of Commerce</a>.
+            </p>
 
-      <p>
-        <a href="https://nist.gov/public_affairs/privacy.cfm">
-          Privacy policy / security notice / accessibility statement</a>
-        /
-        <a href="https://nist.gov/public_affairs/disclaimer.cfm">
-          Disclaimer</a>
-        /
-        <a href="https://nist.gov/director/foia/">
-          Freedom of Information Act (FOIA)</a>
-        /
-        <a href="https://nist.gov/director/civil/nofearpolicy.cfm">
-          No Fear Act Policy</a>
-        /
-        <a href="https://nist.gov/director/quality_standards.cfm">
-          NIST Information Quality Standards</a>
-        /
-        <a href="https://nist.gov/public_affairs/envpolicy.cfm">
-          Environmental Policy Statement</a>
-      </p>
+            <p>
+                <a href="https://nist.gov/public_affairs/privacy.cfm">
+                    Privacy policy / security notice / accessibility statement</a>
+                /
+                <a href="https://nist.gov/public_affairs/disclaimer.cfm">
+                    Disclaimer</a>
+                /
+                <a href="https://nist.gov/director/foia/">
+                    Freedom of Information Act (FOIA)</a>
+                /
+                <a href="https://nist.gov/director/civil/nofearpolicy.cfm">
+                    No Fear Act Policy</a>
+                /
+                <a href="https://nist.gov/director/quality_standards.cfm">
+                    NIST Information Quality Standards</a>
+                /
+                <a href="https://nist.gov/public_affairs/envpolicy.cfm">
+                    Environmental Policy Statement</a>
+            </p>
 
+        </div>
     </div>
-  </div>
-  <br>
-  <div class="row">
-    <div class="col-xs-12"><strong>Date created:</strong> March 24, 2025 | <strong>Last
-      updated:</strong>
-      <script type="text/javascript">
-        if(document.lastModified != 'undefined') { document.write(format_date_mmmddyy(document.lastModified)); }
-      </script>
+    <br>
+    <div class="row">
+        <div class="col-xs-12"><strong>Date created:</strong> March 24, 2025 | <strong>Last  updated:</strong>
+            <script type="text/javascript">
+                if (document.lastModified != 'undefined') {
+                    document.write(format_date_mmmddyy(document.lastModified));
+                }
+            </script>
+        </div>
     </div>
-  </div>
 </div>
 <!-- Footer Ends-->
 
 
-    <script>
-        const METRICDESCRIPTION= [
-            { abbreviation: "SNR_power_est", longName: "Signal-to-Noise Ratio (SNR) Power Estimate" },
-            { abbreviation: "SNR_RMSpower_est", longName: "Signal-to-Noise Ratio Root Mean Squared (RMS) Power Estimate" },
-            { abbreviation: "SNR_invCV2_est", longName: "Signal-to-Noise Ratio Inverse Coefficient of Variation to the Power of Two (CV²)Estimate" },
-            { abbreviation: "SNR_invCV_est", longName: "Signal-to-Noise Ratio Inverse Coefficient of Variation (CV) Estimate" },
-            { abbreviation: "SNR_invCV_param", longName: "Signal-to-Noise Ratio Inverse CV Parameter" },
-            { abbreviation: "SNR_invCV2_param", longName: "Signal-to-Noise Ratio Inverse CV² Parameter" },
-            { abbreviation: "SNR_power_param", longName: "Signal-to-Noise Ratio Power Parameter" },
-            { abbreviation: "SNR_RMSpower_param", longName: "Signal-to-Noise Ratio RMS Power Parameter" },
-            { abbreviation: "Cohend_est", longName: "Cohen's d Estimate" },
-            { abbreviation: "Cohend_param", longName: "Cohen's d Parameter" },
-            {abbreviation: "Foreground_mean", longName: "Average pixel intensity in the foreground region"},
-            {abbreviation: "Background_mean", longName: "Average pixel intensity in the background region"},
-            {abbreviation: "Foreground_var", longName: "Variance of pixel intensities in the foreground region"},
-            {abbreviation: "Background_var", longName: "Variance of pixel intensities in the background region"},
-            {abbreviation: "Mean_intensity", longName: "Average intensity across the entire image"},
-            {abbreviation: "Std_intensity", longName: "Standard deviation of intensities across the image"},
-            {abbreviation: "Variance_intensity", longName: "Variance of intensities across the image"},
-            {abbreviation: "Michelson_contrast", longName: "Contrast measure defined as (Imax-Imin)/(Imax+Imin)"},
-            {abbreviation: "RMS_contrast", longName: "Root Mean Square contrast measure"},
-            {abbreviation: "SSIM", longName: "Structural Similarity Index Measure"},
-            {abbreviation: "PSNR", longName: "Peak Signal-to-Noise Ratio"},
-            {abbreviation: "Edge_density", longName: "Density of edges detected in the image"},
-            {abbreviation: "MI", longName: "Mutual Information between image regions"},
-            {abbreviation: "NMI", longName: "Normalized Mutual Information"},
-            {abbreviation: "CE", longName: "Cross Entropy between image distributions"},
-            {abbreviation: "DICE", longName: "Dice-Sorensen similarity index"},
-            {abbreviation: "TRUE POSITIVE", longName: "AI model correctly predicts the image foreground pixels"},
-            {abbreviation: "TRUE NEGATIVE", longName: "AI model correctly predicts the image background pixels"},
-            {abbreviation: "FALSE POSITIVE", longName: "AI model incorrectly predicts the image foreground pixels"},
-            {abbreviation: "FALSE NEGATIVE", longName: "AI model incorrectly predicts the image background pixels"},
-        ];
-        // const QUALITYMETRICS = [
-        //     "SNR_power_est",
-        //     "SNR_RMSpower_est",
-        //     "SNR_invCV2_est",
-        //     "SNR_invCV_est",
-        //     "SNR_invCV_param",
-        //     "SNR_invCV2_param",
-        //     "SNR_power_param",
-        //     "SNR_RMSpower_param",
-        //     "Cohend_est",
-        //     "Cohend_param",
-        //      "Foreground_mean",
-        //     "Background_mean",
-        //     "Foreground_var",
-        //     "Background_var",
-        //     "Mean_intensity",
-        //     "Std_intensity",
-        //     "Variance_intensity",
-        //     "Michelson_contrast",
-        //     "RMS_contrast",
-        //     "SSIM",
-        //     "PSNR",
-        //     "Edge_density",
-        //     "MI",
-        //     "NMI",
-        //     "CE",
-        //     ];
+<script>
+    const METRICDESCRIPTION = [
+        {abbreviation: "SNR_power_est", longName: "Signal-to-Noise Ratio (SNR) Power Estimate"},
+        {abbreviation: "SNR_RMSpower_est", longName: "Signal-to-Noise Ratio Root Mean Squared (RMS) Power Estimate"},
+        {
+            abbreviation: "SNR_invCV2_est",
+            longName: "Signal-to-Noise Ratio Inverse Coefficient of Variation to the Power of Two (CVï¿½)Estimate"
+        },
+        {
+            abbreviation: "SNR_invCV_est",
+            longName: "Signal-to-Noise Ratio Inverse Coefficient of Variation (CV) Estimate"
+        },
+        {abbreviation: "SNR_invCV_param", longName: "Signal-to-Noise Ratio Inverse CV Parameter"},
+        {abbreviation: "SNR_invCV2_param", longName: "Signal-to-Noise Ratio Inverse CVï¿½ Parameter"},
+        {abbreviation: "SNR_power_param", longName: "Signal-to-Noise Ratio Power Parameter"},
+        {abbreviation: "SNR_RMSpower_param", longName: "Signal-to-Noise Ratio RMS Power Parameter"},
+        {abbreviation: "Cohend_est", longName: "Cohen's d Estimate"},
+        {abbreviation: "Cohend_param", longName: "Cohen's d Parameter"},
+        {abbreviation: "Foreground_mean", longName: "Average pixel intensity in the foreground region"},
+        {abbreviation: "Background_mean", longName: "Average pixel intensity in the background region"},
+        {abbreviation: "Foreground_var", longName: "Variance of pixel intensities in the foreground region"},
+        {abbreviation: "Background_var", longName: "Variance of pixel intensities in the background region"},
+        {abbreviation: "Mean_intensity", longName: "Average intensity across the entire image"},
+        {abbreviation: "Std_intensity", longName: "Standard deviation of intensities across the image"},
+        {abbreviation: "Variance_intensity", longName: "Variance of intensities across the image"},
+        {abbreviation: "Michelson_contrast", longName: "Contrast measure defined as (Imax-Imin)/(Imax+Imin)"},
+        {abbreviation: "RMS_contrast", longName: "Root Mean Square contrast measure"},
+        {abbreviation: "SSIM", longName: "Structural Similarity Index Measure"},
+        {abbreviation: "PSNR", longName: "Peak Signal-to-Noise Ratio"},
+        {abbreviation: "Edge_density", longName: "Density of edges detected in the image"},
+        {abbreviation: "MI", longName: "Mutual Information between image regions"},
+        {abbreviation: "NMI", longName: "Normalized Mutual Information"},
+        {abbreviation: "CE", longName: "Cross Entropy between image distributions"},
+        {abbreviation: "DICE", longName: "Dice-Sorensen similarity index"},
+        {abbreviation: "TRUE POSITIVE", longName: "AI model correctly predicts the image foreground pixels"},
+        {abbreviation: "TRUE NEGATIVE", longName: "AI model correctly predicts the image background pixels"},
+        {abbreviation: "FALSE POSITIVE", longName: "AI model incorrectly predicts the image foreground pixels"},
+        {abbreviation: "FALSE NEGATIVE", longName: "AI model incorrectly predicts the image background pixels"},
+    ];
+    // const QUALITYMETRICS = [
+    //     "SNR_power_est",
+    //     "SNR_RMSpower_est",
+    //     "SNR_invCV2_est",
+    //     "SNR_invCV_est",
+    //     "SNR_invCV_param",
+    //     "SNR_invCV2_param",
+    //     "SNR_power_param",
+    //     "SNR_RMSpower_param",
+    //     "Cohend_est",
+    //     "Cohend_param",
+    //      "Foreground_mean",
+    //     "Background_mean",
+    //     "Foreground_var",
+    //     "Background_var",
+    //     "Mean_intensity",
+    //     "Std_intensity",
+    //     "Variance_intensity",
+    //     "Michelson_contrast",
+    //     "RMS_contrast",
+    //     "SSIM",
+    //     "PSNR",
+    //     "Edge_density",
+    //     "MI",
+    //     "NMI",
+    //     "CE",
+    //     ];
 
-        document.addEventListener('DOMContentLoaded', function() {
-            // Get all form elements
-            const form = document.getElementById('visualizationForm');
-			//const vis_dimcategorySelect = document.getElementById('vis_dimcategory');
+    document.addEventListener('DOMContentLoaded', function () {
+        // Get all form elements
+        const form = document.getElementById('visualizationForm');
+        //const vis_dimcategorySelect = document.getElementById('vis_dimcategory');
 
-            const categorySelect = document.getElementById('category');
+        const categorySelect = document.getElementById('category');
 
-            const data_qualitySelect = document.getElementById('data_quality');
-            const ai_modelSelect = document.getElementById('ai_model');
-            const detection_limitsSelect = document.getElementById('detection_limits');
+        const data_qualitySelect = document.getElementById('data_quality');
+        const ai_modelSelect = document.getElementById('ai_model');
+        const detection_limitsSelect = document.getElementById('detection_limits');
 
-            const data_quality_setSelect = document.getElementById('data_quality_setSelect');
-            const ai_model_idSelect = document.getElementById('ai_model_idSelect');
-            const detection_limits_idSelect = document.getElementById('detection_limits_idSelect');
+        const data_quality_setSelect = document.getElementById('data_quality_setSelect');
+        const ai_model_idSelect = document.getElementById('ai_model_idSelect');
+        const detection_limits_idSelect = document.getElementById('detection_limits_idSelect');
 
-            const data_quality_vistypeSelect = document.getElementById('data_quality_vistypeSelect');
-            const ai_model_vistypeSelect = document.getElementById('ai_model_vistypeSelect');
-
-
-            const resultDiv = document.getElementById('result');
+        const data_quality_vistypeSelect = document.getElementById('data_quality_vistypeSelect');
+        const ai_model_vistypeSelect = document.getElementById('ai_model_vistypeSelect');
 
 
-			// Visualization Dimensionality Category change event
-            // vis_dimcategorySelect.addEventListener('change', function() {
-            //     const selectedVal = vis_dimcategorySelect.value;
-            //     if (selectedVal) {
-            //         formData.vis_dimcategoryType = selectedVal;
-			// 		const description = metricInfo[selectedVal] || "No description available";
-            //         resultDiv.innerHTML = `
-            //             <h3>${selectedMetric}</h3>
-            //             <p>${description}</p>
-            //         `;
-            //         resultDiv.style.display = 'block';
-            //     } else {
-            //         resultDiv.innerHTML = "<p>Please select a metric first</p>";
-            //         resultDiv.style.display = 'block';
-            //     }
-            // });
-            //
+        const resultDiv = document.getElementById('result');
 
-            // Category change event
-            categorySelect.addEventListener('change', function() {
-                // Hide all groups first
-                data_quality_setSelect.style.display = 'none';
-                ai_model_idSelect.style.display = 'none';
-                detection_limits_idSelect.style.display = 'none';
 
-                data_quality_vistypeSelect.style.display = 'none';
-                ai_model_vistypeSelect.style.display = 'none';
+        // Visualization Dimensionality Category change event
+        // vis_dimcategorySelect.addEventListener('change', function() {
+        //     const selectedVal = vis_dimcategorySelect.value;
+        //     if (selectedVal) {
+        //         formData.vis_dimcategoryType = selectedVal;
+        // 		const description = metricInfo[selectedVal] || "No description available";
+        //         resultDiv.innerHTML = `
+        //             <h3>${selectedMetric}</h3>
+        //             <p>${description}</p>
+        //         `;
+        //         resultDiv.style.display = 'block';
+        //     } else {
+        //         resultDiv.innerHTML = "<p>Please select a metric first</p>";
+        //         resultDiv.style.display = 'block';
+        //     }
+        // });
+        //
 
-                // Reset all selects
-                data_qualitySelect.value = '';
-                ai_modelSelect.value = '';
-                detection_limitsSelect.value = '';
+        // Category change event
+        categorySelect.addEventListener('change', function () {
+            // Hide all groups first
+            data_quality_setSelect.style.display = 'none';
+            ai_model_idSelect.style.display = 'none';
+            detection_limits_idSelect.style.display = 'none';
 
-                data_quality_vistypeSelect.value = '';
-                ai_model_vistypeSelect.value ='';
+            data_quality_vistypeSelect.style.display = 'none';
+            ai_model_vistypeSelect.style.display = 'none';
 
-                // Show relevant group based on selection
-                switch(this.value) {
-                    case 'data_quality':
-                        data_quality_setSelect.style.display = 'block';
-                        break;
-                    case 'ai_model':
-                        ai_model_idSelect.style.display = 'block';
-                        break;
-                    case 'detection_limits':
-                        detection_limits_idSelect.style.display = 'block';
-                        break;
-                }
-            });
+            // Reset all selects
+            data_qualitySelect.value = '';
+            ai_modelSelect.value = '';
+            detection_limitsSelect.value = '';
 
-            // Data Quality change event
-            data_qualitySelect.addEventListener('change', function() {
-                console.log('INSIDE of data_qualitySelect:', this.value)
-                // Hide sub-categories
-                //data_quality_setSelect.style.display = 'none';
-                ai_model_idSelect.style.display = 'none';
-				detection_limits_idSelect.style.display = 'none';
+            data_quality_vistypeSelect.value = '';
+            ai_model_vistypeSelect.value = '';
 
-                data_quality_vistypeSelect.style.display = 'none';
-                ai_model_vistypeSelect.style.display = 'none';
-
-                // Reset values
-                //data_qualitySelect.value = '';
-                ai_modelSelect.value = '';
-				detection_limitsSelect.value = '';
-                data_quality_vistypeSelect.value = '';
-                ai_model_vistypeSelect.value ='';
-
-                // Show relevant group based on selection
-                switch(this.value) {
-                    case 'set1':
-                        data_quality_setSelect.style.display = 'block';
-                        data_quality_vistypeSelect.style.display = 'block';
-                        break;
-                    case 'set2':
-                        data_quality_setSelect.style.display = 'block';
-                        data_quality_vistypeSelect.style.display = 'block';
-                        break;
-                    case 'set3':
-                        data_quality_setSelect.style.display = 'block';
-                        data_quality_vistypeSelect.style.display = 'block';
-                        break;
-                    case 'set4':
-                        data_quality_setSelect.style.display = 'block';
-                        data_quality_vistypeSelect.style.display = 'block';
-                        break;
-                    case 'set5':
-                        data_quality_setSelect.style.display = 'block';
-                        data_quality_vistypeSelect.style.display = 'block';
-                        break;
-                    case 'set6':
-                        data_quality_setSelect.style.display = 'block';
-                        data_quality_vistypeSelect.style.display = 'block';
-                        break;
-                }
-            });
-
-			// AI Model change event
-            ai_modelSelect.addEventListener('change', function() {
-                console.log('INSIDE of ai_modelSelect:', this.value)
-                // Hide sub-categories
-                data_quality_setSelect.style.display = 'none';
-                //ai_model_idSelect.style.display = 'none';
-				detection_limits_idSelect.style.display = 'none';
-
-                data_quality_vistypeSelect.style.display = 'none';
-                ai_model_vistypeSelect.style.display = 'none';
-
-                // Reset values
-                data_qualitySelect.value = '';
-                //ai_modelSelect.value = '';
-				detection_limitsSelect.value = '';
-                data_quality_vistypeSelect.value = '';
-                ai_model_vistypeSelect.value ='';
-
-                // Show relevant group based on selection
-                switch(this.value) {
-                    case '3':
-                        ai_model_idSelect.style.display = 'block';
-                        ai_model_vistypeSelect.style.display = 'block';
-                        break;
-                    case '5':
-                        ai_model_idSelect.style.display = 'block';
-                        ai_model_vistypeSelect.style.display = 'block';
-                        break;
-                    case '7':
-                        ai_model_idSelect.style.display = 'block';
-                        ai_model_vistypeSelect.style.display = 'block';
-                        break;
-                }
-            });
-
-			// Detection Limits change event
-            detection_limitsSelect.addEventListener('change', function() {
-                // Hide sub-categories
-                data_quality_setSelect.style.display = 'none';
-                ai_model_idSelect.style.display = 'none';
-				//detection_limits_idSelect.style.display = 'none';
-                data_quality_vistypeSelect.style.display = 'none';
-                ai_model_vistypeSelect.style.display = 'none';
-
-                // Reset values
-                data_qualitySelect.value = '';
-                ai_modelSelect.value = '';
-				//detection_limitsSelect.value = '';
-                data_quality_vistypeSelect.value = '';
-                ai_model_vistypeSelect.value ='';
-
-                // Show relevant group based on selection
-                switch(this.value) {
-                    case '3':
-                         detection_limits_idSelect.style.display = 'block';
-                        break;
-                    case '5':
-                         detection_limits_idSelect.style.display = 'block';
-                        break;
-                    case '7':
-                         detection_limits_idSelect.style.display = 'block';
-                        break;
-
-                }
-            });
-
-            // Data quality visualization typechange event
-            data_quality_vistypeSelect.addEventListener('change', function() {
-                console.log('INSIDE of data_quality_vistypeSelect:', this.value)
-
-                // Hide sub-categories
-                //data_quality_setSelect.style.display = 'none';
-                ai_model_idSelect.style.display = 'none';
-				detection_limits_idSelect.style.display = 'none';
-
-                //data_quality_vistypeSelect.style.display = 'none';
-                ai_model_vistypeSelect.style.display = 'none';
-
-                // Reset values
-                //data_qualitySelect.value = '';
-                ai_modelSelect.value = '';
-				detection_limitsSelect.value = '';
-                //data_quality_vistypeSelect.value = '';
-                ai_model_vistypeSelect.value ='';
-
-                // Show relevant group based on selection
-                switch(this.value) {
-                    case '2d':
-                        data_quality_setSelect.style.display = 'block';
-                        data_quality_vistypeSelect.style.display = 'block';
-                        break;
-                    case '3d':
-                        data_quality_setSelect.style.display = 'block';
-                        data_quality_vistypeSelect.style.display = 'block';
-                        break;
-                }
-            });
-
-            // AI Model visualization typechange event
-            ai_model_vistypeSelect.addEventListener('change', function() {
-                // Hide sub-categories
-                data_quality_setSelect.style.display = 'none';
-                //ai_model_idSelect.style.display = 'none';
-				detection_limits_idSelect.style.display = 'none';
-
-                data_quality_vistypeSelect.style.display = 'none';
-                //ai_model_vistypeSelect.style.display = 'none';
-
-                // Reset values
-                data_qualitySelect.value = '';
-                //ai_modelSelect.value = '';
-				detection_limitsSelect.value = '';
-                data_quality_vistypeSelect.value = '';
-                //ai_model_vistypeSelect.value ='';
-
-                // Show relevant group based on selection
-                switch(this.value) {
-                    case '2d':
-                        ai_model_idSelect.style.display = 'block';
-                        ai_model_vistypeSelect.style.display = 'block';
-                        break;
-                    case '3d':
-                        ai_model_idSelect.style.display = 'block';
-                        ai_model_vistypeSelect.style.display = 'block';
-                        break;
-
-                }
-            });
-
-            const toggleButton = document.getElementById('toggleButton');
-            const textContent = document.getElementById('textContent');
-
-            toggleButton.addEventListener('click', function() {
-                // Check if content is currently displayed
-                const isDisplayed = textContent.style.display === 'block';
-
-                if (isDisplayed) {
-                    // Hide the content
-                    textContent.style.display = 'none';
-                    toggleButton.textContent = 'Show Metric Explanation';
-                } else {
-                    // Show the content
-                    textContent.style.display = 'block';
-                    toggleButton.textContent = 'Hide Metric Explanation';
-                }
-            });
-
-            // Form submission
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                // Collect form data
-                const formData = {
-					//vis_dimcategory: vis_dimcategory.value,
-                    category: categorySelect.value
-                };
-
-                // Add subcategory data based on category
-                if (formData.category === 'data_quality') {
-                    formData.data_qualityType = data_qualitySelect.value;
-
-                    const data_quality_vis= document.getElementById('data_quality_vis');
-                    console.info('assign to form  Selected value:', data_quality_vis.value);
-                    formData.data_quality_visType = data_quality_vis.value;
-
-                } else if (formData.category === 'ai_model') {
-                    formData.ai_modelType = ai_modelSelect.value;
-
-                    const ai_model_vis= document.getElementById('ai_model_vis');
-                    console.info('assign to form  Selected value:', ai_model_vis.value);
-                    formData.ai_model_visType = ai_model_vis.value;
-
-                } else if (formData.category === 'detection_limits') {
-                    formData.detection_limitsType = detection_limitsSelect.value;
-                }
-
-                // Display the result
-                resultDiv.innerHTML = '<h3>Form Submission Data:</h3><pre>' +
-                                     JSON.stringify(formData, null, 2) + '</pre>';
-                resultDiv.style.display = 'block';
-
-                // In a real application, you would send this data to a server
-                console.log('Form data to submit:', formData);
-
-            });
+            // Show relevant group based on selection
+            switch (this.value) {
+                case 'data_quality':
+                    data_quality_setSelect.style.display = 'block';
+                    break;
+                case 'ai_model':
+                    ai_model_idSelect.style.display = 'block';
+                    break;
+                case 'detection_limits':
+                    detection_limits_idSelect.style.display = 'block';
+                    break;
+            }
         });
 
-        function showResults(){
+        // Data Quality change event
+        data_qualitySelect.addEventListener('change', function () {
+            console.log('INSIDE of data_qualitySelect:', this.value)
+            // Hide sub-categories
+            //data_quality_setSelect.style.display = 'none';
+            ai_model_idSelect.style.display = 'none';
+            detection_limits_idSelect.style.display = 'none';
 
-            var categorySelect = document.getElementById('category').value;
+            data_quality_vistypeSelect.style.display = 'none';
+            ai_model_vistypeSelect.style.display = 'none';
 
-            var data_qualitySelect = document.getElementById('data_quality').value;
-            var ai_modelSelect = document.getElementById('ai_model').value;
-            var detection_limitsSelect = document.getElementById('detection_limits').value;
+            // Reset values
+            //data_qualitySelect.value = '';
+            ai_modelSelect.value = '';
+            detection_limitsSelect.value = '';
+            data_quality_vistypeSelect.value = '';
+            ai_model_vistypeSelect.value = '';
 
-            var data_quality_setSelect = document.getElementById('data_quality_setSelect').value;
-            var ai_model_idSelect = document.getElementById('ai_model_idSelect').value;
-            var detection_limits_idSelect = document.getElementById('detection_limits_idSelect').value;
-
-            //var data_quality_vistypeSelect = document.getElementById('data_quality_vistypeSelect');
-            var data_quality_vistypeSelect= document.getElementById('data_quality_vis').value;
-            var ai_model_vistypeSelect = document.getElementById('ai_model_vis').value;
-
-
-            console.log('test_conditional: ' + categorySelect + ", " + data_qualitySelect + ", " + ai_modelSelect + ", " + detection_limitsSelect);
-            console.log('data_:'+ data_quality_vistypeSelect )
-            console.log('ai_model_select:' + ai_modelSelect + ", "  + ai_model_vistypeSelect + "," + detection_limitsSelect);
-
-
-            var input_is_set ='';
-            if (categorySelect !== '' && data_qualitySelect !== '' && data_quality_vistypeSelect !== '') {
-                input_is_set = 'valid';
+            // Show relevant group based on selection
+            switch (this.value) {
+                case 'set1':
+                    data_quality_setSelect.style.display = 'block';
+                    data_quality_vistypeSelect.style.display = 'block';
+                    break;
+                case 'set2':
+                    data_quality_setSelect.style.display = 'block';
+                    data_quality_vistypeSelect.style.display = 'block';
+                    break;
+                case 'set3':
+                    data_quality_setSelect.style.display = 'block';
+                    data_quality_vistypeSelect.style.display = 'block';
+                    break;
+                case 'set4':
+                    data_quality_setSelect.style.display = 'block';
+                    data_quality_vistypeSelect.style.display = 'block';
+                    break;
+                case 'set5':
+                    data_quality_setSelect.style.display = 'block';
+                    data_quality_vistypeSelect.style.display = 'block';
+                    break;
+                case 'set6':
+                    data_quality_setSelect.style.display = 'block';
+                    data_quality_vistypeSelect.style.display = 'block';
+                    break;
             }
-            if (categorySelect!== '' && ai_modelSelect !== '' && ai_model_vistypeSelect !== '') {
-                input_is_set = 'valid';
-            }
-            if (categorySelect!== '' && detection_limitsSelect !== '' ) {
-                input_is_set = 'valid';
-            }
-            // var paramName =`Category&${categorySelect}&DataQuality&${data_qualitySelect}&AIModel&${ai_modelSelect}&DetectionLimit&${detection_limitsSelect}&DataSet&${data_quality_setSelect}&AIModelID&${ai_model_idSelect}&DataVis&${data_quality_vistypeSelect}&AIMModelVis&${ai_model_vistypeSelect}&DetectionID&${detection_limits_idSelect}`;
-            // showTargetImg(paramName)
-            //
-            if (input_is_set === 'valid' ){
-              var paramName =`Category&${categorySelect}&DataQuality&${data_qualitySelect}&AIModel&${ai_modelSelect}&DetectionLimit&${detection_limitsSelect}&DataSet&${data_quality_setSelect}&AIModelID&${ai_model_idSelect}&DataVis&${data_quality_vistypeSelect}&AIMModelVis&${ai_model_vistypeSelect}&DetectionID&${detection_limits_idSelect}`;
-              showTargetImg(paramName)
-            }
-            console.log("index.html: PLEASE, MAKE THE SELECTION FROM THE DROP-DOWN MENU");
-          };
+        });
 
-          function showTargetImg(paramName){
-            console.log("paramName=" + paramName);
-            window.location.href = 'index_showSEMFigures.html' + '#' + paramName;
-            console.log("index_showSEMFigures.html " + '#' + paramName);
-          };
+        // AI Model change event
+        ai_modelSelect.addEventListener('change', function () {
+            console.log('INSIDE of ai_modelSelect:', this.value)
+            // Hide sub-categories
+            data_quality_setSelect.style.display = 'none';
+            //ai_model_idSelect.style.display = 'none';
+            detection_limits_idSelect.style.display = 'none';
+
+            data_quality_vistypeSelect.style.display = 'none';
+            ai_model_vistypeSelect.style.display = 'none';
+
+            // Reset values
+            data_qualitySelect.value = '';
+            //ai_modelSelect.value = '';
+            detection_limitsSelect.value = '';
+            data_quality_vistypeSelect.value = '';
+            ai_model_vistypeSelect.value = '';
+
+            // Show relevant group based on selection
+            switch (this.value) {
+                case '3':
+                    ai_model_idSelect.style.display = 'block';
+                    ai_model_vistypeSelect.style.display = 'block';
+                    break;
+                case '5':
+                    ai_model_idSelect.style.display = 'block';
+                    ai_model_vistypeSelect.style.display = 'block';
+                    break;
+                case '7':
+                    ai_model_idSelect.style.display = 'block';
+                    ai_model_vistypeSelect.style.display = 'block';
+                    break;
+            }
+        });
+
+        // Detection Limits change event
+        detection_limitsSelect.addEventListener('change', function () {
+            // Hide sub-categories
+            data_quality_setSelect.style.display = 'none';
+            ai_model_idSelect.style.display = 'none';
+            //detection_limits_idSelect.style.display = 'none';
+            data_quality_vistypeSelect.style.display = 'none';
+            ai_model_vistypeSelect.style.display = 'none';
+
+            // Reset values
+            data_qualitySelect.value = '';
+            ai_modelSelect.value = '';
+            //detection_limitsSelect.value = '';
+            data_quality_vistypeSelect.value = '';
+            ai_model_vistypeSelect.value = '';
+
+            // Show relevant group based on selection
+            switch (this.value) {
+                case '3':
+                    detection_limits_idSelect.style.display = 'block';
+                    break;
+                case '5':
+                    detection_limits_idSelect.style.display = 'block';
+                    break;
+                case '7':
+                    detection_limits_idSelect.style.display = 'block';
+                    break;
+
+            }
+        });
+
+        // Data quality visualization typechange event
+        data_quality_vistypeSelect.addEventListener('change', function () {
+            console.log('INSIDE of data_quality_vistypeSelect:', this.value)
+
+            // Hide sub-categories
+            //data_quality_setSelect.style.display = 'none';
+            ai_model_idSelect.style.display = 'none';
+            detection_limits_idSelect.style.display = 'none';
+
+            //data_quality_vistypeSelect.style.display = 'none';
+            ai_model_vistypeSelect.style.display = 'none';
+
+            // Reset values
+            //data_qualitySelect.value = '';
+            ai_modelSelect.value = '';
+            detection_limitsSelect.value = '';
+            //data_quality_vistypeSelect.value = '';
+            ai_model_vistypeSelect.value = '';
+
+            // Show relevant group based on selection
+            switch (this.value) {
+                case '2d':
+                    data_quality_setSelect.style.display = 'block';
+                    data_quality_vistypeSelect.style.display = 'block';
+                    break;
+                case '3d':
+                    data_quality_setSelect.style.display = 'block';
+                    data_quality_vistypeSelect.style.display = 'block';
+                    break;
+            }
+        });
+
+        // AI Model visualization typechange event
+        ai_model_vistypeSelect.addEventListener('change', function () {
+            // Hide sub-categories
+            data_quality_setSelect.style.display = 'none';
+            //ai_model_idSelect.style.display = 'none';
+            detection_limits_idSelect.style.display = 'none';
+
+            data_quality_vistypeSelect.style.display = 'none';
+            //ai_model_vistypeSelect.style.display = 'none';
+
+            // Reset values
+            data_qualitySelect.value = '';
+            //ai_modelSelect.value = '';
+            detection_limitsSelect.value = '';
+            data_quality_vistypeSelect.value = '';
+            //ai_model_vistypeSelect.value ='';
+
+            // Show relevant group based on selection
+            switch (this.value) {
+                case '2d':
+                    ai_model_idSelect.style.display = 'block';
+                    ai_model_vistypeSelect.style.display = 'block';
+                    break;
+                case '3d':
+                    ai_model_idSelect.style.display = 'block';
+                    ai_model_vistypeSelect.style.display = 'block';
+                    break;
+
+            }
+        });
+
+        const toggleButton = document.getElementById('toggleButton');
+        const textContent = document.getElementById('textContent');
+
+        toggleButton.addEventListener('click', function () {
+            // Check if content is currently displayed
+            const isDisplayed = textContent.style.display === 'block';
+
+            if (isDisplayed) {
+                // Hide the content
+                textContent.style.display = 'none';
+                toggleButton.textContent = 'Show Metric Explanation';
+            } else {
+                // Show the content
+                textContent.style.display = 'block';
+                toggleButton.textContent = 'Hide Metric Explanation';
+            }
+        });
+
+        // Form submission
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Collect form data
+            const formData = {
+                //vis_dimcategory: vis_dimcategory.value,
+                category: categorySelect.value
+            };
+
+            // Add subcategory data based on category
+            if (formData.category === 'data_quality') {
+                formData.data_qualityType = data_qualitySelect.value;
+
+                const data_quality_vis = document.getElementById('data_quality_vis');
+                console.info('assign to form  Selected value:', data_quality_vis.value);
+                formData.data_quality_visType = data_quality_vis.value;
+
+            } else if (formData.category === 'ai_model') {
+                formData.ai_modelType = ai_modelSelect.value;
+
+                const ai_model_vis = document.getElementById('ai_model_vis');
+                console.info('assign to form  Selected value:', ai_model_vis.value);
+                formData.ai_model_visType = ai_model_vis.value;
+
+            } else if (formData.category === 'detection_limits') {
+                formData.detection_limitsType = detection_limitsSelect.value;
+            }
+
+            // Display the result
+            resultDiv.innerHTML = '<h3>Selected Visualization Choices:</h3><pre>' +
+                JSON.stringify(formData, null, 2) + '</pre>';
+            resultDiv.style.display = 'block';
+
+            // In a real application, you would send this data to a server
+            //console.log('Form data to submit:', formData);
+
+        });
+    });
+
+    function showResults() {
+
+        var categorySelect = document.getElementById('category').value;
+
+        var data_qualitySelect = document.getElementById('data_quality').value;
+        var ai_modelSelect = document.getElementById('ai_model').value;
+        var detection_limitsSelect = document.getElementById('detection_limits').value;
+
+        var data_quality_setSelect = document.getElementById('data_quality_setSelect').value;
+        var ai_model_idSelect = document.getElementById('ai_model_idSelect').value;
+        var detection_limits_idSelect = document.getElementById('detection_limits_idSelect').value;
+
+        //var data_quality_vistypeSelect = document.getElementById('data_quality_vistypeSelect');
+        var data_quality_vistypeSelect = document.getElementById('data_quality_vis').value;
+        var ai_model_vistypeSelect = document.getElementById('ai_model_vis').value;
 
 
-          function showMetricInfo(){
-              var metricInforText = '';
-              for (let i = 0; i< METRICDESCRIPTION.length; i++){
-                    var shortName = METRICDESCRIPTION[i].abbreviation;
-                    var longName = METRICDESCRIPTION[i].longName;
-                    metricInforText += `<br>
+        console.log('test_conditional: ' + categorySelect + ", " + data_qualitySelect + ", " + ai_modelSelect + ", " + detection_limitsSelect);
+        console.log('data_:' + data_quality_vistypeSelect)
+        console.log('ai_model_select:' + ai_modelSelect + ", " + ai_model_vistypeSelect + "," + detection_limitsSelect);
+
+
+        var input_is_set = '';
+        if (categorySelect !== '' && data_qualitySelect !== '' && data_quality_vistypeSelect !== '') {
+            input_is_set = 'valid';
+        }
+        if (categorySelect !== '' && ai_modelSelect !== '' && ai_model_vistypeSelect !== '') {
+            input_is_set = 'valid';
+        }
+        if (categorySelect !== '' && detection_limitsSelect !== '') {
+            input_is_set = 'valid';
+        }
+        // var paramName =`Category&${categorySelect}&DataQuality&${data_qualitySelect}&AIModel&${ai_modelSelect}&DetectionLimit&${detection_limitsSelect}&DataSet&${data_quality_setSelect}&AIModelID&${ai_model_idSelect}&DataVis&${data_quality_vistypeSelect}&AIMModelVis&${ai_model_vistypeSelect}&DetectionID&${detection_limits_idSelect}`;
+        // showTargetImg(paramName)
+        //
+        if (input_is_set === 'valid') {
+            var paramName = `Category&${categorySelect}&DataQuality&${data_qualitySelect}&AIModel&${ai_modelSelect}&DetectionLimit&${detection_limitsSelect}&DataSet&${data_quality_setSelect}&AIModelID&${ai_model_idSelect}&DataVis&${data_quality_vistypeSelect}&AIMModelVis&${ai_model_vistypeSelect}&DetectionID&${detection_limits_idSelect}`;
+            showTargetImg(paramName)
+        }
+        console.log("index.html: PLEASE, MAKE THE SELECTION FROM THE DROP-DOWN MENU");
+    };
+
+    function showTargetImg(paramName) {
+        console.log("paramName=" + paramName);
+        window.location.href = 'index_showSEMFigures.html' + '#' + paramName;
+        console.log("index_showSEMFigures.html " + '#' + paramName);
+    };
+
+
+    function showMetricInfo() {
+        var metricInforText = '';
+        for (let i = 0; i < METRICDESCRIPTION.length; i++) {
+            var shortName = METRICDESCRIPTION[i].abbreviation;
+            var longName = METRICDESCRIPTION[i].longName;
+            metricInforText += `<br>
                         Metric Abbreviation: ${shortName}<br>
                         Metric Description = ${longName}<br>
                         `;
-              }
-             // console.log("DEBIG: metricInforText=", metricInforText);
+        }
+        // console.log("DEBIG: metricInforText=", metricInforText);
 
-              // Add metadata text
-            const metadataText = document.createElement('div');
-            metadataText.className = 'metadata';
-            metadataText.innerHTML = metricInforText;
-            // `<strong>Date:</strong> ${image.date}<br>   <strong>Category:</strong> ${image.category}`;
-            metadataText.style.fontSize = '16px';
-            metadataText.style.color = '#666';
-
-
-            console.log("About to append metadata");
-            document.getElementById('textContent').appendChild(metadataText);
-            // document.getElementById("metric_description").appendChild(metadataText);
-            console.log("Metadata appended");
-
-            //container.appendChild(metadataText);
-
-            // document.getElementById("metric_description").innerHTML = metricInforText;
+        // Add metadata text
+        const metadataText = document.createElement('div');
+        metadataText.className = 'metadata';
+        metadataText.innerHTML = metricInforText;
+        // `<strong>Date:</strong> ${image.date}<br>   <strong>Category:</strong> ${image.category}`;
+        metadataText.style.fontSize = '16px';
+        metadataText.style.color = '#666';
 
 
-          };
+        console.log("About to append metadata");
+        document.getElementById('textContent').appendChild(metadataText);
+        // document.getElementById("metric_description").appendChild(metadataText);
+        console.log("Metadata appended");
 
-    </script>
+        //container.appendChild(metadataText);
 
-</body></html>
+        // document.getElementById("metric_description").innerHTML = metricInforText;
+
+
+    };
+
+</script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Mark external (non-nist.gov) A tags with class "external"
+        //If the adress start with https and ends with nist.gov
+        var re_nist = new RegExp('^https?:\/\/((^\/)*\.)*nist\\.gov(\/|$)');
+        //Regex to find address that start with https
+        var re_absolute_address = new RegExp('^((https?:)?\/\/)');
+        $("a").each(function () {
+            var url = $(this).attr('href');
+            if (re_nist.test(url) || !re_absolute_address.test(url)) {
+                $(this).addClass('local');
+            } else {
+                $(this).addClass('external');
+            }
+        });
+        // Add leaveNotice to external A elements
+        $('a.external').leaveNotice({
+            siteName: 'the NIST fork of the leaveNotice jQuery plugin',
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $('a[rel=external]').leaveNotice({
+            siteName: 'My Cool NIST Site'
+        });
+    });
+</script>
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RJSMY46M5C"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'G-RJSMY46M5C');
+</script>
+<!-- Old DAP UA tag -->
+<script async type="text/javascript" id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=NIST&subagency=github&pua=UA-66610693-1&yt=true&exts=ppsx,pps,f90,sch,rtf,wrl,txz,m1v,xlsm,msi,xsd,f,tif,eps,mpg,xml,pl,xlt,c">
+</script>
+
+</body>
+</html>
