@@ -365,7 +365,7 @@ def plot_confusion_matrix(merged_csv_path, output_filepath):
     plt.savefig(os.path.join(output_filepath, 'aggregated_confusion_matrix.png'))
     plt.close()
 
-#
+
 def plot_2d_variable(noise_values,contrast_values,metric_values,metric_name, log_scale,  output_filepath):
     ##################################
     plt.figure(figsize=(10, 6))

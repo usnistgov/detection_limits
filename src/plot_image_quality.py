@@ -227,7 +227,7 @@ def plot_3d_data_quality(csv_path, root_output_filepath, log_scale):
 
 
 '''
-this method is for pair-wise comparison - could be insightfull
+this method is for pair-wise comparison - could be insightful
 '''
 def plot_snr_vs_metrics(csv_path, output_dirpath, log_scale=True):
     """
