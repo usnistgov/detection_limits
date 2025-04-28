@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toggle Text Button</title>
+    <style>
+        .content {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            display: none; /* Hidden by default */
+        }
+        
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Toggle Text Example</h1>
+    
+    <button id="toggleButton">Show Text</button>
+    
+    <div id="textContent" class="content">
+        <p>This is the text that will be shown or hidden when you click the button.</p>
+        <p>You can add any content you want here.</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleButton = document.getElementById('toggleButton');
+            const textContent = document.getElementById('textContent');
+            
+            toggleButton.addEventListener('click', function() {
+                // Check if content is currently displayed
+                const isDisplayed = textContent.style.display === 'block';
+                
+                if (isDisplayed) {
+                    // Hide the content
+                    textContent.style.display = 'none';
+                    toggleButton.textContent = 'Show Text';
+                } else {
+                    // Show the content
+                    textContent.style.display = 'block';
+                    toggleButton.textContent = 'Hide Text';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

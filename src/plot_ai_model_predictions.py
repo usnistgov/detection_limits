@@ -32,6 +32,9 @@ wanted_header_csv=["IMAGE-NAME","DICE-COEFFICIENT","TRUE POSITIVE","TRUE NEGATIV
                    "Foreground_mean","Background_mean","Foreground_var","Background_var","Mean_intensity","Std_intensity",
                    "Variance_intensity","Michelson_contrast","RMS_contrast","SSIM","PSNR","Edge_density","MI","NMI","CE"]
 
+ai_header_csv=["DICE-COEFFICIENT","TRUE POSITIVE","TRUE NEGATIVE","FALSE POSITIVE","FALSE NEGATIVE"]
+
+
 def plot_3d_metrics(noise_values,contrast_values, metric_values, metric_name, log_scale, output_filepath):
 
     fig = plt.figure()
@@ -41,7 +44,8 @@ def plot_3d_metrics(noise_values,contrast_values, metric_values, metric_name, lo
     ax.set_ylabel('Contrast')
 
     if log_scale:
-        sc = ax.scatter(noise_values, contrast_values, np.log(metric_values), c=np.log(metric_values), cmap='plasma',
+        log_metric_values = np.log(metric_values) if np.all(metric_values > 0) else np.log(metric_values + 1e-10)
+        sc = ax.scatter(noise_values, contrast_values, log_metric_values, c=log_metric_values, cmap='plasma',
                         alpha=0.5)
         ax.set_zlabel('ln('+metric_name+')')
         ax.set_title('ln('+metric_name+') = f(Noise and Contrast)')
@@ -60,7 +64,7 @@ def plot_3d_metrics(noise_values,contrast_values, metric_values, metric_name, lo
     # zz = np.ones_like(xx) * 0.05
     # ax.plot_surface(xx, yy, zz, color='gray', alpha=0.3)
 
-    plt.savefig(os.path.join(output_filepath, (metric_name+'_vs_Noise_Contrast.png')))
+    plt.savefig(os.path.join(output_filepath, (metric_name+'.png')))
     plt.close()
 
 
@@ -139,7 +143,7 @@ def plot_3d_planes(noise_values,contrast_values, metric_values, human_snr_thresh
     # Adding the AI Hallucination criterion threshold plane
     ax.plot_surface(xx, yy, zz_fp, color='blue', alpha=0.3)
 
-    plt.savefig(os.path.join(output_filepath, (metric_name+'_vs_Noise_Contrast.png')))
+    plt.savefig(os.path.join(output_filepath, (metric_name+'.png')))
     plt.close()
 
 
@@ -147,17 +151,25 @@ def plot_3d_planes(noise_values,contrast_values, metric_values, human_snr_thresh
 '''
 This method computes the confusion matrix and plots the SNR and Dice coefficient comparison
 '''
-def plot_snr_dice_comparison(merged_csv_path, human_snr_threshold, log_scale, output_filepath):
+def plot_snr_dice_comparison(merged_csv_path, human_snr_threshold, log_scale, root_output_filepath):
     var_index ={}
     header = pd.read_csv(merged_csv_path, nrows=0).columns.tolist()
     print("Read CSV header:",header)
     for item in wanted_header_csv:
         if item not in header:
             print(f"Error: {item} not found in the CSV header")
-            exit()
+            continue
         var_index.update({item: header.index(item)})
 
     print("DEBUG: dictionary with names and indices var_index=", var_index)
+
+    # get the indices of ai model entries defined in ai_header_csv
+    ai_var_index = {}
+    for item in ai_header_csv:
+        if item not in header:
+            continue
+        ai_var_index.update({item: header.index(item)})
+
 
     # load the data
     data = np.genfromtxt(merged_csv_path, delimiter=',', skip_header=1)
@@ -168,19 +180,6 @@ def plot_snr_dice_comparison(merged_csv_path, human_snr_threshold, log_scale, ou
     set_values = data[:, var_index["Set_index"]]
     noise_values = data[:, var_index["Noise_level"]]
     contrast_values = data[:, var_index["Contrast_level"]]
-
-    # information about the data quality metrics
-    # snr1_values = data[:, var_index["SNR1"]]
-    # snr2_values = data[:, var_index["SNR2"]]
-    # snr3_values = data[:, var_index["SNR3"]]
-    snr4_values = data[:, var_index["SNR4"]]
-    snr5_values = data[:, var_index["SNR5"]]
-    # snr6_values = data[:, var_index["SNR6"]]
-    michelson_values = data[:,var_index["Michelson_contrast"]]
-    rms_values = data[:, var_index["RMS_contrast"]]
-    ssim_values = data[:, var_index["SSIM"]]
-    edge_values = data[:, var_index["Edge_density"]]
-    mi_values = data[:, var_index["MI"]]
 
     # information about the AI model accuracy
     tn_values = data[:, var_index["TRUE NEGATIVE"]]
@@ -226,6 +225,12 @@ def plot_snr_dice_comparison(merged_csv_path, human_snr_threshold, log_scale, ou
         if elem == "SNR10":
             metric_name = "Cohend_param"
 
+
+        output_filepath = os.path.join(root_output_filepath, "3d_relation")
+        if not os.path.exists(output_filepath):
+            os.mkdir(output_filepath)
+            print("INFO: created output folder = ", output_filepath)
+
         snr_values = data[:, var_index[elem]]
         for elem_ai in ai_accuracy_metrics:
             if elem_ai == "Dice":
@@ -242,170 +247,75 @@ def plot_snr_dice_comparison(merged_csv_path, human_snr_threshold, log_scale, ou
                                plot_name,
                                output_filepath)
 
-    # ############################################################################
-    # # Plot SNR4 (estimated SNR from data) based on noise and contrast and add the Rose criterion threshold plane
-    # # and the False Positive rate threshold plane
-    # fp_rate = fp_values / (fp_values + tn_values)
-    # metric_name = 'SNR_est_FPR'
-    # plot_3d_planes(noise_values, contrast_values, snr4_values, human_snr_threshold, fp_rate, log_scale, metric_name,
-    #                output_filepath)
-    # ############################################################################
-    # # Plot SNR4 (estimated SNR from data) based on noise and contrast and add the Rose criterion threshold plane
-    # # and the False Negative rate threshold plane
-    # fn_rate = fn_values / (tp_values + fn_values)
-    # metric_name = 'SNR_invCV_est_FNR'
-    # plot_3d_planes(noise_values, contrast_values, snr4_values, human_snr_threshold, fn_rate, log_scale, metric_name,
-    #                output_filepath)
-    # ############################################################################
-    # # Plot SNR4 (estimated SNR from data) based on noise and contrast and add the Rose criterion threshold plane
-    # # and the Dice threshold plane
-    # # fn_rate = fn_values / (tp_values + fn_values)
-    # metric_name = 'SNR_est_Dice'
-    # plot_3d_planes(noise_values, contrast_values, snr4_values, human_snr_threshold, dice_values, log_scale, metric_name,
-    #                output_filepath)
-    #
-    # ############################################################################
-    # # Plot SNR5 ( SNR from sim noise) as a function of noise and contrast and add the Rose criterion threshold plane
-    # # and the False Positive rate threshold plane
-    # fp_rate = fp_values / (fp_values + tn_values)
-    # metric_name = 'SNR_param_FPR'
-    # plot_3d_planes(noise_values, contrast_values, snr5_values, human_snr_threshold, fp_rate, log_scale, metric_name,
-    #                output_filepath)
-    # ############################################################################
-    # # Plot SNR5 ( SNR from sim noise) as a function of noise and contrast and add the Rose criterion threshold plane
-    # # and the False Negative rate threshold plane
-    # fn_rate = fn_values / (tp_values + fn_values)
-    # metric_name = 'SNR_param_FNR'
-    # plot_3d_planes(noise_values, contrast_values, snr5_values, human_snr_threshold, fn_rate, log_scale, metric_name,
-    #                output_filepath)
-    # ############################################################################
-    # # Plot Mutual Information  as a function of noise and contrast and add the Rose criterion threshold plane
-    # # and the False Positive rate threshold plane
-    # fp_rate = fp_values / (fp_values + tn_values)
-    # metric_name = 'SNR_param_FPR'
-    # plot_3d_planes(noise_values, contrast_values, mi_values, human_snr_threshold, fp_rate, log_scale, metric_name,
-    #                output_filepath)
-    # ############################################################################
-    # # Plot SNR5 ( SNR from sim noise) as a function of noise and contrast and add the Rose criterion threshold plane
-    # # and the Dice threshold plane
-    # # fn_rate = fn_values / (tp_values + fn_values)
-    # metric_name = 'SNR_param_Dice'
-    # plot_3d_planes(noise_values, contrast_values, snr5_values, human_snr_threshold, dice_values, log_scale, metric_name,
-    #                output_filepath)
-    #
-    ############################################################################
-    # # Plot Mutual Information as a function of noise and contrast and add the Rose criterion threshold plane
-    # # and the False Negative rate threshold plane
-    # fn_rate = fn_values / (tp_values + fn_values)
-    # metric_name = 'MI_FNR'
-    # plot_3d_planes(noise_values, contrast_values, mi_values, human_snr_threshold, fn_rate, log_scale, metric_name,
-    #                output_filepath)
 
     #################################################################################
+
+    # scale the raw values to [0,1]
+    sum_values = tp_values + tn_values + fp_values + fn_values
+    tp_prob = tp_values / sum_values
+    tn_prob = tn_values / sum_values
+    fp_prob = fp_values / sum_values
+    fn_prob = fn_values / sum_values
+
     # these graphs are without the Rose threshold and the corresponding ai model threshold
-    for elem in var_index:
-        print("DEBUG: elem=", elem, " index=", var_index[elem])
+    log_scale_orig = log_scale
+    log_scale = False
+    for elem in ai_var_index:
+        print("DEBUG: elem=", elem, " index=", ai_var_index[elem])
         metric_name = elem
         if elem == "IMAGE-NAME" or elem == "Set_index" or elem == "Noise_level" or elem == "Contrast_level":
             continue
 
-        if str(elem).__contains__("SNR"):
+        output_filepath = os.path.join(root_output_filepath, "3d_ai_metrics")
+        if not os.path.exists(output_filepath):
+            os.mkdir(output_filepath)
+            print("INFO: created output folder = ", output_filepath)
+
+        if elem == "TRUE POSITIVE":
+            plot_3d_metrics(noise_values, contrast_values, tp_prob, metric_name, log_scale, output_filepath)
             continue
-        #
-        # if elem == "SNR1":
-        #     metric_name = "SNR_power_est"
-        # if elem == "SNR2":
-        #     metric_name = "SNR_RMSpower_est"
-        # if elem == "SNR3":
-        #     metric_name = "SNR_invCV2_est"
-        # if elem == "SNR4":
-        #     metric_name = "SNR_invCV_est"
-        # if elem == "SNR5":
-        #     metric_name = "SNR_invCV_param"
-        # if elem == "SNR6":
-        #     metric_name = "SNR_invCV2_param"
-        # if elem == "SNR7":
-        #     metric_name = "SNR_power_param"
-        # if elem == "SNR8":
-        #     metric_name = "SNR_RMSpower_param"
-        # if elem == "SNR9":
-        #     metric_name = "Cohend_est"
-        # if elem == "SNR10":
-        #     metric_name = "Cohend_param"
+        if elem == "TRUE NEGATIVE":
+            plot_3d_metrics(noise_values, contrast_values, tn_prob, metric_name, log_scale, output_filepath)
+            continue
+        if elem == "FALSE NEGATIVE":
+            plot_3d_metrics(noise_values, contrast_values, fn_prob, metric_name, log_scale, output_filepath)
+            continue
+        if elem == "FALSE POSITIVE":
+            plot_3d_metrics(noise_values, contrast_values, fp_prob, metric_name, log_scale, output_filepath)
+            continue
 
-        plot_3d_metrics(noise_values, contrast_values, data[:,var_index[elem]], metric_name, log_scale, output_filepath)
+        plot_3d_metrics(noise_values, contrast_values, data[:,ai_var_index[elem]], metric_name, log_scale, output_filepath)
 
+    log_scale = log_scale_orig
 
-    ##################################################################
-    # # Plot Dice as a function of noise and contrast
-    # metric_name = 'Dice_coefficient'
-    # plot_3d_metrics(noise_values, contrast_values, dice_values, metric_name, log_scale, output_filepath)
-    # ##################################################################
-    # # Plot Mutual Information as a function of noise and contrast
-    # metric_name = 'MI'
-    # plot_3d_metrics(noise_values, contrast_values, mi_values, metric_name, log_scale, output_filepath)
-    # ##################################################################
-    # # Plot Michelson contrast as a function of noise and contrast
-    # metric_name = 'Michelson_contrast'
-    # plot_3d_metrics(noise_values, contrast_values, michelson_values, metric_name, log_scale, output_filepath)
-    #
-    # ##################################################################
-    # # Plot Mutual Information as a function of noise and contrast
-    # metric_name = 'Edge_density'
-    # plot_3d_metrics(noise_values, contrast_values, edge_values, metric_name, log_scale, output_filepath)
-    # # Plot SSIM as a function of noise and contrast
-    # metric_name = 'SSIM'
-    # plot_3d_metrics(noise_values, contrast_values, ssim_values, metric_name, log_scale, output_filepath)
-    # # Plot RMS contrast as a function of noise and contrast
-    # metric_name = 'RMS_contrast'
-    # plot_3d_metrics(noise_values, contrast_values, rms_values, metric_name, log_scale, output_filepath)
-    # # Plot False Negative Rate as a function of noise and contrast
-    # metric_name = 'FN_Rate'
-    # fn_rate = fn_values / (tp_values + fn_values)
-    # plot_3d_metrics(noise_values, contrast_values, fn_rate, metric_name, log_scale, output_filepath)
-    # # Plot False Positive Rate as a function of noise and contrast
-    # metric_name = 'FP_Rate'
-    # plot_3d_metrics(noise_values, contrast_values, fp_rate, metric_name, log_scale, output_filepath)
-    #
+    # these graphs are without the Rose threshold and the corresponding ai model threshold
+    for elem in ai_var_index:
+        print("DEBUG: elem=", elem, " index=", ai_var_index[elem])
+        metric_name = elem
+        if elem == "IMAGE-NAME" or elem == "Set_index" or elem == "Noise_level" or elem == "Contrast_level":
+            continue
 
-    ####################################################
-    # fig = plt.figure()
-    # ax = fig.add_subplot(111, projection='3d')
-    # sc = ax.scatter(noise_values, contrast_values, fp_rate, c=fp_rate, cmap='plasma', alpha=0.5)
-    # plt.colorbar(sc, label='FP Rate')
-    # ax.set_xlabel('Noise')
-    # ax.set_ylabel('Contrast')
-    # ax.set_zlabel('FP Rate')
-    # ax.set_title('FP Rate = f(Noise and Contrast)')
-    #
-    # xx, yy = np.meshgrid(np.linspace(noise_values.min(), noise_values.max(), 100),
-    #                      np.linspace(contrast_values.min(), contrast_values.max(), 100))
-    #
-    # # Adding the AI Hallucination criterion threshold plane
-    # zz = np.ones_like(xx) * 0.05
-    # ax.plot_surface(xx, yy, zz, color='gray', alpha=0.3)
-    #
-    # plt.savefig(os.path.join(output_filepath, 'FP_vs_Noise_Contrast.png'))
-    # plt.close()
-    #
-    # ####################################
-    # # Plot Dice as a function of noise and contrast
-    # fig = plt.figure()
-    # ax = fig.add_subplot(111, projection='3d')
-    # sc = ax.scatter(noise_values, contrast_values, dice_values, c=dice_values, cmap='plasma', alpha=0.5)
-    # plt.colorbar(sc, label='AI Model Dice')
-    # ax.set_xlabel('Noise')
-    # ax.set_ylabel('Contrast')
-    # ax.set_zlabel('Dice Coefficient')
-    # ax.set_title('Dice = f(Noise and Contrast)')
-    #
-    # # Adding the AI Hallucination criterion threshold plane
-    # zz = np.ones_like(xx) * 0.05
-    # ax.plot_surface(xx, yy, zz, color='gray', alpha=0.3)
-    #
-    # plt.savefig(os.path.join(output_filepath, 'Dice_vs_Noise_Contrast.png'))
-    # plt.close()
-    #
+        output_filepath = os.path.join(root_output_filepath, "2d_ai_metrics")
+        if not os.path.exists(output_filepath):
+            os.mkdir(output_filepath)
+            print("INFO: created output folder = ", output_filepath)
+
+        if elem == "TRUE POSITIVE":
+            plot_2d_variable(noise_values, contrast_values, tp_prob, metric_name, log_scale, output_filepath)
+            continue
+        if elem == "TRUE NEGATIVE":
+            plot_2d_variable(noise_values, contrast_values, tn_prob, metric_name, log_scale, output_filepath)
+            continue
+        if elem == "FALSE NEGATIVE":
+            plot_2d_variable(noise_values, contrast_values, fn_prob, metric_name, log_scale, output_filepath)
+            continue
+        if elem == "FALSE POSITIVE":
+            plot_2d_variable(noise_values, contrast_values, fp_prob, metric_name, log_scale, output_filepath)
+            continue
+
+        plot_2d_variable(noise_values, contrast_values, data[:,ai_var_index[elem]], metric_name, log_scale, output_filepath)
+        print("DEBUG: created 2d plot for ", metric_name, " at ", output_filepath)
+
 
 
 '''
@@ -453,6 +363,24 @@ def plot_confusion_matrix(merged_csv_path, output_filepath):
     disp.plot(cmap=plt.cm.Blues)
     plt.title('Aggregated Confusion Matrix (Percentage)')
     plt.savefig(os.path.join(output_filepath, 'aggregated_confusion_matrix.png'))
+    plt.close()
+
+#
+def plot_2d_variable(noise_values,contrast_values,metric_values,metric_name, log_scale,  output_filepath):
+    ##################################
+    plt.figure(figsize=(10, 6))
+    if log_scale:
+        plt.scatter(np.log(noise_values), contrast_values, c=metric_values, cmap='plasma', alpha=0.5)
+        plt.xlabel('ln(Noise)')
+    else:
+        plt.scatter(noise_values, contrast_values, c=metric_values, cmap='plasma', alpha=0.5)
+        plt.xlabel('Noise')
+
+    plt.ylabel('Contrast')
+    plt.colorbar(label=metric_name)
+    plt.title(metric_name)
+    plt.grid(True)
+    plt.savefig(os.path.join(output_filepath, (metric_name+'.png')))
     plt.close()
 
 

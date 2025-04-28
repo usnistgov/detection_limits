@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Metrics Selector</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Image Metrics Selector</h1>
+    <div class="form-group">
+        <label for="metricSelect">Select Metric:</label>
+        <select id="metricSelect">
+            <option value="">-- Select a metric --</option>
+            <option value="Foreground_mean">Foreground Mean</option>
+            <option value="Background_mean">Background Mean</option>
+            <option value="Foreground_var">Foreground Variance</option>
+            <option value="Background_var">Background Variance</option>
+            <option value="Mean_intensity">Mean Intensity</option>
+            <option value="Std_intensity">Standard Intensity</option>
+            <option value="Variance_intensity">Variance Intensity</option>
+            <option value="Michelson_contrast">Michelson Contrast</option>
+            <option value="RMS_contrast">RMS Contrast</option>
+            <option value="SSIM">SSIM</option>
+            <option value="PSNR">PSNR</option>
+            <option value="Edge_density">Edge Density</option>
+            <option value="MI">Mutual Information</option>
+            <option value="NMI">Normalized Mutual Information</option>
+            <option value="CE">Cross Entropy</option>
+        </select>
+    </div>
+    
+    <button id="showMetric">Show Metric Details</button>
+    
+    <div id="result" style="display: none;"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const metricSelect = document.getElementById('metricSelect');
+            const showButton = document.getElementById('showMetric');
+            const resultDiv = document.getElementById('result');
+            
+            // Metric descriptions
+            const metricInfo = {
+                "Foreground_mean": "Average pixel intensity in the foreground region",
+                "Background_mean": "Average pixel intensity in the background region",
+                "Foreground_var": "Variance of pixel intensities in the foreground region",
+                "Background_var": "Variance of pixel intensities in the background region",
+                "Mean_intensity": "Average intensity across the entire image",
+                "Std_intensity": "Standard deviation of intensities across the image",
+                "Variance_intensity": "Variance of intensities across the image",
+                "Michelson_contrast": "Contrast measure defined as (Imax-Imin)/(Imax+Imin)",
+                "RMS_contrast": "Root Mean Square contrast measure",
+                "SSIM": "Structural Similarity Index Measure",
+                "PSNR": "Peak Signal-to-Noise Ratio",
+                "Edge_density": "Density of edges detected in the image",
+                "MI": "Mutual Information between image regions",
+                "NMI": "Normalized Mutual Information",
+                "CE": "Cross Entropy between image distributions"
+            };
+            
+            // Button click handler
+            showButton.addEventListener('click', function() {
+                const selectedMetric = metricSelect.value;
+                
+                if (selectedMetric) {
+                    const description = metricInfo[selectedMetric] || "No description available";
+                    resultDiv.innerHTML = `
+                        <h3>${selectedMetric}</h3>
+                        <p>${description}</p>
+                    `;
+                    resultDiv.style.display = 'block';
+                } else {
+                    resultDiv.innerHTML = "<p>Please select a metric first</p>";
+                    resultDiv.style.display = 'block';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

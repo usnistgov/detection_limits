@@ -23,11 +23,17 @@ metrics computed and saved in a format
  
 '''
 
-wanted_header_csv=["IMAGE-NAME","Set_index","Noise_level","Contrast_level","SNR1","SNR2", "SNR3","SNR4", "SNR5","SNR6",
-                   "SNR7", "SNR8","SNR9", "SNR10",
+# wanted_header_csv=["IMAGE-NAME","Set_index","Noise_level","Contrast_level","SNR1","SNR2", "SNR3","SNR4", "SNR5","SNR6",
+#                    "SNR7", "SNR8","SNR9", "SNR10",
+#                    "Foreground_mean","Background_mean","Foreground_var","Background_var","Mean_intensity","Std_intensity",
+#                    "Variance_intensity","Michelson_contrast","RMS_contrast","SSIM","PSNR","Edge_density","MI","NMI","CE"]
+
+wanted_header_csv=["IMAGE-NAME","DICE-COEFFICIENT","TRUE POSITIVE","TRUE NEGATIVE","FALSE POSITIVE","FALSE NEGATIVE",
+                   "Set_index","Noise_level","Contrast_level","SNR1","SNR2", "SNR3","SNR4", "SNR5","SNR6","SNR7", "SNR8","SNR9", "SNR10",
                    "Foreground_mean","Background_mean","Foreground_var","Background_var","Mean_intensity","Std_intensity",
                    "Variance_intensity","Michelson_contrast","RMS_contrast","SSIM","PSNR","Edge_density","MI","NMI","CE"]
 
+# ai_header_csv = ["IMAGE-NAME",	"DICE-COEFFICIENT",	"TRUE POSITIVE",	"TRUE NEGATIVE",	"FALSE POSITIVE",	"FALSE NEGATIVE"]
 
 def plot_2d_variable(noise_values,contrast_values,metric_values,log_scale, metric_name, output_filepath):
     ##################################
@@ -48,14 +54,14 @@ def plot_2d_variable(noise_values,contrast_values,metric_values,log_scale, metri
 
 ######################################################################
 # The method for plotting results from a CSV file
-def plot_2d_data_quality(csv_path, output_dirpath, log_scale):
+def plot_2d_data_quality(csv_path, root_output_filepath, log_scale):
     var_index ={}
     header = pd.read_csv(csv_path, nrows=0).columns.tolist()
     print("Read CSV header:",header)
     for item in wanted_header_csv:
         if item not in header:
-            print(f"Error: {item} not found in the CSV header")
-            exit()
+            print(f"Warning: {item} not found in the CSV header")
+            continue
         var_index.update({item: header.index(item)})
 
     print("DEBUG: dictionary with names and indices var_index=", var_index)
@@ -99,7 +105,124 @@ def plot_2d_data_quality(csv_path, output_dirpath, log_scale):
         if elem == "SNR10":
             metric_name = "Cohend_param"
 
-        plot_2d_variable(noise_values, contrast_values, data[:,var_index[elem]], log_scale, metric_name, output_dirpath)
+        output_filepath = os.path.join(root_output_filepath, "2d_dataquality_graphs")
+        if not os.path.exists(output_filepath):
+            os.mkdir(output_filepath)
+            print("INFO: created output folder = ", output_filepath)
+
+        plot_2d_variable(noise_values, contrast_values, data[:,var_index[elem]], log_scale, metric_name, output_filepath)
+
+
+def plot_3d_variable(noise_values,contrast_values, metric_values, metric_name, log_scale, output_filepath):
+
+    fig = plt.figure()
+    # Plot metric_values as a function of noise and contrast
+    ax = fig.add_subplot(111, projection='3d')
+    ax.set_xlabel('Noise')
+    ax.set_ylabel('Contrast')
+
+    if log_scale:
+        log_metric_values = np.log(metric_values) if np.all(metric_values > 0) else np.log(metric_values + 1e-10)
+        sc = ax.scatter(noise_values, contrast_values, log_metric_values, c=log_metric_values, cmap='plasma',
+                        alpha=0.5)
+        ax.set_zlabel('ln('+metric_name+')')
+        ax.set_title('ln('+metric_name+') = f(Noise and Contrast)')
+        plt.colorbar(sc, label='ln('+metric_name+')')
+    else:
+        sc = ax.scatter(noise_values, contrast_values, metric_values, c=metric_values, cmap='plasma', alpha=0.5)
+        ax.set_zlabel(metric_name)
+        ax.set_title(metric_name + ' = f(Noise and Contrast)')
+        plt.colorbar(sc, label=metric_name)
+
+
+    # xx, yy = np.meshgrid(np.linspace(noise_values.min(), noise_values.max(), 100),
+    #                      np.linspace(contrast_values.min(), contrast_values.max(), 100))
+
+    # Adding the AI Hallucination criterion threshold plane
+    # zz = np.ones_like(xx) * 0.05
+    # ax.plot_surface(xx, yy, zz, color='gray', alpha=0.3)
+
+    plt.savefig(os.path.join(output_filepath, (metric_name+'.png')))
+    plt.close()
+
+
+
+'''
+This method plots in 3D all image data quality metrics 
+csv_path, output_dirpath, log_scale
+'''
+def plot_3d_data_quality(csv_path, root_output_filepath, log_scale):
+    var_index ={}
+    header = pd.read_csv(csv_path, nrows=0).columns.tolist()
+    print("Read CSV header:",header)
+    for item in wanted_header_csv:
+        if item not in header:
+            print(f"Warning: {item} not found in the CSV header")
+            continue
+        var_index.update({item: header.index(item)})
+
+    print("DEBUG: dictionary with names and indices var_index=", var_index)
+
+    # load the data
+    data = np.genfromtxt(csv_path, delimiter=',', skip_header=1)
+    if data.shape[1] < 22:
+        print("Error: number of columns expected = 23")
+        exit()
+
+    set_values = data[:, var_index["Set_index"]]
+    noise_values = data[:, var_index["Noise_level"]]
+    contrast_values = data[:, var_index["Contrast_level"]]
+
+    # # information about the data quality metrics
+    # # snr1_values = data[:, var_index["SNR1"]]
+    # # snr2_values = data[:, var_index["SNR2"]]
+    # # snr3_values = data[:, var_index["SNR3"]]
+    # snr4_values = data[:, var_index["SNR4"]]
+    # snr5_values = data[:, var_index["SNR5"]]
+    # # snr6_values = data[:, var_index["SNR6"]]
+    # michelson_values = data[:,var_index["Michelson_contrast"]]
+    # rms_values = data[:, var_index["RMS_contrast"]]
+    # ssim_values = data[:, var_index["SSIM"]]
+    # edge_values = data[:, var_index["Edge_density"]]
+    # mi_values = data[:, var_index["MI"]]
+
+
+    #################################################################################
+    # these graphs are without the Rose threshold and the corresponding ai model threshold
+    for elem in var_index:
+        print("DEBUG: elem=", elem, " index=", var_index[elem])
+        metric_name = elem
+        if elem == "IMAGE-NAME" or elem == "Set_index" or elem == "Noise_level" or elem == "Contrast_level":
+            continue
+
+        if elem == "SNR1":
+            metric_name = "SNR_power_est"
+        if elem == "SNR2":
+            metric_name = "SNR_RMSpower_est"
+        if elem == "SNR3":
+            metric_name = "SNR_invCV2_est"
+        if elem == "SNR4":
+            metric_name = "SNR_invCV_est"
+        if elem == "SNR5":
+            metric_name = "SNR_invCV_param"
+        if elem == "SNR6":
+            metric_name = "SNR_invCV2_param"
+        if elem == "SNR7":
+            metric_name = "SNR_power_param"
+        if elem == "SNR8":
+            metric_name = "SNR_RMSpower_param"
+        if elem == "SNR9":
+            metric_name = "Cohend_est"
+        if elem == "SNR10":
+            metric_name = "Cohend_param"
+
+
+        output_filepath = os.path.join(root_output_filepath, "3d_dataquality_graphs")
+        if not os.path.exists(output_filepath):
+            os.mkdir(output_filepath)
+            print("INFO: created output folder = ", output_filepath)
+
+        plot_3d_variable(noise_values, contrast_values, data[:,var_index[elem]], metric_name, log_scale, output_filepath)
 
 
 
@@ -154,7 +277,11 @@ def main():
                         default='results',
                         type=str,
                         help='filepath to where the outputs will be saved.')
-
+    parser.add_argument(
+        "--set_index",type=int,required=False,
+        help="index of the simulated set.",
+        default=1
+    )
 
     parser.add_argument('--log_scale',
                     action='store_true',
@@ -162,15 +289,28 @@ def main():
 
     args = parser.parse_args()
     csv_path = args.csv_filepath
-    output_dirpath = args.output_dirpath
+    root_dirpath = args.output_dirpath
 
-    if not os.path.exists(output_dirpath):
+    if not os.path.exists(root_dirpath):
         # create the output folder
+        os.mkdir(root_dirpath)
+        print("INFO: created root output folder = ", root_dirpath)
+
+    # output_dirpath = os.path.join(root_dirpath, "2d_data_quality_graphs")
+    # if not os.path.exists(output_dirpath):
+    #     os.mkdir(output_dirpath)
+    #     print("INFO: created output folder = ", output_dirpath)
+
+    plot_2d_data_quality(csv_path, root_dirpath, log_scale=True)
+
+
+    plot_3d_data_quality(csv_path, root_dirpath, log_scale=True)
+
+    # this method is for pair-wise comparison
+    output_dirpath = os.path.join(root_dirpath, "2d_dataquality_compgraphs")
+    if not os.path.exists(output_dirpath):
         os.mkdir(output_dirpath)
         print("INFO: created output folder = ", output_dirpath)
-
-    plot_2d_data_quality(csv_path, output_dirpath, log_scale=True)
-    # this method is for pair-wise comparison
     plot_snr_vs_metrics(csv_path, output_dirpath, log_scale=True)
 
 

@@ -1,0 +1,49 @@
+table {
+    border-spacing: 0;
+    width: 50%;
+	background-color: #cccccc;
+}
+table, th, td {
+    border: 1px solid black;
+}
+
+th {
+    cursor: pointer;
+}
+th, td {
+    text-align: left;
+    padding: 4px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2
+}
+tr:hover {background-color: #FFE4C4;}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 60px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 100%;
+    margin-left: -60px;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+	content: attr("I am your tooltip text");
+}

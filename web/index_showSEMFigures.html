@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<!--
+This software was developed at the National Institute of Standards and
+Technology by employees of the Federal Government in the course of
+their official duties. Pursuant to title 17 Section 105 of the United
+States Code this software is not subject to copyright protection and is
+in the public domain. This software is an experimental system. NIST assumes
+no responsibility whatsoever for its use by other parties, and makes no
+guarantees, expressed or implied, about its quality, reliability, or
+any other characteristic. We would appreciate acknowledgement if the
+software is used.
+-->
+<html><head>
+  <meta http-equiv="content-type" content="text/html; charset=windows-1252">
+  <title>NIST Computational Science in Metrology</title>
+  <link rel="icon" href="https://isg.nist.gov/deepzoomweb/resources/img/favicon.ico;jsessionid=21CE77F2344B143AD8BF5B4A4F06CCA0" type="image/x-icon">
+  <!--<link rel="stylesheet" type="text/css" href="./css/reset.css" media="screen">  -->
+  <link rel="stylesheet" type="text/css" href="css/main_style.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="css/layout.css" media="screen">
+  <!-- <link rel="stylesheet" type="text/css" href="./css/bootstrap.css"> -->
+
+  <script type="text/javascript" language="javascript" src="js/jquery/jquery.min.js"></script>
+  <script type="text/javascript" language="javascript" src="js/site.js"></script>
+
+<!--   <link rel="stylesheet" type="text/css" href="./src/imageMagnify.css" media="screen">
+   <script type="text/javascript" language="javascript" src="./src/imageMagnify.js"></script>-->
+
+<style>
+  #image-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  #image-container img {
+    width: 400px;
+    height: 350px;
+    margin: 10px;
+  }
+
+.mytable {
+    display:table;
+	border:10px solid blue;
+    width:50%;
+	cellpadding:4px;
+	cellspacing:3px;
+}
+
+.myrow {
+    display: table-row;
+}
+.mycell {
+    display: table-cell;
+    padding: 1px;
+	border: 1px solid blue;
+	background-color: #cccccc;
+}
+
+.myrow:hover {
+   /* background-color: #BCD2EE;*/ /*#cccccc; */
+}
+.mycell:hover {
+    background-color: #BCD2EE;
+}
+
+.mynewtable a {
+	display: block;
+	text-decoration:none;
+}
+
+table {
+    border-spacing: 0;
+    width: 50%;
+    border: 1px solid #ddd;
+}
+
+th, td {
+    text-align: left;
+    padding: 16px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+</style>
+
+
+</head>
+<body id="menu2" >
+
+<!-- include to enable Google Analytics 4 support -->
+<script type="text/javascript" language="javascript" src="../csmet/js/gtag_script.js"></script>
+
+<div class="container">
+  <div class="row">
+    <a href="https://www.nist.gov/index.html"><img src="img/bg_header.png" alt="National Institute of Standards and Technology" width="100%"></a>
+
+    <div id="menuContainer">
+      <ul id="menu">
+    	<li><a id="menu1nav" href="https://isg.nist.gov/">Home</a></li>
+    	<li><a id="menu2nav" href="index.html">Detection Limits</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<BR>
+<h3 id='header1' style="text-align: center;">Latency Measurement Inspection: map_latency_Var_0_Pol_0_Vmax_250.png</h3>
+<BR>
+<!--<h1 style="text-align: center;">Latency Measurement Maps</h1>-->
+
+<div id="gallery" class="gallery" style="text-align: center;">
+  <!-- Images will be inserted here by JavaScript -->
+</div>
+
+<!-- Footer Starts-->
+<div class="container">
+  <div class="row footer">
+    <div class="col-xs-12">
+      <p>
+        The National Institute of Standards and Technology (NIST) is
+        an agency of the
+        <a href="https://commerce.gov">U.S. Department of Commerce</a>.
+      </p>
+
+      <p>
+        <a href="https://nist.gov/public_affairs/privacy.cfm">
+          Privacy policy / security notice / accessibility statement</a>
+        /
+        <a href="https://nist.gov/public_affairs/disclaimer.cfm">
+          Disclaimer</a>
+        /
+        <a href="https://nist.gov/director/foia/">
+          Freedom of Information Act (FOIA)</a>
+        /
+        <a href="https://nist.gov/director/civil/nofearpolicy.cfm">
+          No Fear Act Policy</a>
+        /
+        <a href="https://nist.gov/director/quality_standards.cfm">
+          NIST Information Quality Standards</a>
+        /
+        <a href="https://nist.gov/public_affairs/envpolicy.cfm">
+          Environmental Policy Statement</a>
+      </p>
+
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-xs-12"><strong>Date created:</strong> March 24, 2025 | <strong>Last
+      updated:</strong>
+      <script type="text/javascript">
+        //if(document.lastModified != 'undefined') { document.write(format_date_mmmddyy(document.lastModified)); }
+      </script>
+    </div>
+  </div>
+</div>
+<!-- Footer Ends-->
+
+<script>
+// constants
+const CATEGORY = [
+  { name: "Image Quality", dir: "CAM1" },
+  { name: "AI Model", dir: "CAM2" },
+  { name: "Detection Limits", dir: "CAM3" },
+];
+const SET = [
+  { name: "1", dir: "set1" },
+  { name: "2", dir: "set2" },
+  { name: "3", dir: "set3" },
+  { name: "4", dir: "set4" },
+  { name: "5", dir: "set5" },
+  { name: "6", dir: "set6" },
+];
+const VIS = [ "2d", "3d" ];
+const AIMODELID = [ "3", "5", "7"];
+
+const AIACCURACYMETRICS = ["DICE-COEFFICIENT","TRUE POSITIVE","TRUE NEGATIVE","FALSE POSITIVE","FALSE NEGATIVE"];
+
+const SNRIMAGEQUALITYMETRICS = [
+    "SNR1","SNR2", "SNR3","SNR4", "SNR5","SNR6","SNR7", "SNR8","SNR9", "SNR10"];
+
+const IMAGEQUALITYMETRICS = [
+    "SNR1","SNR2", "SNR3","SNR4", "SNR5","SNR6","SNR7", "SNR8","SNR9", "SNR10",
+     "Foreground_mean",
+    "Background_mean",
+    "Foreground_var",
+    "Background_var",
+    "Mean_intensity",
+    "Std_intensity",
+    "Variance_intensity",
+    "Michelson_contrast",
+    "RMS_contrast",
+    "SSIM",
+    "PSNR",
+    "Edge_density",
+    "MI",
+    "NMI",
+    "CE",
+    ];
+
+const AIPROBMETRICS = ["Dice","FPR","FNR"];
+
+const imagePointer = window.location.hash.substring(1);
+const splitName = imagePointer.split("&")
+
+console.log("index_showSEMFigures.html: " + imagePointer);
+console.log("index_showSEMFigures.html: len(splitName)=" + (splitName.length));
+
+// consolidate the empty and undefined entries
+for (let j = 1; j < splitName.length; j+=2){
+  if (splitName[j] === ''){
+    splitName[j] = "undefined";
+  }
+}
+
+const categorySelect = splitName[1];
+const data_qualitySelect = splitName[3];
+const ai_modelSelect = splitName[5];
+const detection_limitsSelect = splitName[7];
+
+const data_quality_setSelect = splitName[9];
+const ai_model_idSelect = splitName[11];
+
+const data_quality_vistypeSelect = splitName[13];
+const ai_model_vistypeSelect = splitName[15];
+const detection_limits_idSelect = splitName[17];
+
+
+console.log(categorySelect + ", " + data_qualitySelect + ", " + ai_modelSelect + ", " + detection_limitsSelect);
+console.log(data_quality_setSelect + ", " + ai_model_idSelect + ", " + data_quality_vistypeSelect + ", " + ai_model_vistypeSelect + "," + detection_limits_idSelect);
+
+var path_to_figures = '';
+let header1text ='';
+let images = [];
+
+//console.log("TEST DATA: " + data_qualitySelect + "," + data_quality_setSelect + "," + data_quality_vistypeSelect);
+
+if (categorySelect !== "undefined" && data_qualitySelect !== "undefined" && data_quality_vistypeSelect !== "undefined") {
+
+  header1text += `<br>
+    Detection Limits for SEM Images:<br>
+    Selected Category = ${categorySelect}<br>
+    Selected Set = ${data_qualitySelect}<br>
+    Selected Visualization = ${data_quality_vistypeSelect}<br>
+    `;
+  if (data_quality_vistypeSelect === "2d") {
+    // C:\PeterB\Projects\github\detection_limits\web_dissemination\Images\set1_figures\2d_dataquality_graphs
+    path_to_figures = 'Images/' + data_qualitySelect + '_figures/2d_dataquality_graphs/';
+  }else{
+    // C:\PeterB\Projects\github\detection_limits\web_dissemination\Images\set1_figures\3d_dataquality_graphs
+     path_to_figures = 'Images/' + data_qualitySelect + '_figures/3d_dataquality_graphs/';
+  }
+  images = getBasicNameDataImages();
+}
+
+//console.log("TEST AI: " + categorySelect + "," + ai_modelSelect + "," + ai_model_vistypeSelect);
+
+if (categorySelect!== "undefined" && ai_modelSelect !== "undefined" && ai_model_vistypeSelect !== "undefined") {
+  header1text += `<br>
+    Detection Limits for SEM Images:<br>
+    Selected Category = ${categorySelect}<br>
+    Selected AI Model ID = ${ai_modelSelect}<br>
+    Selected Visualization = ${ai_model_vistypeSelect}<br>
+    `;
+  if (ai_model_vistypeSelect === "2d") {
+    // C:\PeterB\Projects\github\detection_limits\web_dissemination\Images\vis_model3\2d_ai_metrics
+    path_to_figures = 'Images/vis_model' + ai_modelSelect + '/2d_ai_metrics/';
+  }else{
+    // C:\PeterB\Projects\github\detection_limits\web_dissemination\Images\vis_model3\3d_ai_metrics
+    path_to_figures = 'Images/vis_model' + ai_modelSelect + '/3d_ai_metrics/';
+  }
+  images = getBasicNameAIImages();
+}
+
+//console.log("TEST Detection Limits: " + categorySelect + "," + detection_limitsSelect + "," + detection_limits_idSelect);
+
+if (categorySelect!== "undefined" && detection_limitsSelect !== "undefined" ) {
+
+  header1text += `<br>
+    Detection Limits for SEM Images:<br>
+    Selected Detection Limits = ${categorySelect}<br>
+    Selected Model ID = ${detection_limitsSelect}<br>
+    `;
+  // C:\PeterB\Projects\github\detection_limits\web_dissemination\Images\vis_model3\3d_relation
+    path_to_figures = 'Images/vis_model' + detection_limitsSelect + '/3d_relation/';
+    images = getRelationImages();
+
+}
+
+if (path_to_figures === '') {
+  console.log("ERROR: path to figures does nto exist: ", path_to_figures);
+}
+
+function getBasicNameDataImages() {
+  let images = [];
+  let number_metrics = IMAGEQUALITYMETRICS.length;
+  for (let i = 0; i < number_metrics; i++) {
+    let metricName = IMAGEQUALITYMETRICS[i];
+    if (metricName.includes("SNR")) {
+      metricName = getSNRname(metricName);
+    }
+    //console.log('DEBUG:', metricName);
+
+    images.push({
+      filename: `${path_to_figures}${metricName}.png`,
+      caption: `Metric: ${metricName} as a function of contrast and noise `
+    })
+  }
+  header1text += `<br> Data quality plots as a function of noise and contrast <br>`;
+
+  return images;
+}
+
+function getBasicNameAIImages() {
+  let images = [];
+  let number_metrics = AIACCURACYMETRICS.length;
+  for (let i = 0; i < number_metrics; i++) {
+    let metricName = AIACCURACYMETRICS[i];
+    //console.log('DEBUG:', metricName);
+
+    images.push({
+      filename: `${path_to_figures}${metricName}.png`,
+      caption: `Metric: ${metricName} as a function of contrast and noise `
+    })
+  }
+  header1text += `<br> AI model accuracy plots as a function of noise and contrast <br>`;
+
+  return images;
+}
+
+function getRelationImages() {
+  let images = [];
+  let number_data_metrics = SNRIMAGEQUALITYMETRICS.length;
+  for (let i = 0; i < number_data_metrics; i++) {
+    let metricName = SNRIMAGEQUALITYMETRICS[i];
+    if (metricName.includes("SNR")) {
+      metricName = getSNRname(metricName);
+    }
+    let number_AI_metrics = AIPROBMETRICS.length;
+    for (let j = 0; j < number_AI_metrics; j++) {
+      let metricName2 = metricName + '_' + AIPROBMETRICS[j];
+      //console.log('DEBUG:', metricName2);
+
+      images.push({
+        filename: `${path_to_figures}${metricName2}.png`,
+        caption: `Metric: ${metricName2} as a function of contrast and noise `
+      })
+    }
+  }
+  header1text += `<br> Data quality vs AI model accuracy plots as a function of noise and contrast <br>`;
+
+  return images;
+}
+
+function getSNRname(elem) {
+  metric_name = '';
+  switch (elem) {
+    case "SNR1":
+      metric_name = "SNR_power_est";
+      break;
+    case "SNR2":
+      metric_name = "SNR_RMSpower_est"
+      break;
+    case "SNR3":
+      metric_name = "SNR_invCV2_est";
+      break;
+    case "SNR4":
+      metric_name = "SNR_invCV_est";
+      break;
+    case "SNR5":
+      metric_name = "SNR_invCV_param";
+      break;
+    case "SNR6":
+      metric_name = "SNR_invCV2_param";
+      break;
+    case "SNR7":
+      metric_name = "SNR_power_param";
+      break;
+    case "SNR8":
+      metric_name = "SNR_RMSpower_param";
+      break;
+    case "SNR9":
+      metric_name = "Cohend_est";
+      break;
+    case "SNR10":
+      metric_name = "Cohend_param";
+      break;
+    default:
+      metric_name = "SNR_invCV_est";
+      break;
+  }
+  return metric_name;
+}
+
+// display images
+document.getElementById("header1").innerHTML = header1text;
+
+const galleryElement = document.getElementById('gallery');
+// Clear any existing content
+galleryElement.innerHTML = '';
+
+images.forEach(image => {
+  // Create container for image and caption
+  const container = document.createElement('div');
+  container.className = 'image-container';
+
+  // Create image element
+  const img = document.createElement('img');
+  img.src = image.filename; //image.url;
+  img.alt = image.caption; //image.caption;
+  img.loading = 'lazy'; // Lazy loading for better performance
+
+  // Create caption element
+  const caption = document.createElement('div');
+  caption.className = 'caption';
+  caption.textContent = image.caption;//image.caption;
+
+  // Append elements to container
+  container.appendChild(img);
+  container.appendChild(caption);
+
+  // Append container to gallery
+  galleryElement.appendChild(container);
+});
+
+</script>
+
+
+</body>
+</html>
