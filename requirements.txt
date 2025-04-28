@@ -1,27 +1,27 @@
-Bottleneck @ file:///C:/b/abs_816hr2khp1/croot/bottleneck_1731058648110/work
-imageio @ file:///C:/b/abs_4cup9zfkvm/croot/imageio_1738160462075/work
-joblib @ file:///C:/Users/dev-admin/perseverance-python-buildout/croot/joblib_1729044354027/work
-lazy_loader @ file:///C:/Users/dev-admin/perseverance-python-buildout/croot/lazy_loader_1729054947204/work
+Bottleneck
+imageio
+joblib
+lazy_loader
 mkl-service==2.4.0
-mkl_fft @ file:///C:/Users/dev-admin/mkl/mkl_fft_1730824198951/work
-mkl_random @ file:///C:/Users/dev-admin/mkl/mkl_random_1730824302834/work
-networkx @ file:///C:/b/abs_b054htfn9t/croot/networkx_1737043671910/work
-numexpr @ file:///C:/Users/dev-admin/buildout/perseverance-python-buildout/croot/numexpr_1731700337214/work
-numpy @ file:///C:/b/abs_71ejae7e2v/croot/numpy_and_numpy_base_1742570444043/work/dist/numpy-2.2.4-cp313-cp313-win_amd64.whl#sha256=388a8b7fdafe2ad1ad68b5f2219cd9a2c8ff70d8df20b88bad6a1c461e3db688
-opencv-python==4.10.0
-opencv-python-headless==4.10.0
-packaging @ file:///C:/b/abs_3by6s2fa66/croot/packaging_1734472138782/work
-pandas @ file:///C:/b/abs_e18w9ay4we/croot/pandas_1732735115740/work/dist/pandas-2.2.3-cp313-cp313-win_amd64.whl#sha256=89153934c68f42239148879a6c0fd8bb5004e767550db26257dc4551ad0414d7
-pillow @ file:///C:/b/abs_b50vowcrzo/croot/pillow_1738010273782/work
+mkl_fft
+mkl_random
+networkx
+work
+numpy
+opencv-python~=4.10.0
+opencv-python-headless~=4.10.0
+packaging
+pandas
+pillow
 Pygments==2.19.1
-python-dateutil @ file:///C:/Users/dev-admin/perseverance-python-buildout/croot/python-dateutil_1729038406576/work
-pytz @ file:///C:/Users/dev-admin/perseverance-python-buildout/croot/pytz_1729039375330/work
-scikit-image @ file:///C:/b/abs_081xgoymhl/croot/scikit-image_1737473383970/work
-scikit-learn @ file:///C:/b/abs_0dwalqot3o/croot/scikit-learn_1737988780693/work/dist/scikit_learn-1.6.1-cp313-cp313-win_amd64.whl#sha256=3e52b503bae0e72bc233231ad5d730537e192e1214e0ac766be348eb9dfb7cfd
-scipy @ file:///C:/b/abs_57lp_c7nt4/croot/scipy_1743153260151/work/dist/scipy-1.15.2-cp313-cp313-win_amd64.whl#sha256=ecbbf6ec98059443ad65097411c0a3bd32c0c8d59fbe6d3ccb5dacc3c4a2745f
+python-dateutil
+pytz
+scikit-image
+scikit-learn
+scipy
 setuptools==72.1.0
-six @ file:///C:/b/abs_149wuyuo1o/croot/six_1744271521515/work
-threadpoolctl @ file:///C:/b/abs_3904pspv77/croot/threadpoolctl_1731006105881/work
-tifffile @ file:///C:/b/abs_8aikas7x_4/croot/tifffile_1741164551582/work
-tzdata @ file:///croot/python-tzdata_1690578112552/work
+six
+threadpoolctl
+tifffile
+tzdata
 wheel==0.45.1

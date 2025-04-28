@@ -336,7 +336,7 @@ def metrics(input_intensity_path, input_mask_path, output_filepath, set_index):
         mask = io.imread(maskimage_filename)
 
         intensityimage_filename = os.path.join(input_intensity_path, sorted_intensity_files[index])
-        print("INFO: imtensity_filename= ", intensityimage_filename)
+        print("INFO: intensity_filename= ", intensityimage_filename)
         img = io.imread(intensityimage_filename)
 
         noise_val = noise_list[index]

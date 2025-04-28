@@ -22,12 +22,46 @@ The repository contains two folders:
 
 ## Technical installation instructions, including operating  system or software dependencies 
 
-To run the Python scripts, one can create a virtual environment using the requirements.txt file:
-```console
-foo@bar:~$ pip install -r requirements.txt
-```
-To interactively interact with the plots, one can either use the pages.nist.gov instance or
-download the web folder and click on the index.html
+To set up the environment and run the Python scripts, follow these steps:
+
+1. **Create a virtual environment** (recommended):
+
+  - Using `venv`:
+    ```console
+    foo@bar:~$ python -m venv detection_limits
+    ```
+  
+    - Activate the virtual environment:
+      ```console
+      # On Linux/macOS:
+      foo@bar:~$ source detection_limits/bin/activate
+      ```
+  
+      ```console
+      # On Windows:
+      foo@bar:~$ detection_limits\Scripts\activate
+      ```
+
+  - Or using **conda**:
+    ```console
+    foo@bar:~$ conda create -n detection_limits python=3.8
+    ```
+
+      - Activate the conda environment:
+        ```console
+        foo@bar:~$ conda activate detection_limits
+        ```
+
+2. **Install dependencies** using the provided `requirements.txt`. Ensure you are in the root directory of the repository and run:
+
+  ```console
+  foo@bar:~$ pip install -r requirements.txt
+  ```
+
+3. **Run the Python scripts** as described in the workflow section.
+
+To interactively view and explore the plots, you can either use the hosted pages.nist.gov instance or download the `web` folder and open `index.html` in your web browser.
+
 
 ## Workflow of Computations
 - Step 1: compute data quality metrics using generate_metrics.py
@@ -55,7 +89,7 @@ download the web folder and click on the index.html
 
 
 ## Related material
-   - We used ARTIMAGEN SEM Simulation Software to generate images with varying contrast and noise l evel.
+   - We used ARTIMAGEN SEM Simulation Software to generate images with varying contrast and noise level.
      - Cizmar P., Vladár A., Postek M. “Optimization of accurate SEM imaging by use of artificial images”, Proc. SPIE 7378, Scanning Microscopy, 737815, 2009, [URL](https://doi.org/10.1117/12.823415)
      - [Project URL](https://sourceforge.net/projects/artimagen/) and [GitHub Repo URL](https://github.com/strec007/artimagen)
      - License: As this software was developed as part of work done by the United States Government, it is not subject to copyright, and is in the public domain. Note that according to GNU.org public domain is compatible with GPL.
@@ -67,7 +101,7 @@ download the web folder and click on the index.html
      - Title: WIPP UNet CNN Inference Plugin, Version:1.0.0, [Repository](https://github.com/usnistgov/WIPP-unet-inference-plugin) Container images: wipp/wipp-unet-cnn-inference-plugin:1.0.0
 
    - The execution and full computational provenance were obtained by using the WIPP scientific workflow software:
-     - [GitHub: WIPP code](https://github.com/usnistgov/WIPP">) 
+     - [GitHub: WIPP code](https://github.com/usnistgov/WIPP) 
      - Bajcsy, P. , Chalfoun, J. and Simon, M. (2018), Web Microanalysis of Big Image Data, Springer International Publishing.
      
 ## CODEOWNERS
