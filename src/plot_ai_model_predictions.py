@@ -86,62 +86,131 @@ def plot_3d_planes(noise_values,contrast_values, metric_values, human_snr_thresh
     xx, yy = np.meshgrid(np.linspace(noise_values.min(), noise_values.max(), 100),
                          np.linspace(contrast_values.min(), contrast_values.max(), 100))
 
-    # Calculate and add the AI Hallucination criterion plane
-    # total_pixels = tn_values + tp_values + fn_values + fp_values
+    # this value is the default when max Dice, min FPR, or min FNR cannot be matched with SNR metrics
+    min_SNR = np.min(metric_values)
+    max_SNR = np.max(metric_values)
 
-    # False positive rate is calculated by dividing the number of False Positives (FP) by the total number of negative samples (FP + TN).
-    # A higher FPR indicates a model is prone to more errors, specifically making more false alarms (incorrectly identifying negatives as positives)
-    #fp_rate = fp_values / (fp_values + tn_values)
-    min_fp_rate = np.min(fp_rate)
-    print("INFO: min_fp_rate=", min_fp_rate)
+    if metric_name.__contains__("Dice"):
+        min_dice = np.min(fp_rate)
+        print("INFO: min_dice_rate=", min_dice)
+        min_thresh_on_fp_rate = np.round(min_dice*100)/100.0
 
-    temp = int(min_fp_rate*100.0)
-    thresh_on_fp_rate = np.mod(temp, 5)
-    thresh_on_fp_rate = (temp + (5- thresh_on_fp_rate))/100.0
+        print("INFO: thresh_on_dice: ", min_thresh_on_fp_rate)
+        snr_dice_array = metric_values[np.isclose(fp_rate, min_thresh_on_fp_rate, atol=0.1)]
+        if len(snr_dice_array) == 0:
+            min_snr_fp = min_SNR
+            print("INFO: SNR thresh_on_dice = 0.95: replaced by min SNR:", min_SNR)
+        else:
+            min_snr_fp = np.average(snr_dice_array)
 
-    print("INFO: thresh_on_fp_rate: ", thresh_on_fp_rate)
-    min_snr_fp = metric_values[np.isclose(fp_rate, thresh_on_fp_rate, atol=0.005)].min()
+        max_dice= np.max(fp_rate)
+        print("INFO: max_dice=", max_dice)
+        max_thresh_on_fp_rate = np.round(max_dice*100)/100.0
 
+        snr_dice_fixed_array = metric_values[np.isclose(fp_rate, max_thresh_on_fp_rate, atol=0.1)]
+        if len(snr_dice_fixed_array) == 0:
+            max_snr_fp = max_SNR
+            print("INFO: SNR thresh_on_dice = 0.95: replaced by max SNR:", max_snr_fp)
+        else:
+            max_snr_fp = np.average(snr_dice_fixed_array)
+            print("INFO: SNR thresh_on_dice = 0.95: ", max_snr_fp)
+
+    elif metric_name.__contains__("FPR") or metric_name.__contains__("FNR"):
+        # False positive rate is calculated by dividing the number of False Positives (FP) by the total number of negative samples (FP + TN).
+        # A higher FPR indicates a model is prone to more errors, specifically making more false alarms (incorrectly identifying negatives as positives)
+        # fp_rate = fp_values / (fp_values + tn_values)
+        max_fp_rate = np.max(fp_rate)
+        print("INFO: max_fp_rate=", max_fp_rate)
+        max_thresh_on_fp_rate = np.round(max_fp_rate*100)/100.0
+
+        print("INFO: thresh_on_fp_rate: ", max_thresh_on_fp_rate)
+        snr_fp_rate_array = metric_values[np.isclose(fp_rate, max_thresh_on_fp_rate, atol=0.01)]
+        if len(snr_fp_rate_array) == 0:
+            max_snr_fp = min_SNR
+            print("INFO: SNR thresh_on_fp_rate: replaced by min SNR:",max_snr_fp)
+        else:
+            max_snr_fp = np.average(snr_fp_rate_array)
+
+        min_fp_rate = np.min(fp_rate)
+        print("INFO: min_fp_rate=", min_fp_rate)
+        min_thresh_on_fp_rate = np.round(min_fp_rate*100)/100.0
+        snr_fp_fixed_array = metric_values[np.isclose(fp_rate, min_thresh_on_fp_rate, atol=0.01)]
+        if len(snr_fp_fixed_array) == 0:
+            min_snr_fp = max_SNR
+            print("INFO: SNR thresh_on_fp_rate = 0.05: replaced by min SNR:", min_snr_fp)
+        else:
+            min_snr_fp = np.average(snr_fp_fixed_array)
+            print("INFO: SNR thresh_on_fp_rate = 0.05: ", min_snr_fp)
 
     if metric_name.__contains__("Dice"):
         show_name = "Dice"
         end_index = len(metric_name) - len("Dice") - 1
         plot_name = metric_name[0:end_index]
+        # Add text label for minimum SNR
+        # thresh_on_fp_rate, (1.0 - thresh_on_fp_rate),
+        ax.text2D(0.01, 0.95,
+                  f'For Min {show_name} = {min_thresh_on_fp_rate}, {plot_name}: ln({min_snr_fp:.3f})={np.log(min_snr_fp):.2f}', transform=ax.transAxes,
+                  color='blue')
+        ax.text2D(0.01, 0.90,
+                  f'For Max {show_name} = {max_thresh_on_fp_rate}, {plot_name}: ln({max_snr_fp:.3f})={np.log(max_snr_fp):.2f}', transform=ax.transAxes,
+                      color='green')
     elif metric_name.__contains__("FNR"):
         show_name = "FNR"
         end_index = len(metric_name) - len("FNR") - 1
         plot_name = metric_name[0:end_index]
+        # Add text label for minimum SNR
+        # thresh_on_fp_rate, (1.0 - thresh_on_fp_rate),
+        ax.text2D(0.01, 0.95,
+                  f'For Max {show_name} = {max_thresh_on_fp_rate}, {plot_name}: ln({min_snr_fp:.3f})={np.log(min_snr_fp):.2f}', transform=ax.transAxes,
+                  color='blue')
+        ax.text2D(0.01, 0.90,
+                  f'For Min {show_name} = {min_thresh_on_fp_rate}, {plot_name}: ln({max_snr_fp:.3f})={np.log(max_snr_fp):.2f}', transform=ax.transAxes,
+                      color='green')
     else:
         show_name = "FPR"
         end_index = len(metric_name) - len("FPR") - 1
         plot_name = metric_name[0:end_index]
 
-    # Add text label for minimum SNR
-    # thresh_on_fp_rate, (1.0 - thresh_on_fp_rate),
-    ax.text2D(0.05, 0.95,
-              f'Min {plot_name} for {show_name} <= {thresh_on_fp_rate}: {min_snr_fp:.2f}', transform=ax.transAxes, color='blue')
+        # Add text label for minimum SNR
+        # thresh_on_fp_rate, (1.0 - thresh_on_fp_rate),
+        ax.text2D(0.01, 0.95,
+                  f'For Max {show_name} = {max_thresh_on_fp_rate}, {plot_name}: ln({min_snr_fp:.3f})={np.log(min_snr_fp):.2f}', transform=ax.transAxes,
+                  color='blue')
+        ax.text2D(0.01, 0.90,
+                  f'For Min {show_name} = {min_thresh_on_fp_rate}, {plot_name}: ln({max_snr_fp:.3f})={np.log(max_snr_fp):.2f}', transform=ax.transAxes,
+                      color='green')
+
 
     if log_scale:
         sc = ax.scatter(noise_values, contrast_values, np.log(metric_values), c=np.log(metric_values), cmap='plasma',
                         alpha=0.5)
         ax.set_zlabel('ln('+plot_name+')')
         ax.set_title('ln('+plot_name+') = f(Noise and Contrast)')
-        plt.colorbar(sc, label='ln('+plot_name+')')
+        plt.colorbar(sc, label='ln('+plot_name+')', pad=0.2)
         zz = np.ones_like(xx) * np.log(human_snr_threshold)
-        zz_fp = np.ones_like(xx) * np.log(min_snr_fp)
+        zz_fp_min = np.ones_like(xx) * np.log(min_snr_fp)
+        zz_fp_max = np.ones_like(xx) * np.log(max_snr_fp)
     else:
         sc = ax.scatter(noise_values, contrast_values, metric_values, c=metric_values, cmap='plasma', alpha=0.5)
         ax.set_zlabel(plot_name)
         ax.set_title(plot_name +' = f(Noise and Contrast)')
-        plt.colorbar(sc, label=plot_name)
+        plt.colorbar(sc, label=plot_name, pad=0.2)
         zz = np.ones_like(xx) * human_snr_threshold
-        zz_fp = np.ones_like(xx) * min_snr_fp
+        zz_fp_min = np.ones_like(xx) * min_snr_fp
+        zz_fp_max = np.ones_like(xx) * max_snr_fp
 
     # Adding the Rose criterion threshold plane
     ax.plot_surface(xx, yy, zz, color='r', alpha=0.3)
 
-    # Adding the AI Hallucination criterion threshold plane
-    ax.plot_surface(xx, yy, zz_fp, color='blue', alpha=0.3)
+    if metric_name.__contains__("Dice"):
+        # max Dice is good
+        ax.plot_surface(xx, yy, zz_fp_min, color='blue', alpha=0.3)
+        ax.plot_surface(xx, yy, zz_fp_max, color='green', alpha=0.3)
+    else:
+        # min FNR or FPR is good
+        ax.plot_surface(xx, yy, zz_fp_min, color='green', alpha=0.3)
+        ax.plot_surface(xx, yy, zz_fp_max, color='blue', alpha=0.3)
+
 
     plt.savefig(os.path.join(output_filepath, (metric_name+'.png')))
     plt.close()
@@ -247,6 +316,104 @@ def plot_snr_dice_comparison(merged_csv_path, human_snr_threshold, log_scale, ro
                                plot_name,
                                output_filepath)
 
+
+
+def plot_ai_model(merged_csv_path, human_snr_threshold, log_scale, root_output_filepath):
+    var_index ={}
+    header = pd.read_csv(merged_csv_path, nrows=0).columns.tolist()
+    print("Read CSV header:",header)
+    for item in wanted_header_csv:
+        if item not in header:
+            print(f"Error: {item} not found in the CSV header")
+            continue
+        var_index.update({item: header.index(item)})
+
+    print("DEBUG: dictionary with names and indices var_index=", var_index)
+
+    # get the indices of ai model entries defined in ai_header_csv
+    ai_var_index = {}
+    for item in ai_header_csv:
+        if item not in header:
+            continue
+        ai_var_index.update({item: header.index(item)})
+
+
+    # load the data
+    data = np.genfromtxt(merged_csv_path, delimiter=',', skip_header=1)
+    if data.shape[1] < 22:
+        print("Error: number of columns expected = 23")
+        exit()
+
+    set_values = data[:, var_index["Set_index"]]
+    noise_values = data[:, var_index["Noise_level"]]
+    contrast_values = data[:, var_index["Contrast_level"]]
+
+    # information about the AI model accuracy
+    tn_values = data[:, var_index["TRUE NEGATIVE"]]
+    fn_values = data[:, var_index["FALSE NEGATIVE"]]
+    tp_values = data[:, var_index["TRUE POSITIVE"]]
+    fp_values = data[:, var_index["FALSE POSITIVE"]]
+    dice_values = data[:, var_index["DICE-COEFFICIENT"]]
+
+    # derive ai model quality metrics
+    # False positive rate is calculated by dividing the number of False Positives (FP) by the total number of negative samples (FP + TN).
+    # A higher FPR indicates a model is prone to more errors, specifically making more false alarms (incorrectly identifying negatives as positives)
+    # fp_rate = fp_values / (fp_values + tn_values)
+    # fn_rate = fn_values / (tp_values + fn_values)
+
+    # ai_accuracy_metrics = ["Dice", "FPR", "FNR"]
+    # for elem in var_index:
+    #     print("DEBUG: elem=", elem, " index=", var_index[elem])
+    #     metric_name = elem
+    #     # if elem == "IMAGE-NAME" or elem == "Set_index" or elem == "Noise_level" or elem == "Contrast_level":
+    #     #     continue
+    #
+    #     if not str(elem).__contains__("SNR"):
+    #         continue
+    #
+    #     if elem == "SNR1":
+    #         metric_name = "SNR_power_est"
+    #     if elem == "SNR2":
+    #         metric_name = "SNR_RMSpower_est"
+    #     if elem == "SNR3":
+    #         metric_name = "SNR_invCV2_est"
+    #     if elem == "SNR4":
+    #         metric_name = "SNR_invCV_est"
+    #     if elem == "SNR5":
+    #         metric_name = "SNR_invCV_param"
+    #     if elem == "SNR6":
+    #         metric_name = "SNR_invCV2_param"
+    #     if elem == "SNR7":
+    #         metric_name = "SNR_power_param"
+    #     if elem == "SNR8":
+    #         metric_name = "SNR_RMSpower_param"
+    #     if elem == "SNR9":
+    #         metric_name = "Cohend_est"
+    #     if elem == "SNR10":
+    #         metric_name = "Cohend_param"
+    #
+    #
+    #     output_filepath = os.path.join(root_output_filepath, "3d_relation")
+    #     if not os.path.exists(output_filepath):
+    #         os.mkdir(output_filepath)
+    #         print("INFO: created output folder = ", output_filepath)
+    #
+    #     snr_values = data[:, var_index[elem]]
+    #     for elem_ai in ai_accuracy_metrics:
+    #         if elem_ai == "Dice":
+    #             plot_name = metric_name + '_Dice'
+    #             plot_3d_planes(noise_values, contrast_values, snr_values, human_snr_threshold, dice_values, log_scale, plot_name,
+    #                            output_filepath)
+    #         if elem_ai == "FPR":
+    #             plot_name = metric_name + '_FPR'
+    #             plot_3d_planes(noise_values, contrast_values, snr_values, human_snr_threshold, fp_rate, log_scale, plot_name,
+    #                            output_filepath)
+    #         if elem_ai == "FNR":
+    #             plot_name = metric_name + '_FNR'
+    #             plot_3d_planes(noise_values, contrast_values, snr_values, human_snr_threshold, fn_rate, log_scale,
+    #                            plot_name,
+    #                            output_filepath)
+    #
 
     #################################################################################
 
@@ -423,6 +590,7 @@ def main():
     human_snr_threshold = 5
     log_scale = True
     plot_snr_dice_comparison(merged_csv_filepath, human_snr_threshold, log_scale, output_filepath)
+    plot_ai_model(merged_csv_filepath, human_snr_threshold, log_scale, output_filepath)
     plot_confusion_matrix(merged_csv_filepath, output_filepath)
 
     # --input_ai_model
