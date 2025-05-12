@@ -129,9 +129,8 @@ tr:nth-child(even) {
 </div>
 
 <BR>
-<h3 id='header1' style="text-align: center;">Latency Measurement Inspection: map_latency_Var_0_Pol_0_Vmax_250.png</h3>
+<h3 id='header1' style="text-align: center;">Detection Limits for SEM Images </h3>
 <BR>
-<!--<h1 style="text-align: center;">Latency Measurement Maps</h1>-->
 
 <div id="gallery" class="gallery" style="text-align: center;">
   <!-- Images will be inserted here by JavaScript -->
@@ -199,7 +198,7 @@ const SET = [
 const VIS = [ "2d", "3d" ];
 const AIMODELID = [ "3", "5", "7"];
 
-const AIACCURACYMETRICS = ["DICE-COEFFICIENT","TRUE POSITIVE","TRUE NEGATIVE","FALSE POSITIVE","FALSE NEGATIVE"];
+const AIACCURACYMETRICS = ["Dice","FNR", "FPR", "TRUE POSITIVE","TRUE NEGATIVE","FALSE POSITIVE","FALSE NEGATIVE"];
 
 const SNRIMAGEQUALITYMETRICS = [
     "SNR1","SNR2", "SNR3","SNR4", "SNR5","SNR6","SNR7", "SNR8","SNR9", "SNR10"];
@@ -250,9 +249,13 @@ const data_quality_vistypeSelect = splitName[13];
 const ai_model_vistypeSelect = splitName[15];
 const detection_limits_idSelect = splitName[17];
 
+const ai2snr_mapping_Select = splitName[19];
+const ai2snr_mapping_vistypeSelect = splitName[21];
+
 
 console.log(categorySelect + ", " + data_qualitySelect + ", " + ai_modelSelect + ", " + detection_limitsSelect);
 console.log(data_quality_setSelect + ", " + ai_model_idSelect + ", " + data_quality_vistypeSelect + ", " + ai_model_vistypeSelect + "," + detection_limits_idSelect);
+console.log(ai2snr_mapping_Select + ", " + ai2snr_mapping_vistypeSelect );
 
 var path_to_figures = '';
 let header1text ='';
@@ -311,6 +314,18 @@ if (categorySelect!== "undefined" && detection_limitsSelect !== "undefined" ) {
     images = getRelationImages();
 
 }
+
+if (categorySelect!== "undefined" && ai2snr_mapping_Select !== "undefined" && ai2snr_mapping_vistypeSelect !== "undefined") {
+  header1text += `<br>
+    Detection Limits for SEM Images:<br>
+    Selected Category = ${categorySelect}<br>
+    Selected AI Model ID = ${ai2snr_mapping_Select}<br>
+    Selected AI Metric = ${ai2snr_mapping_vistypeSelect}<br>
+    `;
+  path_to_figures = 'Images/vis_model' + ai2snr_mapping_Select + '/dice2snr_mapping/';
+  images = getAI2snrImages(ai2snr_mapping_vistypeSelect) ;
+}
+
 
 if (path_to_figures === '') {
   console.log("ERROR: path to figures does nto exist: ", path_to_figures);
@@ -376,6 +391,39 @@ function getRelationImages() {
 
   return images;
 }
+
+
+function getAI2snrImages(ai_metric) {
+  let images = [];
+  let number_data_metrics = SNRIMAGEQUALITYMETRICS.length;
+  for (let i = 0; i < number_data_metrics; i++) {
+    let metricName = SNRIMAGEQUALITYMETRICS[i];
+    if (metricName.includes("SNR")) {
+      metricName = getSNRname(metricName);
+    }
+    let metricName2 = metricName + '_vs_' + ai_metric;
+    images.push({
+        filename: `${path_to_figures}${metricName2}.png`,
+        caption: `Metric: ${metricName} as a function of ${ai_metric}  `
+    })
+
+/*    let number_AI_metrics = AIPROBMETRICS.length;
+    for (let j = 0; j < number_AI_metrics; j++) {
+      //SNR_power_est_vs_FPR.png
+      let metricName2 = metricName + '_vs_' + AIPROBMETRICS[j];
+      console.log('CHECH DEBUG:', metricName2);
+
+      images.push({
+        filename: `${path_to_figures}${metricName2}.png`,
+        caption: `Metric: ${metricName} as a function of ${AIPROBMETRICS[j]}  `
+      })
+    }*/
+  }
+  header1text += `<br> Data quality vs AI model accuracy plots as a function of noise and contrast <br>`;
+
+  return images;
+}
+
 
 function getSNRname(elem) {
   metric_name = '';

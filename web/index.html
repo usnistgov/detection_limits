@@ -11,16 +11,24 @@ any other characteristic. We would appreciate acknowledgement if the
 software is used.
 -->
 <html><head>
-  <meta http-equiv="content-type" content="text/html; charset=windows-1252">
-  <title>NIST Computational Science in Metrology</title>
-  <link rel="icon" href="https://isg.nist.gov/deepzoomweb/resources/img/favicon.ico;jsessionid=21CE77F2344B143AD8BF5B4A4F06CCA0" type="image/x-icon">
-  <!--<link rel="stylesheet" type="text/css" href="./css/reset.css" media="screen">  -->
-  <link rel="stylesheet" type="text/css" href="css/main_style.css" media="screen">
-  <link rel="stylesheet" type="text/css" href="css/layout.css" media="screen">
-  <!-- <link rel="stylesheet" type="text/css" href="./css/bootstrap.css"> -->
+    <meta http-equiv="content-type" content="text/html; charset=windows-1252">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
 
-  <script type="text/javascript" language="javascript" src="js/jquery/jquery.min.js"></script>
-  <script type="text/javascript" language="javascript" src="js/site.js"></script>
+    <title>NIST Computational Science in Metrology</title>
+    <link rel="icon"
+          href="https://isg.nist.gov/deepzoomweb/resources/img/favicon.ico;jsessionid=21CE77F2344B143AD8BF5B4A4F06CCA0"
+          type="image/x-icon">
+    <!--<link rel="stylesheet" type="text/css" href="./css/reset.css" media="screen">  -->
+    <link rel="stylesheet" type="text/css" href="css/main_style.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="css/layout.css" media="screen">
+    <!-- <link rel="stylesheet" type="text/css" href="./css/bootstrap.css"> -->
+
+    <script type="text/javascript" language="javascript" src="js/jquery/jquery.min.js"></script>
+    <script type="text/javascript" language="javascript" src="js/site.js"></script>
+
+
 
      <style>
         /*body {*/
@@ -135,6 +143,7 @@ More information about the evaluations of detection limits can be found in the p
                 <option value="data_quality">Data Quality</option>
                 <option value="ai_model">AI Model</option>
                 <option value="detection_limits">Detection Limits</option>
+                <option value="ai2snr_mapping">AI to SNR Mapping</option>
             </select>
         </div>
 
@@ -192,6 +201,26 @@ More information about the evaluations of detection limits can be found in the p
         </div>
 
 
+        <div class="form-group" id="ai2snr_mapping_idSelect" style="display:none;">
+            <label for="ai2snr_mapping">AI Model ID:</label>
+            <select id="ai2snr_mapping" name="ai2snr_mapping">
+			    <option value="">Select AI Model</option>
+                <option value="3">ID3</option>
+                <option value="5">ID5</option>
+                <option value="7">ID7</option>
+            </select>
+        </div>
+
+        <div class="form-group" id="ai2snr_vistypeSelect" style="display:none;">
+            <label for="ai2snr_vis">Visualization Type:</label>
+            <select id="ai2snr_vis" name="ai2snr_vis">
+                <option value="">Select AI Metric</option>
+                <option value="Dice">Dice</option>
+                <option value="FPR">False Positive Rate</option>
+                <option value="FNR">False Negative Rate</option>
+            </select>
+        </div>
+
         <button id="submitButton" onclick="showResults()">Request Visualization</button>
 
 <!--        <button type="submit">Submit Request</button>-->
@@ -235,6 +264,7 @@ After selecting the configuration of metric visualization above, a user can expl
 	<img id="retrievedResults2d" src="img/aimodel3_2d_DICE-COEFFICIENT.png" width="738" height="512">
     <img id="retrievedResults3d" src="img/aimodel3_3d_DICE-COEFFICIENT.png" width="738" height="512">
     <img id="retrievedResultsRel" src="img/SNR_power_param_Dice.png" width="738" height="512">
+     <img id="retrievedResultsMap" src="img/SNR_power_param_vs_Dice.png" width="738" height="512">
   <figcaption> Illustration of the types of visualizations </figcaption>
 </figure>
 
@@ -368,38 +398,13 @@ The accessible visualizations have been created from 6 simulated image datasets
             {abbreviation: "NMI", longName: "Normalized Mutual Information"},
             {abbreviation: "CE", longName: "Cross Entropy between image distributions"},
             {abbreviation: "DICE", longName: "Dice-Sorensen similarity index"},
+            {abbreviation: "FPR", longName: "False Positive Rate"},
+            {abbreviation: "FNR", longName: "False Negative Rate"},
             {abbreviation: "TRUE POSITIVE", longName: "AI model correctly predicts the image foreground pixels"},
             {abbreviation: "TRUE NEGATIVE", longName: "AI model correctly predicts the image background pixels"},
             {abbreviation: "FALSE POSITIVE", longName: "AI model incorrectly predicts the image foreground pixels"},
             {abbreviation: "FALSE NEGATIVE", longName: "AI model incorrectly predicts the image background pixels"},
         ];
-        // const QUALITYMETRICS = [
-        //     "SNR_power_est",
-        //     "SNR_RMSpower_est",
-        //     "SNR_invCV2_est",
-        //     "SNR_invCV_est",
-        //     "SNR_invCV_param",
-        //     "SNR_invCV2_param",
-        //     "SNR_power_param",
-        //     "SNR_RMSpower_param",
-        //     "Cohend_est",
-        //     "Cohend_param",
-        //      "Foreground_mean",
-        //     "Background_mean",
-        //     "Foreground_var",
-        //     "Background_var",
-        //     "Mean_intensity",
-        //     "Std_intensity",
-        //     "Variance_intensity",
-        //     "Michelson_contrast",
-        //     "RMS_contrast",
-        //     "SSIM",
-        //     "PSNR",
-        //     "Edge_density",
-        //     "MI",
-        //     "NMI",
-        //     "CE",
-        //     ];
 
         document.addEventListener('DOMContentLoaded', function() {
             // Get all form elements
@@ -411,13 +416,16 @@ The accessible visualizations have been created from 6 simulated image datasets
             const data_qualitySelect = document.getElementById('data_quality');
             const ai_modelSelect = document.getElementById('ai_model');
             const detection_limitsSelect = document.getElementById('detection_limits');
+            const ai2snr_mappingSelect = document.getElementById('ai2snr_mapping');
 
             const data_quality_setSelect = document.getElementById('data_quality_setSelect');
             const ai_model_idSelect = document.getElementById('ai_model_idSelect');
             const detection_limits_idSelect = document.getElementById('detection_limits_idSelect');
+            const ai2snr_mapping_idSelect = document.getElementById('ai2snr_mapping_idSelect');
 
             const data_quality_vistypeSelect = document.getElementById('data_quality_vistypeSelect');
             const ai_model_vistypeSelect = document.getElementById('ai_model_vistypeSelect');
+            const ai2snr_vistypeSelect = document.getElementById('ai2snr_vistypeSelect');
 
 
             const resultDiv = document.getElementById('result');
@@ -447,17 +455,21 @@ The accessible visualizations have been created from 6 simulated image datasets
                 data_quality_setSelect.style.display = 'none';
                 ai_model_idSelect.style.display = 'none';
                 detection_limits_idSelect.style.display = 'none';
+                ai2snr_mapping_idSelect.style.display = 'none';
 
                 data_quality_vistypeSelect.style.display = 'none';
                 ai_model_vistypeSelect.style.display = 'none';
+                ai2snr_vistypeSelect.style.display = 'none';
 
                 // Reset all selects
                 data_qualitySelect.value = '';
                 ai_modelSelect.value = '';
                 detection_limitsSelect.value = '';
+                ai2snr_mappingSelect.value = '';
 
                 data_quality_vistypeSelect.value = '';
                 ai_model_vistypeSelect.value ='';
+                ai2snr_vistypeSelect.value ='';
 
                 // Show relevant group based on selection
                 switch(this.value) {
@@ -469,6 +481,9 @@ The accessible visualizations have been created from 6 simulated image datasets
                         break;
                     case 'detection_limits':
                         detection_limits_idSelect.style.display = 'block';
+                        break;
+                    case 'ai2snr_mapping':
+                        ai2snr_mapping_idSelect.style.display = 'block';
                         break;
                 }
             });
@@ -483,6 +498,8 @@ The accessible visualizations have been created from 6 simulated image datasets
 
                 data_quality_vistypeSelect.style.display = 'none';
                 ai_model_vistypeSelect.style.display = 'none';
+                ai2snr_mapping_idSelect.style.display = 'none';
+                ai2snr_vistypeSelect.style.display = 'none';
 
                 // Reset values
                 //data_qualitySelect.value = '';
@@ -490,6 +507,8 @@ The accessible visualizations have been created from 6 simulated image datasets
 				detection_limitsSelect.value = '';
                 data_quality_vistypeSelect.value = '';
                 ai_model_vistypeSelect.value ='';
+                ai2snr_mappingSelect.value = '';
+                ai2snr_vistypeSelect.value='';
 
                 // Show relevant group based on selection
                 switch(this.value) {
@@ -530,6 +549,8 @@ The accessible visualizations have been created from 6 simulated image datasets
 
                 data_quality_vistypeSelect.style.display = 'none';
                 ai_model_vistypeSelect.style.display = 'none';
+                ai2snr_mapping_idSelect.style.display = 'none';
+                ai2snr_vistypeSelect.style.display = 'none';
 
                 // Reset values
                 data_qualitySelect.value = '';
@@ -537,6 +558,8 @@ The accessible visualizations have been created from 6 simulated image datasets
 				detection_limitsSelect.value = '';
                 data_quality_vistypeSelect.value = '';
                 ai_model_vistypeSelect.value ='';
+                ai2snr_mappingSelect.value = '';
+                ai2snr_vistypeSelect.value='';
 
                 // Show relevant group based on selection
                 switch(this.value) {
@@ -563,6 +586,8 @@ The accessible visualizations have been created from 6 simulated image datasets
 				//detection_limits_idSelect.style.display = 'none';
                 data_quality_vistypeSelect.style.display = 'none';
                 ai_model_vistypeSelect.style.display = 'none';
+                ai2snr_mapping_idSelect.style.display = 'none';
+                ai2snr_vistypeSelect.style.display = 'none';
 
                 // Reset values
                 data_qualitySelect.value = '';
@@ -570,6 +595,8 @@ The accessible visualizations have been created from 6 simulated image datasets
 				//detection_limitsSelect.value = '';
                 data_quality_vistypeSelect.value = '';
                 ai_model_vistypeSelect.value ='';
+                ai2snr_mappingSelect.value = '';
+                ai2snr_vistypeSelect.value='';
 
                 // Show relevant group based on selection
                 switch(this.value) {
@@ -586,6 +613,46 @@ The accessible visualizations have been created from 6 simulated image datasets
                 }
             });
 
+            	// AI Model change event
+            ai2snr_mappingSelect.addEventListener('change', function() {
+                console.log('INSIDE of ai2snr_mappingSelect:', this.value)
+                // Hide sub-categories
+                data_quality_setSelect.style.display = 'none';
+                ai_model_idSelect.style.display = 'none';
+				detection_limits_idSelect.style.display = 'none';
+                //ai2snr_mapping_idSelect.style.display='none';
+
+                data_quality_vistypeSelect.style.display = 'none';
+                ai_model_vistypeSelect.style.display = 'none';
+                //ai2snr_mappingSelect.styke.display = 'none';
+
+                // Reset values
+                data_qualitySelect.value = '';
+                ai_modelSelect.value = '';
+				detection_limitsSelect.value = '';
+                data_quality_vistypeSelect.value = '';
+                ai_model_vistypeSelect.value ='';
+                //ai2snr_mappingSelect.value = '';
+                //ai2snr_vistypeSelect.value='';
+
+                // Show relevant group based on selection
+                switch(this.value) {
+                    case '3':
+                        ai2snr_mapping_idSelect.style.display = 'block';
+                        ai2snr_vistypeSelect.style.display = 'block';
+                        break;
+                    case '5':
+                        ai2snr_mapping_idSelect.style.display = 'block';
+                        ai2snr_vistypeSelect.style.display = 'block';
+                        break;
+                    case '7':
+                        ai2snr_mapping_idSelect.style.display = 'block';
+                        ai2snr_vistypeSelect.style.display = 'block';
+                        break;
+                }
+            });
+
+
             // Data quality visualization typechange event
             data_quality_vistypeSelect.addEventListener('change', function() {
                 console.log('INSIDE of data_quality_vistypeSelect:', this.value)
@@ -594,9 +661,11 @@ The accessible visualizations have been created from 6 simulated image datasets
                 //data_quality_setSelect.style.display = 'none';
                 ai_model_idSelect.style.display = 'none';
 				detection_limits_idSelect.style.display = 'none';
+                ai2snr_mapping_idSelect.style.display='none';
 
                 //data_quality_vistypeSelect.style.display = 'none';
                 ai_model_vistypeSelect.style.display = 'none';
+                ai2snr_mappingSelect.styke.display = 'none';
 
                 // Reset values
                 //data_qualitySelect.value = '';
@@ -604,6 +673,9 @@ The accessible visualizations have been created from 6 simulated image datasets
 				detection_limitsSelect.value = '';
                 //data_quality_vistypeSelect.value = '';
                 ai_model_vistypeSelect.value ='';
+                ai2snr_mappingSelect.value = '';
+                ai2snr_vistypeSelect.value='';
+
 
                 // Show relevant group based on selection
                 switch(this.value) {
@@ -624,9 +696,11 @@ The accessible visualizations have been created from 6 simulated image datasets
                 data_quality_setSelect.style.display = 'none';
                 //ai_model_idSelect.style.display = 'none';
 				detection_limits_idSelect.style.display = 'none';
+                ai2snr_mapping_idSelect.style.display='none';
 
                 data_quality_vistypeSelect.style.display = 'none';
                 //ai_model_vistypeSelect.style.display = 'none';
+                ai2snr_mappingSelect.styke.display = 'none';
 
                 // Reset values
                 data_qualitySelect.value = '';
@@ -634,6 +708,8 @@ The accessible visualizations have been created from 6 simulated image datasets
 				detection_limitsSelect.value = '';
                 data_quality_vistypeSelect.value = '';
                 //ai_model_vistypeSelect.value ='';
+                ai2snr_mappingSelect.value = '';
+                ai2snr_vistypeSelect.value='';
 
                 // Show relevant group based on selection
                 switch(this.value) {
@@ -648,6 +724,46 @@ The accessible visualizations have been created from 6 simulated image datasets
 
                 }
             });
+
+                // AI Model visualization typechange event
+            ai2snr_vistypeSelect.addEventListener('change', function() {
+                // Hide sub-categories
+                data_quality_setSelect.style.display = 'none';
+                ai_model_idSelect.style.display = 'none';
+				detection_limits_idSelect.style.display = 'none';
+
+                data_quality_vistypeSelect.style.display = 'none';
+                ai_model_vistypeSelect.style.display = 'none';
+                //ai2snr_mapping_idSelect.style.display = 'none';
+                //ai2snr_vistypeSelect.style.display = 'none';
+
+                // Reset values
+                data_qualitySelect.value = '';
+                ai_modelSelect.value = '';
+				detection_limitsSelect.value = '';
+                data_quality_vistypeSelect.value = '';
+                ai_model_vistypeSelect.value ='';
+                //ai2snr_mappingSelect.value = '';
+                //ai2snr_vistypeSelect.value='';
+
+                // Show relevant group based on selection
+                switch(this.value) {
+                    case 'Dice':
+                        ai2snr_mapping_idSelect.style.display = 'block';
+                        ai2snr_vistypeSelect.style.display = 'block';
+                        break;
+                    case 'FPR':
+                        ai2snr_mapping_idSelect.style.display = 'block';
+                        ai2snr_vistypeSelect.style.display = 'block';
+                        break;
+                    case 'FNR':
+                        ai2snr_mapping_idSelect.style.display = 'block';
+                        ai2snr_vistypeSelect.style.display = 'block';
+                        break;
+
+                }
+            });
+
 
             const toggleButton = document.getElementById('toggleButton');
             const textContent = document.getElementById('textContent');
@@ -667,6 +783,12 @@ The accessible visualizations have been created from 6 simulated image datasets
                 }
             });
 
+            document.addEventListener('visibilitychange', function() {
+              if (document.visibilityState === 'visible') {
+                // User returned to the page
+                document.getElementById('visualizationForm').reset();
+              }
+            });
             // Form submission
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -694,6 +816,9 @@ The accessible visualizations have been created from 6 simulated image datasets
 
                 } else if (formData.category === 'detection_limits') {
                     formData.detection_limitsType = detection_limitsSelect.value;
+                } else if (formData.category === 'ai2snr_mapping') {
+                    formData.ai2snr_mappingType = ai2snr_mappingSelect.value;
+                    formData.ai2snr_visType = ai2snr_vistypeSelect.value;
                 }
 
                 // Display the result
@@ -714,19 +839,23 @@ The accessible visualizations have been created from 6 simulated image datasets
             var data_qualitySelect = document.getElementById('data_quality').value;
             var ai_modelSelect = document.getElementById('ai_model').value;
             var detection_limitsSelect = document.getElementById('detection_limits').value;
+            var ai2snr_mappingSelect = document.getElementById('ai2snr_mapping').value;
 
             var data_quality_setSelect = document.getElementById('data_quality_setSelect').value;
             var ai_model_idSelect = document.getElementById('ai_model_idSelect').value;
             var detection_limits_idSelect = document.getElementById('detection_limits_idSelect').value;
+            var ai2snr_mapping_idSelect = document.getElementById('ai2snr_mapping_idSelect').value;
 
             //var data_quality_vistypeSelect = document.getElementById('data_quality_vistypeSelect');
             var data_quality_vistypeSelect= document.getElementById('data_quality_vis').value;
             var ai_model_vistypeSelect = document.getElementById('ai_model_vis').value;
+            var ai2snr_mapping_vistypeSelect = document.getElementById('ai2snr_vis').value;
 
 
             console.log('test_conditional: ' + categorySelect + ", " + data_qualitySelect + ", " + ai_modelSelect + ", " + detection_limitsSelect);
             console.log('data_:'+ data_quality_vistypeSelect )
             console.log('ai_model_select:' + ai_modelSelect + ", "  + ai_model_vistypeSelect + "," + detection_limitsSelect);
+            console.log('CHECK: ai2snr_select:' + ai2snr_mappingSelect + ","  + ai2snr_mapping_idSelect + "," + ai2snr_mapping_vistypeSelect);
 
 
             var input_is_set ='';
@@ -739,11 +868,14 @@ The accessible visualizations have been created from 6 simulated image datasets
             if (categorySelect!== '' && detection_limitsSelect !== '' ) {
                 input_is_set = 'valid';
             }
+            if (categorySelect!== '' && ai2snr_mappingSelect !== '' && ai2snr_mapping_vistypeSelect !== '') {
+                input_is_set = 'valid';
+            }
             // var paramName =`Category&${categorySelect}&DataQuality&${data_qualitySelect}&AIModel&${ai_modelSelect}&DetectionLimit&${detection_limitsSelect}&DataSet&${data_quality_setSelect}&AIModelID&${ai_model_idSelect}&DataVis&${data_quality_vistypeSelect}&AIMModelVis&${ai_model_vistypeSelect}&DetectionID&${detection_limits_idSelect}`;
             // showTargetImg(paramName)
             //
             if (input_is_set === 'valid' ){
-              var paramName =`Category&${categorySelect}&DataQuality&${data_qualitySelect}&AIModel&${ai_modelSelect}&DetectionLimit&${detection_limitsSelect}&DataSet&${data_quality_setSelect}&AIModelID&${ai_model_idSelect}&DataVis&${data_quality_vistypeSelect}&AIMModelVis&${ai_model_vistypeSelect}&DetectionID&${detection_limits_idSelect}`;
+              var paramName =`Category&${categorySelect}&DataQuality&${data_qualitySelect}&AIModel&${ai_modelSelect}&DetectionLimit&${detection_limitsSelect}&DataSet&${data_quality_setSelect}&AIModelID&${ai_model_idSelect}&DataVis&${data_quality_vistypeSelect}&AIMModelVis&${ai_model_vistypeSelect}&DetectionID&${detection_limits_idSelect}&AI2snrID&${ai2snr_mappingSelect}&AI2snrmetric&${ai2snr_mapping_vistypeSelect}`;
               showTargetImg(paramName)
             }
             console.log("index.html: PLEASE, MAKE THE SELECTION FROM THE DROP-DOWN MENU");
