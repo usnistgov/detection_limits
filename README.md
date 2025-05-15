@@ -105,7 +105,11 @@ To interactively view and explore the plots, you can either use the hosted pages
    - The execution and full computational provenance were obtained by using the WIPP scientific workflow software:
      - [GitHub: WIPP code](https://github.com/usnistgov/WIPP) 
      - Bajcsy, P. , Chalfoun, J. and Simon, M. (2018), Web Microanalysis of Big Image Data, Springer International Publishing.
-     
+ 
+## Acknowledgement
+   - This work was performed with funding from the CHIPS Metrology Program, part of CHIPS for America, National Institute of Standards and Technology, U.S. Department of Commerce. 
+
+ 
 ## CODEOWNERS
 The file named
 [CODEOWNERS](CODEOWNERS) can be viewed to discover
