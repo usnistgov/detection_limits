@@ -122,14 +122,26 @@ software is used.
 More information about the evaluations of detection limits can be found in the papers
   <BR>
   (1) Peter Bajcsy, Brycie Wiseman, Michael Majurski, and Andras Vladar,
-  “Detection limits of AI-based SEM dimensional metrology,” <BR>
+  ï¿½Detection limits of AI-based SEM dimensional metrology,ï¿½ <BR>
   Proceedings of SPIE conference on Advanced Lithography + Patterning,
   23 - 27 February 2025, San Jose, California, US,
   Program: <a href="https://spie.org/conferences-and-exhibitions/advanced-lithography-and-patterning/program">URL.</a>
       <BR>
   (2) Peter Bajcsy, Pushkar Sathe, and Andras Vladar,
-  “Relating human and AI-based detection limits in SEM dimensional metrology,”
+  ï¿½Relating human and AI-based detection limits in SEM dimensional metrology,ï¿½
  (under review)
+</p>
+
+<p>
+Interactive access to 540 visualization graphs below:
+      <ul>
+        <li>Click on the Metric Category drop-down menu (Select Category space) to select one of the options 
+            (Data Quality, AI Model, Detection Limits, AI to SNR Mapping).</li>
+        <li>Repeat selections for another drop-down menu that always appears below according to the previously selected item.</li>
+        <li>After all (two or three selections) have been made, click on the Request Visualization button.</li>
+        <li>To learn about the definitions of all metrics, click on the Explain Metrics button.</li> 
+    </ul>
+
 </p>
 
 <h2>Select Visualization of Metrics </h2>
@@ -254,9 +266,14 @@ More information about the evaluations of detection limits can be found in the p
 After selecting the configuration of metric visualization above, a user can explore 2D scatter or 3D surface plots
   of image data quality metrics, AI model accuracy metrics, and the relationships of detection limits by human and numerical
   observers based on their detection confidence. All metrics are visualized as a function of noise and contract properties.
-  There are 525 visualizations that include 25 image data quality metrics
-  (10 implementations of signal-to-noise ratio according to the literature and 15 single or pair-wise image metrics) and 5 AI model
-  accuracy metrics.
+  To explore the characteristics of training images and trained AI models, we generated a total of 540 graphs: 
+      <ul>
+        <li>171 2D scatter plots for 25 image quality metrics times 6 image sets + 7 AI model accuracy metrics times 3 trained AI models</li>
+        <li>171 3D surface plots for the same configurations as in the case of 2D scatter plots</li>
+        <li>99 3D surface plots for ten SNR image quality metrics times 3 AI model accuracy metrics times 3 trained AI models </li>
+        <li>99 line graphs for the mappings between 3 AI model accuracy metrics and 10 SNR image quality metrics times 3 trained AI models. </li> 
+    </ul>
+
   Figure 1 shows an example of the 2D and 3D visualizations via the web interactive interface.
 </p>
 
@@ -276,7 +293,7 @@ The accessible visualizations have been created from 6 simulated image datasets
 <BR>
     The simulated images were created by using the ARTIMAGEN SEM simulation software:
     <BR>
-    Petr Cizmar, András E. Vladár, Michael T. Postek, "Optimization of accurate SEM imaging by use of artificial images," Proc. SPIE 7378, Scanning Microscopy 2009, 737815 (22 May 2009); https://doi.org/10.1117/12.823415
+    Petr Cizmar, Andrï¿½s E. Vladï¿½r, Michael T. Postek, "Optimization of accurate SEM imaging by use of artificial images," Proc. SPIE 7378, Scanning Microscopy 2009, 737815 (22 May 2009); https://doi.org/10.1117/12.823415
     <BR>   <BR>
     The Unet AI model training and inference results were created by using the containerized plugin software:
     <BR>
@@ -374,10 +391,10 @@ The accessible visualizations have been created from 6 simulated image datasets
         const METRICDESCRIPTION= [
             { abbreviation: "SNR_power_est", longName: "Signal-to-Noise Ratio (SNR) Power Estimate" },
             { abbreviation: "SNR_RMSpower_est", longName: "Signal-to-Noise Ratio Root Mean Squared (RMS) Power Estimate" },
-            { abbreviation: "SNR_invCV2_est", longName: "Signal-to-Noise Ratio Inverse Coefficient of Variation to the Power of Two (CV²)Estimate" },
+            { abbreviation: "SNR_invCV2_est", longName: "Signal-to-Noise Ratio Inverse Coefficient of Variation to the Power of Two (CVï¿½)Estimate" },
             { abbreviation: "SNR_invCV_est", longName: "Signal-to-Noise Ratio Inverse Coefficient of Variation (CV) Estimate" },
             { abbreviation: "SNR_invCV_param", longName: "Signal-to-Noise Ratio Inverse CV Parameter" },
-            { abbreviation: "SNR_invCV2_param", longName: "Signal-to-Noise Ratio Inverse CV² Parameter" },
+            { abbreviation: "SNR_invCV2_param", longName: "Signal-to-Noise Ratio Inverse CVï¿½ Parameter" },
             { abbreviation: "SNR_power_param", longName: "Signal-to-Noise Ratio Power Parameter" },
             { abbreviation: "SNR_RMSpower_param", longName: "Signal-to-Noise Ratio RMS Power Parameter" },
             { abbreviation: "Cohend_est", longName: "Cohen's d Estimate" },
