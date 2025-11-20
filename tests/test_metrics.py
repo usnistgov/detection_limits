@@ -85,3 +85,96 @@ def test_calculate_all_metrics_structure(synthetic_data):
     assert metrics["Noise_level"] == noise_std
     assert metrics["Contrast_level"] == 100
     assert metrics["IMAGE-NAME"] == "test_image.ome.tif"
+
+def test_calculate_all_snr_with_mask_uniform_images():
+    """
+    Test SNR calculation on uniform images (all white or all black).
+    These are edge cases where variance is 0.
+    """
+    shape = (100, 100)
+    mask = np.zeros(shape, dtype=np.uint8)
+    mask[25:75, 25:75] = 1 # Center square foreground
+    
+    # Case 1: Uniform White Image
+    white_image = np.full(shape, 255, dtype=np.float64)
+    snr_metrics = calculate_all_snr_with_mask(white_image, mask, noise=1.0)
+    
+    (snr1, snr2, snr3, snr4, snr5, snr6, snr7, snr8, snr9, snr10, 
+     fg_mean, bg_mean, fg_var, bg_var) = snr_metrics
+    
+    assert fg_mean == 255.0
+    assert bg_mean == 255.0
+    assert fg_var == 0.0
+    assert bg_var == 0.0
+    
+    # Check all SNRs for Uniform White Image
+    assert snr1 == 0 # bg_var is 0
+    assert snr2 == 0 # fg_var is 0
+    assert snr3 == 0 # bg_std is 0
+    assert snr4 == 0 # bg_std is 0
+    assert snr5 == 255.0 # fg_mean / noise
+    assert snr6 == 255.0**2 # fg_mean^2 / noise^2
+    assert snr7 == 0.0 # fg_var / noise^2
+    assert np.isclose(snr8, np.sqrt(255.0)) # sqrt(fg_mean) / noise
+    assert snr9 == 0 # bg_std is 0
+    assert snr10 == 0.0 # (fg_mean - bg_mean) / noise = 0
+
+    # Case 2: Uniform Black Image
+    black_image = np.zeros(shape, dtype=np.float64)
+    snr_metrics = calculate_all_snr_with_mask(black_image, mask, noise=1.0)
+    
+    (snr1, snr2, snr3, snr4, snr5, snr6, snr7, snr8, snr9, snr10, 
+     fg_mean, bg_mean, fg_var, bg_var) = snr_metrics
+     
+    assert fg_mean == 0.0
+    assert bg_mean == 0.0
+    assert fg_var == 0.0
+    assert bg_var == 0.0
+    
+    # Check all SNRs for Uniform Black Image
+    assert snr1 == 0
+    assert snr2 == 0
+    assert snr3 == 0
+    assert snr4 == 0
+    assert snr5 == 0.0
+    assert snr6 == 0.0
+    assert snr7 == 0.0
+    assert snr8 == 0.0
+    assert snr9 == 0
+    assert snr10 == 0.0
+
+def test_calculate_all_snr_with_mask_half_half():
+    """
+    Test SNR calculation on a perfect half-white, half-black image.
+    This tests infinite contrast / zero variance background cases.
+    """
+    shape = (100, 100)
+    image = np.zeros(shape, dtype=np.float64)
+    image[:, :50] = 255 # Left half white
+    
+    mask = np.zeros(shape, dtype=np.uint8)
+    mask[:, :50] = 1 # Left half foreground (White)
+    
+    # FG = White (255), BG = Black (0)
+    snr_metrics = calculate_all_snr_with_mask(image, mask, noise=1.0)
+    
+    (snr1, snr2, snr3, snr4, snr5, snr6, snr7, snr8, snr9, snr10, 
+     fg_mean, bg_mean, fg_var, bg_var) = snr_metrics
+    
+    assert fg_mean == 255.0
+    assert bg_mean == 0.0
+    assert fg_var == 0.0
+    assert bg_var == 0.0
+    
+    # Check all SNRs for Half-Half Image
+    assert snr1 == 0 # bg_var is 0
+    assert snr2 == 0 # fg_var is 0
+    assert snr3 == 0 # bg_std is 0
+    assert snr4 == 0 # bg_std is 0
+    assert snr5 == 255.0 # fg_mean / noise
+    assert snr6 == 255.0**2 # fg_mean^2 / noise^2
+    assert snr7 == 0.0 # fg_var / noise^2
+    assert np.isclose(snr8, np.sqrt(255.0)) # sqrt(fg_mean) / noise
+    assert snr9 == 0 # bg_std is 0
+    assert snr10 == 255.0 # (fg_mean - bg_mean) / noise = 255/1
+

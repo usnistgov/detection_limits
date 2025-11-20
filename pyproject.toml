@@ -4,9 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "detection-limits"
-dynamic = ["version", "description", "readme", "classifiers"]
+description = "NIST detection limits and image quality metrics for SEM images."
+dynamic = ["version", "readme", "classifiers"]
 requires-python = ">=3.8"
-license = { file = "LICENSE.md" }
+license = "NIST-Software"
 authors = [{ name = "Peter Bajcsy", email = "peter.bajcsy@nist.gov" }
            , { name = "Pushkar Sathe", email = "pushkar.sathe@nist.gov" }]
 maintainers = [{ name = "Pushkar Sathe", email = "pushkarsathe89@gmail.com" }]
@@ -22,6 +23,7 @@ keywords = [
     "AI evaluation",
     "computer vision",
     "NIST",
+    "NIST-Software",
 ]
 dependencies = [
     "numpy",
