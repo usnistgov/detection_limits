@@ -5,6 +5,8 @@ lazy_loader
 mkl-service==2.4.0
 mkl_fft
 mkl_random
+matplotlib
+pytest
 networkx
 work
 numpy

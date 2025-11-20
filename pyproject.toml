@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "detection-limits"
+dynamic = ["version", "description", "readme", "classifiers"]
+requires-python = ">=3.8"
+license = { file = "LICENSE.md" }
+authors = [{ name = "Peter Bajcsy", email = "peter.bajcsy@nist.gov" }
+           , { name = "Pushkar Sathe", email = "pushkar.sathe@nist.gov" }]
+maintainers = [{ name = "Pushkar Sathe", email = "pushkarsathe89@gmail.com" }]
+keywords = [
+    "SEM",
+    "scanning electron microscopy",
+    "microscopy",
+    "metrology",
+    "image quality metrics",
+    "SNR",
+    "signal-to-noise ratio",
+    "detection limits",
+    "AI evaluation",
+    "computer vision",
+    "NIST",
+]
+dependencies = [
+    "numpy",
+    "scipy",
+    "matplotlib",
+    "pandas",
+    "scikit-image",
+    "tqdm",
+    "pillow",
+    "tifffile",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.urls]
+"Homepage" = "https://www.nist.gov/programs-projects/detection-limits-and-image-quality-metrics-sem-images"
+"Repository" = "https://github.com/usnistgov/detection_limits"
+"Website" = "https://www.nist.gov/programs-projects/detection-limits-and-image-quality-metrics-sem-images"
+"Bug Tracker" = "https://github.com/usnistgov/detection_limits/issues"
+"data-repository" = "https://data.nist.gov/od/id/mds2-3838"
+"data-repository (source 2)" = "https://www.nist.gov/programs-projects/detection-limits-and-image-quality-metrics-sem-images"
+
+[tool.setuptools.dynamic]
+version = { attr = "detection_limits.__version__" }
+description = { file = "DESCRIPTION.md" }
+readme = { file = "README.md" }
+dependencies = { file = "requirements.txt" }
+classifiers = { file = "classifiers.txt" }
+
+[project.scripts]
+dl-metrics = "detection_limits.metrics:main"
+dl-match = "detection_limits.match:main"
+dl-analyze = "detection_limits.analyze:main"
+dl-plot-ai = "detection_limits.plot_ai:main"
+dl-plot-quality = "detection_limits.plot_quality:main"

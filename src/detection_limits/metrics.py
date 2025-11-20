@@ -22,14 +22,14 @@ import pandas as pd
 import time
 import argparse
 import warnings
-
+from typing import Tuple
 
 '''
 compute image SNR quality metrics based on the intensity and mask pairs of images
 '''
 def calculate_all_snr_with_mask(
     image: np.ndarray, mask: np.ndarray, noise=None
-) -> tuple[float, float, float, float, float, float, float, float, float, float,float, float, float, float]:
+) -> Tuple[float, float, float, float, float, float, float, float, float, float,float, float, float, float]:
     # Normalize the image first
     # normalized_image = normalize_image(image)
     normalized_image = image.copy()
@@ -59,7 +59,7 @@ def calculate_all_snr_with_mask(
         np.sqrt(foreground_mean) / np.sqrt(foreground_var) if foreground_var != 0 else 0
     ) # using root mean square of E(Signal^2] /E{Noise^2] SNR definition for harmonic signals
     snr3 = (
-        (foreground_mean * foreground_mean) / (background_std * background_std) if background_mean != 0 else 0
+        (foreground_mean * foreground_mean) / (background_std * background_std) if background_std != 0 else 0
     )  # using sensitivity index for films definition of SNR with estimated background standard deviation
     snr4 = (
         foreground_mean / background_std if background_std != 0 else 0

@@ -1,0 +1,6 @@
+Programming Language :: Python :: 3
+License :: OSI Approved :: NIST Software License
+Operating System :: OS Independent
+Topic :: Scientific/Engineering :: Image Processing
+Intended Audience :: Science/Research
+Development Status :: 5 - Production/Stable

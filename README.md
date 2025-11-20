@@ -53,10 +53,10 @@ To set up the environment and run the Python scripts, follow these steps:
         foo@bar:~$ conda activate detection_limits
         ```
 
-2. **Install dependencies** using the provided `requirements.txt`. Ensure you are in the root directory of the repository and run:
+2. **Install the package**. Ensure you are in the root directory of the repository and run:
 
   ```console
-  foo@bar:~$ pip install -r requirements.txt
+  foo@bar:~$ pip install .
   ```
 
 3. **Run the Python scripts** as described in the workflow section.
@@ -65,13 +65,13 @@ To interactively view and explore the plots, you can either use the hosted pages
 
 
 ## Workflow of Computations
-- Step 1: compute data quality metrics using generate_metrics.py
-- Step 2: plot data quality metrics as a function of contrast and noise using plot_image_quality.py
+- Step 1: compute data quality metrics using `dl-metrics`
+- Step 2: plot data quality metrics as a function of contrast and noise using `dl-plot-quality`
 - Step 3: train UNet model on set 1 - set 5 (Web Image Processing Workflow)
 - Step 4: infer image masks for set 6 using the trained UNet model and evaluate its accuracy  (Web Image Processing Workflow)
-- Step 5: merge the data quality metrics and AI model accuracy metrics using match_ai_data.py
-- Step 6: plot relationships between data quality metrics and AI model accuracy metrics using plot_ai_model_predictions.py
-- Step 7: support decisions to obtain a trusted AI-based measurement by applying an AI model with a user-defined minimum accuracy requirement to an input SEM image with minimum SNR characteristics defined by the graph generated using dice_to_SNR.py
+- Step 5: merge the data quality metrics and AI model accuracy metrics using `dl-match`
+- Step 6: plot relationships between data quality metrics and AI model accuracy metrics using `dl-plot-ai`
+- Step 7: support decisions to obtain a trusted AI-based measurement by applying an AI model with a user-defined minimum accuracy requirement to an input SEM image with minimum SNR characteristics defined by the graph generated using `dl-analyze`
 
 ## Contact information
    - Peter Bajcsy, ITL NIST, Software and Systems Division, Information Systems Group
