@@ -1,3 +1,5 @@
+[![License](https://img.shields.io/badge/license-NIST--Software-blue.svg)](LICENSE)
+
 # Detection Limits of Artificial Intelligence (AI) based Object Detection from Scanning Electron Microscopy (SEM) Images
 
 This project is about designing a methodology for quantifying and relating detection limits of AI model-based measurements
@@ -61,11 +63,20 @@ To set up the environment and run the Python scripts, follow these steps:
          foo@bar:~$ conda activate detection_limits
          ```
 
-2. **Install the package**. Ensure you are in the root directory of the repository and run:
+2. **Install the package**.
 
-    ```console
-    foo@bar:~$ pip install .
-    ```
+   - **From PyPI (recommended):**
+
+     ```console
+     foo@bar:~$ pip install detection-limits
+     ```
+
+   - **From Source:**
+     Ensure you are in the root directory of the repository and run:
+
+     ```console
+     foo@bar:~$ pip install .
+     ```
 
 3. **Run the Python scripts** as described in the workflow section.
 
@@ -93,7 +104,7 @@ To interactively view and explore the plots, you can either use the hosted pages
 
 ## LICENSE
 
-- The version of [LICENSE.md](LICENSE.md) included in this
+- The version of [LICENSE.md](LICENSE) included in this
   repository is approved for use.
 - Updated language on the [Licensing Statement][nist-open] page
   supersedes the copy in this repository. You may transcribe the

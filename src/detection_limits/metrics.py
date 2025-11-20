@@ -27,9 +27,9 @@ from typing import Tuple
 '''
 compute image SNR quality metrics based on the intensity and mask pairs of images
 '''
-def calculate_all_snr_with_mask(
-    image: np.ndarray, mask: np.ndarray, noise=None
-) -> Tuple[float, float, float, float, float, float, float, float, float, float,float, float, float, float]:
+
+
+def calculate_all_snr_with_mask(image: np.ndarray, mask: np.ndarray, noise=None) -> Tuple[float, float, float, float, float, float, float, float, float, float, float, float, float, float]:
     # Normalize the image first
     # normalized_image = normalize_image(image)
     normalized_image = image.copy()
@@ -52,37 +52,27 @@ def calculate_all_snr_with_mask(
     # background_var = np.var(background_region)
     # background_std = np.std(background_region)
 
-    snr1 = (
-        foreground_var / background_var if background_var != 0 else 0
-    )  # using power definition E(Signal^2) / E(Noise^2)
-    snr2 = (
-        np.sqrt(foreground_mean) / np.sqrt(foreground_var) if foreground_var != 0 else 0
-    ) # using root mean square of E(Signal^2] /E{Noise^2] SNR definition for harmonic signals
-    snr3 = (
-        (foreground_mean * foreground_mean) / (background_std * background_std) if background_std != 0 else 0
-    )  # using sensitivity index for films definition of SNR with estimated background standard deviation
-    snr4 = (
-        foreground_mean / background_std if background_std != 0 else 0
-    ) # using 1 over coefficient of variation & estimated background standard deviation
-    snr5 = (
-        foreground_mean / noise if noise != 0 else 0
-    ) # using 1 over coefficient of variation & simulated (known) noise parameter
-    snr6 = (
-        (foreground_mean*foreground_mean) / (noise * noise) if noise != 0 else 0
-    ) # using sensitivity index for films definition of SNR with simulated (known) noise parameter
-    snr7 = (
-        foreground_var / (noise * noise) if noise != 0 else 0
-    )  # using power definition E(Signal^2) / E(Noise^2) and simulated (known) noise parameter
-    snr8 = (
-        np.sqrt(foreground_mean) / noise if noise != 0 else 0
-    ) # using root mean square of E(Signal^2] /E{Noise^2] SNR definition for harmonic signals and simulated (known) noise parameter
-    snr9 = (
-        (foreground_mean - background_mean) / background_std if background_std != 0 else 0
-    ) # using Cohen's d index  and estimated background standard deviation: https://en.wikipedia.org/wiki/Effect_size#Cohen's_d
+    # using power definition E(Signal^2) / E(Noise^2)
+    snr1 = (foreground_var / background_var if background_var != 0 else 0)
+    # using root mean square of E(Signal^2] /E{Noise^2] SNR definition for harmonic signals
+    snr2 = (np.sqrt(foreground_mean) / np.sqrt(foreground_var) if foreground_var != 0 else 0)
+    # using sensitivity index for films definition of SNR with estimated background standard deviation
+    snr3 = ((foreground_mean * foreground_mean) / (background_std * background_std) if background_std != 0 else 0)
+    # using 1 over coefficient of variation & estimated background standard deviation
+    snr4 = (foreground_mean / background_std if background_std != 0 else 0)
+    # using 1 over coefficient of variation & simulated (known) noise parameter
+    snr5 = (foreground_mean / noise if noise != 0 else 0)
+    # using sensitivity index for films definition of SNR with simulated (known) noise parameter
+    snr6 = ((foreground_mean*foreground_mean) / (noise * noise) if noise != 0 else 0)
+    # using power definition E(Signal^2) / E(Noise^2) and simulated (known) noise parameter
+    snr7 = (foreground_var / (noise * noise) if noise != 0 else 0)
+    # using root mean square of E(Signal^2] /E{Noise^2] SNR definition for harmonic signals and simulated (known) noise parameter
+    snr8 = (np.sqrt(foreground_mean) / noise if noise != 0 else 0)
+    # using Cohen's d index  and estimated background standard deviation: https://en.wikipedia.org/wiki/Effect_size#Cohen's_d
+    snr9 = ((foreground_mean - background_mean) / background_std if background_std != 0 else 0)
     # Cohen's d is frequently used in estimating sample sizes for statistical testing.
-    snr10 = (
-        (foreground_mean - background_mean) / noise if noise != 0 else 0
-    ) # using Cohen's d index  and  simulated (known) noise parameter
+    snr10 = ((foreground_mean - background_mean) / noise if noise != 0 else 0)
+    # using Cohen's d index  and  simulated (known) noise parameter
 
     # sensitivity index for films definition of SNR with estimated background standard deviation
     # print(f"foreground_mean: {foreground_mean},\t background_mean: {background_mean},\t foreground_std: {foreground_var},background_std: {background_var},\t snr: {snr}, snr2: {snr2}")
@@ -103,12 +93,15 @@ def calculate_all_snr_with_mask(
         float(background_var)
     )
 
+
 '''
 This method computes image quality metrics from loaded image, mask, and reference intensity image
 calculate_metrics(img, mask, reference_image, noise_val, contrast_val, file name, set index)
 '''
+
+
 def calculate_all_metrics(
-    image, mask=None, reference_image=None, noise_val=None, contrast_val=None, intensityimage_filename="test.tif", set_index =1):
+        image, mask=None, reference_image=None, noise_val=None, contrast_val=None, intensityimage_filename="test.tif", set_index=1):
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")  # Suppress all warning types
         """Calculates various image quality metrics."""
@@ -141,16 +134,12 @@ def calculate_all_metrics(
         #############################################
         # pair-wise image metrics with reference intensity image
         if reference_image is not None:
-            #reference_flat = reference_image.flatten()
-            ssim_score = ssim(
-                image, reference_image, data_range=image.max() - image.min()
-            )
+            # reference_flat = reference_image.flatten()
+            ssim_score = ssim(image, reference_image, data_range=image.max() - image.min())
             psnr = cv2.PSNR(image, reference_image)  # OpenCV's PSNR calculation
         else:
             smoothed_image = cv2.GaussianBlur(image, (5, 5), 0)
-            ssim_score = ssim(
-                image, smoothed_image, data_range=image.max() - image.min()
-            )
+            ssim_score = ssim(image, smoothed_image, data_range=image.max() - image.min())
             psnr = cv2.PSNR(image, smoothed_image)
 
         #############################################
@@ -174,7 +163,7 @@ def calculate_all_metrics(
             ce = None
             nmi = None
         noise = float(noise_val)
-        #print(f"noise: {noise}, type: {type(noise)}")
+        # print(f"noise: {noise}, type: {type(noise)}")
         (
             snr1,
             snr2,
@@ -194,14 +183,14 @@ def calculate_all_metrics(
         time4 = time.time() - start_time
         # if q:
         # q.put(f"start: {start_time}, time1: {time1}, time2: {time2}, time3: {time3}, time4: {time4}")
-        #print(f"total time: {time4}")
+        # print(f"total time: {time4}")
         # logging.info()
 
     # add .ome to the file name for the image since the WIPP-based UNet AI models were trained on OME.TIF files instead of the original
     # filenames without OME and with .tiff extension.
     # this is added in order to support automated merging of AI model and Data Quality metrics
     intensityimage_ome_filename = os.path.splitext(intensityimage_filename)[0] + ".ome.tif"
-    #print("DEBUG: ", intensityimage_ome_filename)
+    # print("DEBUG: ", intensityimage_ome_filename)
     return {
         "IMAGE-NAME": intensityimage_ome_filename,
         "Set_index": set_index,
@@ -238,9 +227,11 @@ def calculate_all_metrics(
 ''' 
 Function to compute the entropy of an image
 '''
+
+
 def compute_image_entropy(img):
     # Load the image
-    #img = io.imread(image_path)
+    # img = io.imread(image_path)
 
     # Convert to grayscale if the image is colored
     if len(img.shape) > 2:
@@ -264,6 +255,8 @@ def compute_image_entropy(img):
 the method for computing all metrics over two folders with intensity and mask images
 Note: the mask images should have the same name as the intensity images.
 '''
+
+
 def metrics(input_intensity_path, input_mask_path, output_filepath, set_index):
 
     noise_list = []
@@ -285,7 +278,7 @@ def metrics(input_intensity_path, input_mask_path, output_filepath, set_index):
         # base name
         bn = os.path.basename(file_path)
         parts = str.split(bn, "_")
-        for index in range(0,len(parts)):
+        for index in range(0, len(parts)):
             if str(parts[index]).startswith(str("contrast")):
                 # this is to avoid errors when converting 007.tiff to integer
                 substring = parts[index + 1][0:3]
@@ -294,7 +287,6 @@ def metrics(input_intensity_path, input_mask_path, output_filepath, set_index):
                 if min_contrast_val > val:
                     min_contrast_val = val
                     min_contrast_str = parts[index + 1]
-
 
             if str(parts[index]).startswith(str("noise")):
                 noise_list.append(parts[index + 1])
@@ -313,15 +305,14 @@ def metrics(input_intensity_path, input_mask_path, output_filepath, set_index):
     for file_path in sorted_mask_files:
         mask_paths.append(file_path)
 
-
     # it should be set1_cex_noise_007_contrast_001.tiff
     reference_image_filename = os.path.basename(sorted_intensity_files[0])
     idx = reference_image_filename.find("contrast")
     idx += len("contrast_")
-    reference_image_filename.replace(reference_image_filename[idx:],min_contrast_str)
+    reference_image_filename.replace(reference_image_filename[idx:], min_contrast_str)
     idx = reference_image_filename.find("noise")
     idx += len("noise_")
-    reference_image_filename.replace(reference_image_filename[idx:],min_noise_str)
+    reference_image_filename.replace(reference_image_filename[idx:], min_noise_str)
     print("INFO: reference_image_filename=", reference_image_filename)
 
     reference_fullimage_filename = os.path.join(input_intensity_path, reference_image_filename)
@@ -330,7 +321,7 @@ def metrics(input_intensity_path, input_mask_path, output_filepath, set_index):
     reference_image = io.imread(reference_fullimage_filename)
 
     results = []
-    for index in range(0,len(sorted_intensity_files)):
+    for index in range(0, len(sorted_intensity_files)):
         maskimage_filename = os.path.join(input_mask_path, sorted_mask_files[index])
         print("INFO: mask_filename= ", maskimage_filename)
         mask = io.imread(maskimage_filename)
@@ -344,12 +335,12 @@ def metrics(input_intensity_path, input_mask_path, output_filepath, set_index):
 
         print("INFO: ", noise_val, contrast_val, " index=", index)
         results.append(
-            #calculate_all_metrics(img, mask, reference_image, noise_val, contrast_val, intensityimage_filename, set_index)
+            # calculate_all_metrics(img, mask, reference_image, noise_val, contrast_val, intensityimage_filename, set_index)
             calculate_all_metrics(img, mask, reference_image, noise_val, contrast_val, sorted_intensity_files[index],
                                   set_index)
         )
 
-    #print(noise_list, contrast_list)
+    # print(noise_list, contrast_list)
 
     # save the results to a CSV file
     df = pd.DataFrame(results)
@@ -357,7 +348,6 @@ def metrics(input_intensity_path, input_mask_path, output_filepath, set_index):
         df.to_excel(output_filepath, index=False)
     elif output_filepath.__contains__("csv"):
         df.to_csv(output_filepath, index=False)
-
 
 
 '''
@@ -368,26 +358,14 @@ Example:
 python metrics.py --input_intensity_path ./set1 --input_mask_path ./bin_mask_set1 --output_filepath ./results.csv
 
 '''
+
+
 def main():
     parser = argparse.ArgumentParser(description="calculate SEM image quality metrics.")
-    parser.add_argument(
-        "--input_intensity_path",type=str,required=True,
-        help="Path to the intensity images in a folder."
-    )
-    parser.add_argument(
-        "--input_mask_path",type=str,required=True,
-        help="Path to the mask images in a folder."
-    )
-    parser.add_argument(
-        "--output_filepath",type=str,required=True,
-        help="path of a CSV file.",
-        default=f"../image_quality_metrics.csv"
-    )
-    parser.add_argument(
-        "--set_index",type=int,required=False,
-        help="index of the simulated set.",
-        default=1
-    )
+    parser.add_argument("--input_intensity_path", type=str, required=True, help="Path to the intensity images in a folder.")
+    parser.add_argument("--input_mask_path", type=str, required=True, help="Path to the mask images in a folder.")
+    parser.add_argument("--output_filepath", type=str, required=True, help="path of a CSV file.", default=f"../image_quality_metrics.csv")
+    parser.add_argument("--set_index", type=int, required=False, help="index of the simulated set.", default=1)
 
     args = parser.parse_args()
     if args.input_intensity_path is None:
@@ -436,8 +414,6 @@ def main():
 
 if __name__ == "__main__":
     print('Python %s on %s' % (sys.version, sys.platform))
-    #sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])
+    # sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])
 
     main()
-
-
