@@ -8,11 +8,11 @@ description = "NIST detection limits and image quality metrics for SEM images."
 dynamic = ["version", "readme", "classifiers"]
 requires-python = ">=3.8"
 license = "NIST-Software"
-license-files = [
-    "LICENSE",
+license-files = ["LICENSE"]
+authors = [
+    { name = "Peter Bajcsy", email = "peter.bajcsy@nist.gov" },
+    { name = "Pushkar Sathe", email = "pushkar.sathe@nist.gov" },
 ]
-authors = [{ name = "Peter Bajcsy", email = "peter.bajcsy@nist.gov" }
-           , { name = "Pushkar Sathe", email = "pushkar.sathe@nist.gov" }]
 maintainers = [{ name = "Pushkar Sathe", email = "pushkarsathe89@gmail.com" }]
 keywords = [
     "SEM",
@@ -48,7 +48,7 @@ dev = ["pytest"]
 "Website" = "https://pages.nist.gov/detection_limits/web/index.html"
 "Bug Tracker" = "https://github.com/usnistgov/detection_limits/issues"
 "data-repository" = "https://data.nist.gov/od/id/mds2-3838"
-"data-repository (source 2)" = "https://www.nist.gov/programs-projects/detection-limits-and-image-quality-metrics-sem-images"
+"data-repository (source 2)" = "https://catalog.data.gov/dataset/detection-limits-for-sem-image-segmentation"
 
 [tool.setuptools.dynamic]
 version = { attr = "detection_limits._version.__version__" }

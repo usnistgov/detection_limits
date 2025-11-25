@@ -257,22 +257,36 @@ Note: the mask images should have the same name as the intensity images.
 '''
 
 
-def metrics(input_intensity_path, input_mask_path, output_filepath, set_index):
+def metrics(input_intensity_source, input_mask_source, output_filepath, set_index):
 
     noise_list = []
     contrast_list = []
 
-    # Get the list of files in the specified directory
-    intensity_files = os.listdir(input_intensity_path)
+    # Handle input_intensity_source: can be directory (str) or list of files
+    if isinstance(input_intensity_source, str) and os.path.isdir(input_intensity_source):
+        # Get list of files and create full paths
+        files = sorted(os.listdir(input_intensity_source))
+        sorted_intensity_files = [os.path.join(input_intensity_source, f) for f in files]
+    elif isinstance(input_intensity_source, list):
+        sorted_intensity_files = sorted(input_intensity_source)
+    else:
+        raise ValueError("input_intensity_source must be a directory path or a list of file paths")
 
-    # Sort the files by name in reverse order
-    sorted_intensity_files = sorted(intensity_files, reverse=False)
+    # Handle input_mask_source: can be directory (str) or list of files
+    if isinstance(input_mask_source, str) and os.path.isdir(input_mask_source):
+        files = sorted(os.listdir(input_mask_source))
+        sorted_mask_files = [os.path.join(input_mask_source, f) for f in files]
+    elif isinstance(input_mask_source, list):
+        sorted_mask_files = sorted(input_mask_source)
+    else:
+        raise ValueError("input_mask_source must be a directory path or a list of file paths")
 
     image_paths = []
     min_contrast_val = sys.maxsize
     min_noise_val = sys.maxsize
     min_contrast_str = ''
     min_noise_str = ''
+    
     for file_path in sorted_intensity_files:
         image_paths.append(file_path)
         # base name
@@ -296,47 +310,52 @@ def metrics(input_intensity_path, input_mask_path, output_filepath, set_index):
                     min_noise_val = val
                     min_noise_str = parts[index + 1]
 
-    # Get the list of files in the specified directory
-    mask_files = os.listdir(input_mask_path)
-    # Sort the files by name in reverse order
-    sorted_mask_files = sorted(mask_files, reverse=False)
-
     mask_paths = []
     for file_path in sorted_mask_files:
         mask_paths.append(file_path)
 
     # it should be set1_cex_noise_007_contrast_001.tiff
-    reference_image_filename = os.path.basename(sorted_intensity_files[0])
-    idx = reference_image_filename.find("contrast")
+    reference_image_basename = os.path.basename(sorted_intensity_files[0])
+    idx = reference_image_basename.find("contrast")
     idx += len("contrast_")
-    reference_image_filename.replace(reference_image_filename[idx:], min_contrast_str)
-    idx = reference_image_filename.find("noise")
+    reference_image_basename = reference_image_basename.replace(reference_image_basename[idx:], min_contrast_str)
+    idx = reference_image_basename.find("noise")
     idx += len("noise_")
-    reference_image_filename.replace(reference_image_filename[idx:], min_noise_str)
-    print("INFO: reference_image_filename=", reference_image_filename)
+    reference_image_basename = reference_image_basename.replace(reference_image_basename[idx:], min_noise_str)
+    print("INFO: reference_image_filename=", reference_image_basename)
 
-    reference_fullimage_filename = os.path.join(input_intensity_path, reference_image_filename)
+    # Find the full path of the reference image in the list
+    reference_fullimage_filename = None
+    for f in sorted_intensity_files:
+        if os.path.basename(f) == reference_image_basename:
+            reference_fullimage_filename = f
+            break
+    
+    if reference_fullimage_filename is None:
+        print(f"WARNING: Reference image {reference_image_basename} not found in input list. Using the first image as reference.")
+        reference_fullimage_filename = sorted_intensity_files[0]
+
     print("INFO: reference_fullimage_filename= ", reference_fullimage_filename)
 
     reference_image = io.imread(reference_fullimage_filename)
 
     results = []
     for index in range(0, len(sorted_intensity_files)):
-        maskimage_filename = os.path.join(input_mask_path, sorted_mask_files[index])
+        maskimage_filename = sorted_mask_files[index]
         print("INFO: mask_filename= ", maskimage_filename)
         mask = io.imread(maskimage_filename)
 
-        intensityimage_filename = os.path.join(input_intensity_path, sorted_intensity_files[index])
+        intensityimage_filename = sorted_intensity_files[index]
         print("INFO: intensity_filename= ", intensityimage_filename)
         img = io.imread(intensityimage_filename)
 
-        noise_val = noise_list[index]
-        contrast_val = contrast_list[index]
+        noise_val = noise_list[index] if index < len(noise_list) else "N/A"
+        contrast_val = contrast_list[index] if index < len(contrast_list) else "N/A"
 
         print("INFO: ", noise_val, contrast_val, " index=", index)
         results.append(
             # calculate_all_metrics(img, mask, reference_image, noise_val, contrast_val, intensityimage_filename, set_index)
-            calculate_all_metrics(img, mask, reference_image, noise_val, contrast_val, sorted_intensity_files[index],
+            calculate_all_metrics(img, mask, reference_image, noise_val, contrast_val, intensityimage_filename,
                                   set_index)
         )
 

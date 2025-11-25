@@ -1,4 +1,4 @@
-[![License](https://img.shields.io/badge/license-NIST--Software-blue.svg)](LICENSE)
+[![License](https://img.shields.io/badge/license-NIST--Software-blue.svg)](https://github.com/usnistgov/detection_limits/blob/main/LICENSE)
 
 # Detection Limits of Artificial Intelligence (AI) based Object Detection from Scanning Electron Microscopy (SEM) Images
 
@@ -27,60 +27,56 @@ The repository contains two folders:
 - src folder: contains all Python scripts
 - web folder: contains all HTML, JavaScript, and CSS files together with the plots
 
-## Technical installation instructions, including operating  system or software dependencies
+## Installation
 
-To set up the environment and run the Python scripts, follow these steps:
+To install the package, simply run:
 
-1. **Create a virtual environment** (recommended):
+```console
+pip install detection-limits
+```
 
-   - Using `venv`:
+## Usage
 
-       ```console
-       foo@bar:~$ python -m venv detection_limits
-       ```
+You can use the package to calculate image quality metrics for SEM images.
 
-     - Activate the virtual environment:
+### 1. Import the package
 
-         ```console
-         # On Linux/macOS:
-         foo@bar:~$ source detection_limits/bin/activate
-         ```
+```python
+import detection_limits as dl
+import numpy as np
+```
 
-         ```console
-         # On Windows:
-         foo@bar:~$ detection_limits\Scripts\activate
-         ```
+### 2. Calculate metrics for a single image
 
-   - Or using **conda**:
+```python
+# Load your image and mask (example using numpy arrays)
+image = np.random.rand(1024, 1024)
+mask = np.random.randint(0, 2, (1024, 1024))
 
-       ```console
-       foo@bar:~$ conda create -n detection_limits python=3.8
-       ```
+# Calculate metrics
+metrics = dl.calculate_all_metrics(image, mask)
+print(metrics)
+```
 
-     - Activate the conda environment:
+### 3. Calculate metrics for a batch of images
 
-         ```console
-         foo@bar:~$ conda activate detection_limits
-         ```
+```python
+# Define input and output paths
+input_intensity_path = "./path/to/images"
+input_mask_path = "./path/to/masks"
+output_csv_path = "./results.csv"
 
-2. **Install the package**.
+# Run metrics calculation
+dl.metrics(input_intensity_path, input_mask_path, output_csv_path, set_index=1)
+```
 
-   - **From PyPI (recommended):**
+## Future Work
 
-     ```console
-     foo@bar:~$ pip install detection-limits
-     ```
+Future updates will include:
 
-   - **From Source:**
-     Ensure you are in the root directory of the repository and run:
-
-     ```console
-     foo@bar:~$ pip install .
-     ```
-
-3. **Run the Python scripts** as described in the workflow section.
-
-To interactively view and explore the plots, you can either use the hosted pages.nist.gov instance or download the `web` folder and open `index.html` in your web browser.
+- Computational efficiency improvements
+- Automated report generation
+- GPU support for faster processing
 
 ## Workflow of Computations
 
@@ -104,7 +100,7 @@ To interactively view and explore the plots, you can either use the hosted pages
 
 ## LICENSE
 
-- The version of [LICENSE.md](LICENSE) included in this
+- The version of [LICENSE](https://github.com/usnistgov/detection_limits/blob/main/LICENSE) included in this
   repository is approved for use.
 - Updated language on the [Licensing Statement][nist-open] page
   supersedes the copy in this repository. You may transcribe the
@@ -135,7 +131,7 @@ To interactively view and explore the plots, you can either use the hosted pages
 ## CODEOWNERS
 
 The file named
-[CODEOWNERS](CODEOWNERS) can be viewed to discover
+[CODEOWNERS](https://github.com/usnistgov/detection_limits/blob/main/CODEOWNERS) can be viewed to discover
 which GitHub users are "in charge" of the repository. More
 crucially, GitHub uses it to assign reviewers on pull requests.
 GitHub documents the file (and how to write one) [here][gh-cdo].
