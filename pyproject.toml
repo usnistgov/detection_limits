@@ -51,7 +51,7 @@ dev = ["pytest"]
 "data-repository (source 2)" = "https://catalog.data.gov/dataset/detection-limits-for-sem-image-segmentation"
 
 [tool.setuptools.dynamic]
-version = { attr = "detection_limits._version.__version__" }
+version = { attr = "detection_limits.__version__.__version__" }
 description = { file = "DESCRIPTION.md" }
 readme = { file = "README.md", content-type = "text/markdown" }
 dependencies = { file = "requirements.txt" }

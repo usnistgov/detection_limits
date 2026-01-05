@@ -6,7 +6,7 @@ on:
             - main
             - ps
         paths:
-            - "src/detection_limits/_version.py"
+            - "src/detection_limits/__version__.py"
     workflow_dispatch:
 
 jobs:
