@@ -13,7 +13,7 @@ opencv-python-headless~=4.10.0
 packaging
 pandas
 pillow
-Pygments==2.19.1
+Pygments==2.20.0
 python-dateutil
 pytz
 scikit-image
