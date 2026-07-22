@@ -34,6 +34,8 @@ dependencies = [
     "matplotlib",
     "pandas",
     "scikit-image",
+    "scikit-learn",
+    "opencv-python~=4.10",
     "tqdm",
     "pillow",
     "tifffile",

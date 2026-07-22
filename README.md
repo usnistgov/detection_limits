@@ -35,6 +35,20 @@ To install the package, simply run:
 pip install detection-limits
 ```
 
+For development, we recommend a uv-managed environment:
+
+```console
+uv sync --extra dev
+uv run python -m pytest -q
+```
+
+Backward compatibility with the existing conda environment is maintained:
+
+```console
+conda activate detection_limits
+python -m pytest -q
+```
+
 ## Usage
 
 You can use the package to calculate image quality metrics for SEM images.
@@ -91,7 +105,9 @@ Future updates will include:
 ## Contact information
 
 - Peter Bajcsy, ITL NIST, Software and Systems Division, Information Systems Group
+- Pushkar Sathe, ITL NIST, Software and Systems Division, Information Systems Group
 - Contact email address at NIST: peter dot bajcsy at nist dot gov
+- Contact email address at NIST: pushkar dot sathe at nist dot gov
 
 ## Citation of the work
 
