@@ -110,9 +110,8 @@ Future updates will include:
 - Contact email address at NIST: pushkar dot sathe at nist dot gov
 
 ## Citation of the work
-
-- Peter Bajcsy, Brycie Wiseman, Michael Majurski, and Andras E. Vladar, "Detection Limits of AI-based SEM Dimensional Metrology", Proceedings of SPIE conference on Advanced Lithography + Patterning, 23 - 27 February 2025, San Jose, California, US, [URL](https://spie.org/conferences-and-exhibitions/advanced-lithography-and-patterning/program)
-- Peter Bajcsy, Pushkar Sathe, and Andras E. Vladar, "Relating human and AI-based detection limits in SEM dimensional metrology", Under review.
+   - Peter Bajcsy, Brycie Wiseman, Michael Majurski, and Andras E. Vladar, "Detection Limits of AI-based SEM Dimensional Metrology", Proceedings of SPIE conference on Advanced Lithography + Patterning, 23 - 27 February 2025, San Jose, California, US, [URL](https://spie.org/conferences-and-exhibitions/advanced-lithography-and-patterning/program)
+   - Peter Bajcsy, Pushkar Sathe, and Andras E. Vladar, "Relating human and AI-based detection limits in SEM dimensional metrology", Journal of Micro/Nanopatterning, Materials, and Metrology, Vol. 24, Issue 4, 044201 (October 2025). https://doi.org/10.1117/1.JMM.24.4.044201.
 
 ## LICENSE
 
